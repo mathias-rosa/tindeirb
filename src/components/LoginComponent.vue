@@ -4,11 +4,20 @@
             <h1>Welcome {{ user.name }}</h1>
             <button @click="logout()">Se déconnecter</button>
         </div>
-        <div class="flex flex-col gap-3 max-w-sm" v-else>
+        <form class="flex flex-col gap-3 max-w-sm" v-else>
             <input type="text" v-model="email" class="border" />
             <input type="password" v-model="password" class="border" />
-            <button @click="login(email, password)">Se connecter</button>
-        </div>
+            <button
+                @click="
+                    (e) => {
+                        login(email, password);
+                        e.preventDefault();
+                    }
+                "
+            >
+                Se connecter
+            </button>
+        </form>
     </div>
 </template>
 

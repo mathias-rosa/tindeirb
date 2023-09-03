@@ -29,3 +29,4 @@ coverage
 
 # Pocketbase data
 pb_data
+pb_migrations

@@ -1,30 +1,15 @@
 <script setup lang="ts">
 import { RouterView } from "vue-router";
-import { onMounted } from "vue";
-import router from "@/router";
-import { isAuthenticated, pb } from "@/api/pocketbase";
-onMounted(() => {
-    console.log("App mounted");
-    console.log("isAuthenticated", isAuthenticated());
-    if (!isAuthenticated()) {
-        router.push("/login");
-    }
-    pb.authStore.onChange(() => {
-        if (!isAuthenticated()) {
-            router.push("/login");
-        } else {
-            router.push("/");
-        }
-    });
-});
+import HeaderComponent from "./components/HeaderComponent.vue";
 </script>
 
 <template>
-    <RouterView />
+    <HeaderComponent />
+    <RouterView class="p-5" />
 </template>
 
 <style>
-#app {
-    padding: 1em;
+* {
+    font-family: "Outfit", sans-serif;
 }
 </style>
