@@ -11,7 +11,6 @@ pb.authStore.onChange(() => {
 });
 
 const login = async (email: string, password: string) => {
-    console.log(email, password);
     await pb.collection("users").authWithPassword(email, password);
     if (pb.authStore.isValid) {
         console.log("Signed in");
