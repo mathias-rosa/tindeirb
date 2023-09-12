@@ -1,49 +1,71 @@
 <template>
-    <div class="flex flex-col items-center w-full" v-if="user">
-        <h1>Bonjour {{ user.name }}</h1>
-        <h1>Liste des fillots :</h1>
-        <div>
-            <div
-                v-for="fillot in liste_fillots"
-                :key="fillot.Prenom"
-                class="flex flex-col gap-1 w-fit shadow-md p-3 m-2 rounded-md cursor-pointer"
-            >
-                <h1>{{ fillot.Prenom }} {{ fillot.Nom }}</h1>
-                <h1>Informations :</h1>
-                <div class="w-full bg-slate-100 p-2 rounded-md">
-                    <div
-                        v-for="(item, index) in fillot.Infos"
-                        :key="index"
-                        class="flex gap-x-5 gap-y-1 rounded-md justify-between"
-                    >
-                        <h1>{{ `${index.toString()}` }}</h1>
-                        <p>{{ item }}</p>
+    <div class="flex items-center w-full h-full" v-if="user">
+        <div class="w-full lg:max-w-lg h-full self-start">
+            <HeaderComponent />
+            <div>
+                <div
+                    v-for="fillot in liste_fillots"
+                    :key="fillot.Prenom"
+                    class="flex gap-5 justify-between shadow-sm py-3 px-5 mb-1 w-full cursor-pointer items-center transition duration-500 ease-in-out hover:bg-gradient-to-tr from-yellow-500/5 to-rose-600/5"
+                    @click="activeFillot = fillot"
+                    :class="{
+                        'bg-gradient-to-tr from-yellow-500/5 to-rose-600/5':
+                            activeFillot === fillot,
+                        'bg-white': activeFillot !== fillot,
+                    }"
+                >
+                    <img
+                        :src="'https://cataas.com/cat?cas=' + fillot.cas"
+                        class="w-16 h-16 rounded-full aspect-square object-cover"
+                    />
+                    <div class="flex flex-col w-full text-gray-500">
+                        <h1
+                            class="font-semibold text-2xl px-2 w-full text-ellipsis text-gray-900"
+                        >
+                            {{ fillot.Prenom }} {{ fillot.Nom }}
+                        </h1>
+                        <button
+                            class="w-fit hover:bg-red-700 hover:translate-x-2 py-1 px-2 rounded-full transition duration-200 ease-in-out bg-red-500 text-white"
+                            @click="unselectFillot(fillot.cas)"
+                            v-if="fillot.Parrain === user.id"
+                        >
+                            Abandonner ce fillot
+                        </button>
+                        <button
+                            class="w-fit hover:bg-green-500 hover:translate-x-2 hover:text-white py-1 px-2 rounded-full transition duration-200 ease-in-out"
+                            @click="selectFillot(fillot.cas)"
+                            v-else-if="fillot.Parrain === '' && mayAdopt"
+                        >
+                            Choisir ce fillot
+                        </button>
+                        <h1
+                            v-else-if="!mayAdopt"
+                            class="text-red-500 w-fit py-1 px-2"
+                        >
+                            Tu as déjà adopté
+                            {{ MAXIMUM_FILLOTS }}
+                            fillot{{ MAXIMUM_FILLOTS > 1 ? "s" : "" }}
+                        </h1>
+                        <h1 v-else class="red-500">Ce 1A a déjà été adopté</h1>
                     </div>
                 </div>
-                <button
-                    @click="selectFillot(fillot.cas)"
-                    v-if="fillot.Parrain === ''"
-                >
-                    Choisir ce fillot
-                </button>
-                <button
-                    @click="unselectFillot(fillot.cas)"
-                    v-else-if="fillot.Parrain === user.id"
-                >
-                    Abandonner ce fillot
-                </button>
-                <h1 v-else class="red-500">Ce 1A a déjà été adopté</h1>
             </div>
+        </div>
+        <div class="bg-gray-100 hidden sm:flex flex-col h-full w-full">
+            {{ activeFillot }}
         </div>
     </div>
     <LoginComponent v-else />
 </template>
 
 <script setup lang="ts">
-import { ref, Ref } from "vue";
+import { computed, ref, Ref } from "vue";
 import { pb, user } from "@/api/pocketbase";
 import LoginComponent from "@/components/LoginComponent.vue";
 import { RecordModel } from "pocketbase";
+import HeaderComponent from "@/components/HeaderComponent.vue";
+
+const MAXIMUM_FILLOTS = 1;
 
 interface Fillot extends RecordModel {
     Prenom: string;
@@ -69,6 +91,8 @@ const selectFillot = async (cas: string) => {
     });
 };
 
+const activeFillot = ref<Fillot>();
+
 const unselectFillot = async (cas: string) => {
     const fillot = liste_fillots.value.find((fillot) => {
         if (fillot.cas === cas) {
@@ -82,6 +106,15 @@ const unselectFillot = async (cas: string) => {
         Parrain: "",
     });
 };
+
+const mayAdopt = computed(() => {
+    const count = liste_fillots.value.filter((fillot) => {
+        if (fillot.Parrain === user.value?.id) {
+            return fillot;
+        }
+    }).length;
+    return count < MAXIMUM_FILLOTS;
+});
 
 pb.collection("Fillots")
     .getFullList()
