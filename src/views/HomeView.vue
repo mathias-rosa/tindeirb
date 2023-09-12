@@ -2,9 +2,17 @@
     <div class="flex items-center w-full h-full" v-if="user">
         <div class="w-full lg:max-w-lg h-full self-start">
             <HeaderComponent />
+            <div class="w-full p-5">
+                <input
+                    type="text"
+                    placeholder="Rechercher un fillot par son nom"
+                    v-model="search"
+                    class="w-full px-5 py-3 rounded-full box-border bg-gray-100 outline-none hover:ring-2 hover:ring-gray-500 transition duration-300 ease-in-out"
+                />
+            </div>
             <div>
                 <div
-                    v-for="fillot in liste_fillots"
+                    v-for="fillot in filteredFillots"
                     :key="fillot.Prenom"
                     class="flex gap-5 justify-between shadow-sm py-3 px-5 mb-1 w-full cursor-pointer items-center transition duration-500 ease-in-out hover:bg-gradient-to-tr from-yellow-500/5 to-rose-600/5"
                     @click="activeFillot = fillot"
@@ -76,6 +84,28 @@ interface Fillot extends RecordModel {
 }
 
 const liste_fillots: Ref<Fillot[]> = ref([]);
+
+const search = ref("");
+
+const filteredFillots = computed(() =>
+    liste_fillots.value.filter((fillot) => {
+        if (
+            (
+                fillot.Prenom.toLowerCase() +
+                " " +
+                fillot.Nom.toLowerCase()
+            ).includes(search.value.toLowerCase()) ||
+            (
+                fillot.Nom.toLowerCase() +
+                " " +
+                fillot.Prenom.toLowerCase()
+            ).includes(search.value.toLowerCase()) ||
+            fillot.cas.toLowerCase().includes(search.value.toLowerCase())
+        ) {
+            return fillot;
+        }
+    })
+);
 
 const selectFillot = async (cas: string) => {
     const fillot = liste_fillots.value.find((fillot) => {
