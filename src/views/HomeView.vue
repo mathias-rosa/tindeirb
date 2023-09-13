@@ -1,6 +1,6 @@
 <template>
     <div class="flex items-center w-full h-full" v-if="user">
-        <div class="w-full lg:max-w-lg h-full self-start">
+        <div class="w-full lg:max-w-lg h-full self-start overflow-scroll">
             <HeaderComponent />
             <div class="w-full p-5">
                 <input

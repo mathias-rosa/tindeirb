@@ -85,9 +85,9 @@ $app.rootCmd.addCommand(
             data.forEach((row) => {
                 const fillot = new Record(Fillots);
                 fillot.set("cas", row["4"]);
-                fillot.set("nom", row["1"]);
-                fillot.set("prenom", row["2"]);
-                fillot.set("infos", {
+                fillot.set("Nom", row["1"]);
+                fillot.set("Prenom", row["2"]);
+                fillot.set("Infos", {
                     ...row,
                 });
                 $app.dao().saveRecord(fillot);
