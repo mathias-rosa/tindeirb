@@ -54,7 +54,9 @@
                             {{ MAXIMUM_FILLOTS }}
                             fillot{{ MAXIMUM_FILLOTS > 1 ? "s" : "" }}
                         </h1>
-                        <h1 v-else class="red-500">Ce 1A a déjà été adopté</h1>
+                        <h1 v-else class="w-fit py-1 px-2">
+                            Ce 1A a déjà été adopté
+                        </h1>
                     </div>
                 </div>
             </div>
