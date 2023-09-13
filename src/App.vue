@@ -1,9 +1,5 @@
 <script setup lang="ts">
 import { RouterView } from "vue-router";
-
-import { populate } from "./api/pocketbase";
-
-populate();
 </script>
 
 <template>

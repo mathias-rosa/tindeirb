@@ -28,5 +28,5 @@ coverage
 *.sw?
 
 # Pocketbase data
-pb_data
+# pb_data
 pb_migrations

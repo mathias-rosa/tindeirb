@@ -69,7 +69,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, Ref } from "vue";
+import { computed, ref, Ref, onBeforeUnmount } from "vue";
 import { pb, user } from "@/api/pocketbase";
 import LoginComponent from "@/components/LoginComponent.vue";
 import { RecordModel } from "pocketbase";
@@ -161,5 +161,11 @@ pb.collection("Fillots").subscribe("*", async ({ action, record }) => {
         );
         liste_fillots.value[index] = record as Fillot;
     }
+});
+
+// Unsubscribe
+
+onBeforeUnmount(() => {
+    pb.collection("Fillots").unsubscribe("*");
 });
 </script>
