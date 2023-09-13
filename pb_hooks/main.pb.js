@@ -87,6 +87,7 @@ $app.rootCmd.addCommand(
                 fillot.set("cas", row["4"]);
                 fillot.set("Nom", row["1"]);
                 fillot.set("Prenom", row["2"]);
+                fillot.set("Filière", row["5"]);
                 fillot.set("Infos", {
                     ...row,
                 });
