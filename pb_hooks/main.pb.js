@@ -70,6 +70,7 @@ routerAdd("GET", "/api/parrain/auth/cas", (c) => {
         "IIEEL4",
         "IAERS4",
         "IAEEE4",
+        'IIEIN5',
     ];
     if (!authorizedDiplomas.includes(data.attributes.diplome.join(""))) {
         return c.json(403, { message: "Unauthorized" });
