@@ -1,6 +1,6 @@
 <template>
     <div class="chat chat-end">
-        <div class="chat-header py-1 px-3">
+        <div class="chat-header py-1 px-3" v-if="sender !== ''">
             {{ sender }}
         </div>
         <div
@@ -13,10 +13,7 @@
 
 <script setup lang="ts">
 defineProps({
-    sender: {
-        type: String,
-        required: true,
-    },
+    sender: String,
     message: {
         type: String,
         required: true,

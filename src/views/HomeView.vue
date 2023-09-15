@@ -1,16 +1,19 @@
 <template>
     <div class="flex items-center w-full h-full" v-if="user">
-        <div class="w-full md:max-w-lg h-full self-start overflow-y-scroll">
-            <HeaderComponent />
-            <div class="w-full p-5">
-                <input
-                    type="text"
-                    placeholder="Rechercher un nom ou un mot clé (ex: BDE 👀)"
-                    v-model="search"
-                    class="w-full px-5 py-3 rounded-full box-border bg-gray-100 outline-none hover:ring-2 hover:ring-gray-500 transition duration-300 ease-in-out"
-                />
+        <div class="w-full md:max-w-lg h-full self-start flex flex-col">
+            <div class="w-full">
+                <HeaderComponent />
+                <div class="w-full p-5">
+                    <input
+                        type="text"
+                        placeholder="🔍 Rechercher un nom ou un mot clé (ex: BDE 👀)"
+                        v-model="search"
+                        class="w-full px-5 py-3 rounded-full box-border bg-gray-100 outline-none hover:ring-2 hover:ring-gray-500 transition duration-300 ease-in-out"
+                    />
+                </div>
             </div>
-            <div class="">
+
+            <div class="overflow-y-scroll">
                 <div
                     v-for="fillot in filteredFillots"
                     :key="fillot.id"
@@ -61,40 +64,41 @@
             </div>
         </div>
         <div
-            class="bg-gradient-to-r from-[#ef4a75]/10 to-[#fd5564]/10 hidden sm:flex flex-col h-full w-full p-10 overflow-y-scroll"
+            class="bg-gradient-to-r from-[#ef4a75]/10 to-[#fd5564]/10 hidden sm:flex flex-col h-full w-full"
             v-if="activeFillot"
         >
-            <LeftBubble
-                :sender="user.firstName"
-                :message="`Salut ${activeFillot.infos['2']} ! Comment ça va ?`"
-            />
+            <div
+                class="w-full h-16 bg-white fixed z-10 shadow-sm flex items-center p-5 font-semibold text-xl"
+            >
+                {{ activeFillot.prenom }} {{ activeFillot.nom }}
+            </div>
+            <div class="p-10 mt-16 overflow-y-scroll">
+                <LeftBubble
+                    :sender="user.firstName"
+                    :message="`Salut ${activeFillot.infos['2']} ! Comment ça va ?`"
+                />
 
-            <RightBubble
-                :sender="activeFillot.infos['2']"
-                message="Yo ! Ça va nickel et toi ?"
-            />
+                <RightBubble
+                    :sender="activeFillot.infos['2']"
+                    message="Yo ! Ça va nickel et toi ?"
+                />
 
-            <LeftBubble :sender="user.firstName" message="Super !" />
-            <LeftBubble
-                :sender="user.firstName"
-                message="Dis moi tu viens d'où ? "
-            />
-            <LeftBubble
-                :sender="user.firstName"
-                message="(Je cherche un fillot)"
-            />
+                <LeftBubble :sender="user.firstName" message="Super !" />
+                <LeftBubble message="Dis moi tu viens d'où ? " />
+                <LeftBubble message="(Je cherche un fillot)" />
 
-            <RightBubble
-                :sender="activeFillot.infos['2']"
-                :message="`Je viens de ${activeFillot.infos['10']}`"
-            />
+                <RightBubble
+                    :sender="activeFillot.infos['2']"
+                    :message="`Je viens de ${activeFillot.infos['10']}`"
+                />
 
-            <LeftBubble
-                :sender="user.firstName"
-                message="Ouah 🤩 ! Trop bien !"
-            />
+                <LeftBubble
+                    :sender="user.firstName"
+                    message="Ouah 🤩 ! Trop bien !"
+                />
 
-            {{ activeFillot }}
+                {{ activeFillot }}
+            </div>
         </div>
     </div>
     <LoginComponent v-else />
