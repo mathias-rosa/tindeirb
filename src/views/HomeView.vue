@@ -1,11 +1,11 @@
 <template>
     <div class="flex items-center w-full h-full" v-if="user">
-        <div class="w-full lg:max-w-lg h-full self-start overflow-y-scroll">
+        <div class="w-full md:max-w-lg h-full self-start overflow-y-scroll">
             <HeaderComponent />
             <div class="w-full p-5">
                 <input
                     type="text"
-                    placeholder="Rechercher un fillot par son nom"
+                    placeholder="Rechercher un nom ou un mot clé (ex: BDE 👀)"
                     v-model="search"
                     class="w-full px-5 py-3 rounded-full box-border bg-gray-100 outline-none hover:ring-2 hover:ring-gray-500 transition duration-300 ease-in-out"
                 />
@@ -61,22 +61,38 @@
             </div>
         </div>
         <div
-            class="bg-gray-100 hidden sm:flex flex-col h-full w-full p-10"
+            class="bg-gradient-to-r from-[#ef4a75]/10 to-[#fd5564]/10 hidden sm:flex flex-col h-full w-full p-10 overflow-y-scroll"
             v-if="activeFillot"
         >
-            <div class="flex items-start justify-end mb-4">
-                <div class="bg-blue-500 text-white rounded-lg p-3">
-                    <p class="font-semibold">{{ user.firstName }}</p>
-                    <p>Hello, how are you?</p>
-                </div>
-            </div>
+            <LeftBubble
+                :sender="user.firstName"
+                :message="`Salut ${activeFillot.infos['2']} ! Comment ça va ?`"
+            />
 
-            <div class="flex items-start mb-4">
-                <div class="bg-green-500 text-white rounded-lg p-3">
-                    <p class="font-semibold">{{ activeFillot.infos["2"] }}</p>
-                    <p>I'm good, thanks!</p>
-                </div>
-            </div>
+            <RightBubble
+                :sender="activeFillot.infos['2']"
+                message="Yo ! Ça va nickel et toi ?"
+            />
+
+            <LeftBubble :sender="user.firstName" message="Super !" />
+            <LeftBubble
+                :sender="user.firstName"
+                message="Dis moi tu viens d'où ? "
+            />
+            <LeftBubble
+                :sender="user.firstName"
+                message="(Je cherche un fillot)"
+            />
+
+            <RightBubble
+                :sender="activeFillot.infos['2']"
+                :message="`Je viens de ${activeFillot.infos['10']}`"
+            />
+
+            <LeftBubble
+                :sender="user.firstName"
+                message="Ouah 🤩 ! Trop bien !"
+            />
 
             {{ activeFillot }}
         </div>
@@ -90,6 +106,8 @@ import { pb, user } from "@/api/pocketbase";
 import LoginComponent from "@/components/LoginComponent.vue";
 import { RecordModel } from "pocketbase";
 import HeaderComponent from "@/components/HeaderComponent.vue";
+import LeftBubble from "@/components/LeftBubble.vue";
+import RightBubble from "@/components/RightBubble.vue";
 
 const MAXIMUM_FILLOTS = 1;
 
@@ -148,7 +166,11 @@ const filteredFillots = computed(() => {
                 .startsWith(search.value.toLowerCase()) ||
             `${fillot.nom} ${fillot.prenom}`
                 .toLowerCase()
-                .startsWith(search.value.toLowerCase())
+                .startsWith(search.value.toLowerCase()) ||
+            Object.values(fillot.infos)
+                .join(" ")
+                .toLowerCase()
+                .includes(search.value.toLowerCase())
     );
 });
 
