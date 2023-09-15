@@ -66,7 +66,7 @@
         >
             <div class="flex items-start justify-end mb-4">
                 <div class="bg-blue-500 text-white rounded-lg p-3">
-                    <p class="font-semibold">{{ activeFillot.infos["2"] }}</p>
+                    <p class="font-semibold">{{ user.firstName }}</p>
                     <p>Hello, how are you?</p>
                 </div>
             </div>
@@ -184,7 +184,10 @@ const mayAdopt = computed(() => {
 });
 
 pb.collection("Fillots")
-    .getFullList()
+    .getFullList({
+        sort: "prenom,nom",
+        filter: `filiere = "${user.value?.diploma.slice(0, 5)}"`,
+    })
     .then((fillots) => {
         liste_fillots.value = fillots as Fillot[];
     });

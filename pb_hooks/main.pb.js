@@ -75,7 +75,19 @@ routerAdd("GET", "/api/parrain/auth/cas", (c) => {
         return c.json(403, { message: "Unauthorized" });
     }
 
-    const 
+    const SHOTGUN_WAVES = {
+        "2023-09-15 12:00:00": ["mrosa001"],
+        "2023-09-15 13:00:00": ["aboin"],
+    };
+    const SHOTGUNW_DATE_FOR_OTHERS = "2023-09-15 14:00:00";
+
+    let shotgunDate = SHOTGUNW_DATE_FOR_OTHERS;
+    for (const [date, usernames] of Object.entries(SHOTGUN_WAVES)) {
+        if (usernames.includes(username)) {
+            shotgunDate = date;
+            break;
+        }
+    }
 
     function generatePassword() {
         const length = 10;
@@ -99,6 +111,11 @@ routerAdd("GET", "/api/parrain/auth/cas", (c) => {
         const user = users[0];
         const password = generatePassword();
         user.setPassword(password);
+        user.set("email", `${username}@bordeaux-inp.fr`);
+        user.set("firstName", data.attributes.prenom.join(" "));
+        user.set("lastName", data.attributes.nom.join(" "));
+        user.set("diploma", data.attributes.diplome.join(" "));
+        user.set("shotgunDate", shotgunDate);
         $app.dao().saveRecord(user);
 
         return c.json(200, { username, password });
@@ -112,6 +129,7 @@ routerAdd("GET", "/api/parrain/auth/cas", (c) => {
         user.set("firstName", data.attributes.prenom.join(" "));
         user.set("lastName", data.attributes.nom.join(" "));
         user.set("diploma", data.attributes.diplome.join(" "));
+        user.set("shotgunDate", shotgunDate);
         user.setPassword(password);
         $app.dao().saveRecord(user);
 

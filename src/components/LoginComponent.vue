@@ -81,7 +81,9 @@ onBeforeMount(() => {
             .replace("&&", "&");
 
         fetch(
-            `http://localhost:8090/api/parrain/auth/cas?ticket=${ticket}&redirectUrl=${redirectUrl}`
+            `${
+                import.meta.env.VITE_API_URL
+            }/api/parrain/auth/cas?ticket=${ticket}&redirectUrl=${redirectUrl}`
         )
             .then((response) => response.json())
             .then(({ username, password }) => {
