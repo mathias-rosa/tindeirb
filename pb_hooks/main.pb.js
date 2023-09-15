@@ -7,6 +7,118 @@ routerAdd("GET", "/api/hello/:name", (c) => {
     return c.json(200, { message: "Hello " + name });
 });
 
+routerAdd("GET", "/api/parrain/shotgun/:id", (c) => {
+    let id = c.pathParam("id");
+
+    const fillot = new Record();
+    $app.dao()
+        .recordQuery("Fillots")
+        .where($dbx.exp("id = {:id}", { id }))
+        .first(fillot);
+
+    // Do whatever you want with the fillot
+});
+
+routerAdd("GET", "/api/parrain/auth/cas", (c) => {
+    let ticket = c.queryParam("ticket");
+    let redirectUrl = c.queryParam("redirectUrl");
+
+    console.log("coucou");
+
+    if (
+        !ticket ||
+        typeof ticket !== "string" ||
+        !redirectUrl ||
+        typeof redirectUrl !== "string"
+    ) {
+        return c.json(400, { message: "Invalid request" });
+    }
+
+    const CAS_PROXY_URL = "https://tcoutan.zzz.bordeaux-inp.fr/casAuth/?url=";
+
+    const serviceUrl = `${CAS_PROXY_URL}${redirectUrl}`;
+
+    console.log("serviceUrl", serviceUrl);
+
+    // Exchange ticket for user info
+    let res = $http.send({
+        url: `https://cas.bordeaux-inp.fr/serviceValidate?service=${encodeURIComponent(
+            serviceUrl
+        )}&ticket=${ticket}&format=json`,
+        method: "GET",
+    });
+
+    /**
+     * @type {import("./types.d.ts").BdxInpCasResponse}
+     */
+    let response = res.json;
+
+    console.log(response);
+
+    if (!("authenticationSuccess" in response.serviceResponse)) {
+        return c.json(401, { message: "Invalid ticket" });
+    }
+
+    const data = response.serviceResponse.authenticationSuccess;
+    const username = data.user;
+
+    // Check that user is authorized
+    const authorizedDiplomas = [
+        "IIEIN4",
+        "IIETE4",
+        "IIEMM4",
+        "IIEEL4",
+        "IAERS4",
+        "IAEEE4",
+    ];
+    if (!authorizedDiplomas.includes(data.attributes.diplome.join(""))) {
+        return c.json(403, { message: "Unauthorized" });
+    }
+
+    const 
+
+    function generatePassword() {
+        const length = 10;
+        const charset =
+            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        let retVal = "";
+        for (let i = 0, n = charset.length; i < length; ++i) {
+            retVal += charset.charAt(Math.floor(Math.random() * n));
+        }
+        return retVal;
+    }
+
+    // Check if user exists
+    const users = arrayOf(new Record());
+    $app.dao()
+        .recordQuery("users")
+        .where($dbx.exp("username = {:username}", { username }))
+        .all(users);
+    if (users.length > 0) {
+        // User exists, generate a temporary password
+        const user = users[0];
+        const password = generatePassword();
+        user.setPassword(password);
+        $app.dao().saveRecord(user);
+
+        return c.json(200, { username, password });
+    } else {
+        // Create user
+        const userCollection = $app.dao().findCollectionByNameOrId("users");
+        const user = new Record(userCollection);
+        const password = generatePassword();
+        user.set("username", username);
+        user.set("email", `${username}@bordeaux-inp.fr`);
+        user.set("firstName", data.attributes.prenom.join(" "));
+        user.set("lastName", data.attributes.nom.join(" "));
+        user.set("diploma", data.attributes.diplome.join(" "));
+        user.setPassword(password);
+        $app.dao().saveRecord(user);
+
+        return c.json(200, { username, password });
+    }
+});
+
 onModelAfterUpdate((e) => {
     console.log("user updated...", e.model.get("email"));
 }, "users");
@@ -27,7 +139,47 @@ $app.rootCmd.addCommand(
 $app.rootCmd.addCommand(
     new Command({
         use: "populate",
+        // eslint-disable-next-line no-unused-vars
         run: (cmd, args) => {
+            const convertFiliere = (filiere) => {
+                switch (filiere) {
+                    case "Informabite":
+                        return "IIEIN";
+                    case "Telecon":
+                        return "IIETE";
+                    case "Matmécouilles":
+                        return "IIEMM";
+                    case "Electrocon":
+                        return "IIEEL";
+                    case "Zanimo et informatique":
+                        return "IAERS";
+                    case "Système des zanimo embarqué":
+                        return "IAEEE";
+                    default:
+                        return filiere;
+                }
+            };
+
+            function toTitleCase(str) {
+                return str.replace(/\w\S*/g, function (txt) {
+                    return (
+                        txt.charAt(0).toUpperCase() +
+                        txt.substr(1).toLowerCase()
+                    );
+                });
+            }
+
+            function beautifyName(str) {
+                return str
+                    .trim()
+                    .split(" ")
+                    .map((s) => toTitleCase(s))
+                    .join(" ")
+                    .split("-")
+                    .map((s) => toTitleCase(s))
+                    .join("-");
+            }
+
             const GSHEET_URL =
                 "https://script.google.com/macros/s/AKfycbzuZUFGXMXKONUCzQ70Kh1WvrgX9R2N-VManeB-PPKGwJq_iY57Ein1gQooSF4GnW1F/exec";
 
@@ -78,20 +230,45 @@ $app.rootCmd.addCommand(
              */
             const data = res.json;
 
-            console.log(cmd, args);
-
             const Fillots = $app.dao().findCollectionByNameOrId("Fillots");
 
             data.forEach((row) => {
                 const fillot = new Record(Fillots);
-                fillot.set("cas", row["4"]);
-                fillot.set("Nom", row["1"]);
-                fillot.set("Prenom", row["2"]);
-                fillot.set("Filière", row["5"]);
-                fillot.set("Infos", {
+                let casId = "unknown";
+                // CAS id must be a string and made of only lowercase letters and numbers
+                if (typeof row["4"] === "string") {
+                    const cleanedCasId = row["4"].toLowerCase().trim();
+                    if (/^[a-z0-9]+$/.test(cleanedCasId)) {
+                        casId = cleanedCasId;
+                    } else {
+                        console.log("casId is not valid", row["4"]);
+                    }
+                } else {
+                    console.log("casId is not valid", row["4"]);
+                }
+                fillot.set("cas", casId);
+                fillot.set("nom", beautifyName(row["1"]));
+                fillot.set("prenom", beautifyName(row["2"]));
+                fillot.set("filiere", convertFiliere(row["5"]));
+                fillot.set("infos", {
                     ...row,
                 });
                 $app.dao().saveRecord(fillot);
+            });
+        },
+    })
+);
+
+$app.rootCmd.addCommand(
+    new Command({
+        use: "clean",
+        // eslint-disable-next-line no-unused-vars
+        run: (cmd, args) => {
+            const fillots = arrayOf(new Record());
+            $app.dao().recordQuery("Fillots").all(fillots);
+
+            fillots.forEach((fillot) => {
+                $app.dao().deleteRecord(fillot);
             });
         },
     })
