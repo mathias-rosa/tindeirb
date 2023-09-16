@@ -1,6 +1,6 @@
 <template>
     <div id="photos-background">
-        <div class="phone" v-for="membre of membres.concat(membres).concat(membres)" :key="membre.name">
+        <div class="phone" v-for="membre of randomMembers" :key="membre.id">
             <div class="screen">
                 <div class="encoche"></div>
                 <img src="/img/tinder.svg" alt="tinder" class="logo" />
@@ -161,99 +161,135 @@
 </style>
 
 <script lang="ts" setup>
+import { onBeforeUnmount, onMounted, ref } from 'vue';
+
 /**
                  * @type {
                  * name: string,
                  * age: number,
                  * photo: string
+                 * id: string
                  * }[]
                  */
 const membres = [
     {
         name: 'Amandine',
         age: 22,
-        photo: './img/membres/amandine.jpg'
+        photo: './img/membres/amandine.jpg',
+        id: 'amandine'
     },
     {
         name: 'Arthur',
         age: 20,
-        photo: './img/membres/arthur.jpg'
+        photo: './img/membres/arthur.jpg',
+        id: 'arthur'
     },
     {
         name: 'Élise',
         age: 21,
-        photo: './img/membres/elise.jpg'
+        photo: './img/membres/elise.jpg',
+        id: 'elise'
     },
     {
         name: 'Tom',
         age: 22,
-        photo: './img/membres/tom.jpg'
+        photo: './img/membres/tom.jpg',
+        id: 'tom'
     },
     {
         name: 'Julie',
         age: 21,
-        photo: './img/membres/julie.jpg'
+        photo: './img/membres/julie.jpg',
+        id: 'julie'
     },
     {
         name: 'Romain',
         age: 21,
-        photo: './img/membres/romain.jpg'
+        photo: './img/membres/romain.jpg',
+        id: 'romain'
     },
     {
         name: 'Angel',
         age: 21,
-        photo: './img/membres/angel.jpg'
+        photo: './img/membres/angel.jpg',
+        id: 'angel'
     },
     {
         name: 'Nathan',
         age: 20,
-        photo: './img/membres/nathan.jpg'
+        photo: './img/membres/nathan.jpg',
+        id: 'nathan'
     },
     {
         name: 'Mathias',
         age: 20,
-        photo: './img/membres/mathias.jpg'
+        photo: './img/membres/mathias.jpg',
+        id: 'mathias'
     },
     {
         name: 'Alexandre',
         age: 22,
-        photo: './img/membres/alexandre.jpg'
+        photo: './img/membres/alexandre.jpg',
+        id: 'alexandre'
     },
     {
         name: 'Florian',
         age: 23,
-        photo: './img/membres/florian.jpg'
+        photo: './img/membres/florian.jpg',
+        id: 'florian'
     },
     {
         name: 'Léo',
         age: 20,
-        photo: './img/membres/leo.jpg'
+        photo: './img/membres/leo.jpg',
+        id: 'leo'
     },
     {
         name: 'Mathieu',
         age: 21,
-        photo: './img/membres/mathieu.jpg'
+        photo: './img/membres/mathieu.jpg',
+        id: 'mathieu1'
     },
     {
         name: 'Mathieu',
         age: 21,
-        photo: './img/membres/mathieu2.jpg'
+        photo: './img/membres/mathieu2.jpg',
+        id: 'mathieu2'
     },
     {
         name: 'Mathieu',
         age: 21,
-        photo: './img/membres/mathieu3.jpg'
+        photo: './img/membres/mathieu3.jpg',
+        id: 'mathieu3'
     },
     {
         name: 'Alycia',
         age: 22,
-        photo: './img/membres/alycia.jpg'
+        photo: './img/membres/alycia.jpg',
+        id: 'alycia'
     },
     {
         name: 'Luigi',
         age: 23,
-        photo: './img/membres/luigi.jpg'
+        photo: './img/membres/luigi.jpg',
+        id: 'luigi'
     }
     // @ts-ignore
-].sort((a, b) => 0.5 - Math.random())
+]
+
+const randomMembers = ref(membres)
+const interval = ref<NodeJS.Timer | null>(null)
+
+onMounted(() => {
+    interval.value = setInterval(() => {
+        const random = membres.sort(() => Math.random() - 0.5)
+        randomMembers.value = random.concat(random.map(m => ({ ...m, id: m.id + '2' }))).concat(random.map(m => ({ ...m, id: m.id + '3' })))
+    }, 1000)
+})
+
+onBeforeUnmount(() => {
+    if (interval.value) {
+        clearInterval(interval.value)
+    }
+})
 </script>
