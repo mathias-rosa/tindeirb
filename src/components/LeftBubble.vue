@@ -1,11 +1,9 @@
 <template>
-    <div class="chat chat-end">
-        <div class="chat-header py-1 px-3" v-if="sender !== ''">
+    <div class="chat chat-start">
+        <div class="chat-header py-1 px-3" v-if="sender">
             {{ sender }}
         </div>
-        <div
-            class="chat-bubble shadow-sm text-md bg-white text-rose-500 font-medium"
-        >
+        <div class="chat-bubble shadow-sm text-md text-white font-medium">
             {{ message }}
         </div>
     </div>
@@ -13,7 +11,10 @@
 
 <script setup lang="ts">
 defineProps({
-    sender: String,
+    sender: {
+        type: String,
+        required: true,
+    },
     message: {
         type: String,
         required: true,
