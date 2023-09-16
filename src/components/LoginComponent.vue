@@ -7,48 +7,65 @@
                     <img src="/img/logo.png" alt="Logo" class="w-32" />
                     <img src="/img/logo_text.png" alt="Logo" class="w-32" />
                 </div>
-                <button class="login-btn" @click.exact.prevent="!loading && loginWithCas()">
-                    {{
-                        loading ? "Veuillez patienter..." : "Connexion"
-                    }}
+                <button
+                    class="login-btn"
+                    @click.exact.prevent="!loading && loginWithCas()"
+                >
+                    {{ loading ? "Veuillez patienter..." : "Connexion" }}
                 </button>
             </header>
             <main :style="{ opacity: 1 - scroll }">
-                <h1>
-                    Découvrez<br />votre fillot.e<sup>TM</sup>
-                </h1>
+                <h1>Découvrez<br />votre fillot.e<sup>TM</sup></h1>
                 <template v-if="showPassword">
-                    <input type="text" placeholder="Identifiant" v-model="email"
-                        class="border rounded-full p-3 px-5 text-xl text-white w-full outline-none ring-zinc-100 hover:ring-2 bg-transparent transition duration-200 ease-in-out" />
-                    <input placeholder="Mot de passe" type="password" v-model="password"
-                        class="border rounded-full p-3 px-5 text-xl text-white w-full outline-none ring-zinc-100 hover:ring-2 bg-transparent transition duration-200 ease-in-out" />
+                    <input
+                        type="text"
+                        placeholder="Identifiant"
+                        v-model="email"
+                        class="border rounded-full p-3 px-5 text-xl text-white w-full outline-none ring-zinc-100 hover:ring-2 bg-transparent transition duration-200 ease-in-out"
+                    />
+                    <input
+                        placeholder="Mot de passe"
+                        type="password"
+                        v-model="password"
+                        class="border rounded-full p-3 px-5 text-xl text-white w-full outline-none ring-zinc-100 hover:ring-2 bg-transparent transition duration-200 ease-in-out"
+                    />
                     <button
                         class="rounded-full p-3 px-5 text-xl text-black w-full outline-none bg-white hover:bg-black transition duration-200 ease-in-out hover:text-white"
-                        @click.prevent="login(email, password)">
+                        @click.prevent="login(email, password)"
+                    >
                         Se connecter
                     </button>
                 </template>
                 <button
                     class="register-btn"
-                    @click.exact.prevent="!loading && loginWithCas()" @click.ctrl.prevent="showPassword = !showPassword">
-                    {{
-                        loading ? "Connexion en cours..." : "Créer un compte"
-                    }}
+                    @click.exact.prevent="!loading && loginWithCas()"
+                    @click.ctrl.prevent="showPassword = !showPassword"
+                >
+                    {{ loading ? "Connexion en cours..." : "Créer un compte" }}
                 </button>
             </main>
             <footer :style="{ opacity: 1 - scroll }">
-                Les photos mettent en scène des enseirbien.ne.s, et sont exclusivement utilisées à des fins d'illustration
+                Les photos mettent en scène des enseirbien.ne.s, et sont
+                exclusivement utilisées à des fins d'illustration
             </footer>
         </div>
-        <div class="mentions">
-            Hé, t’es célibat'eirb ? Tu cherches un fillot ou une fillote ? C’est sur Tind'eirb que ça se passe.
-            Avec déjà plus de 10000 ingénieurs diplômés depuis 1920, l'ENSEIRB-MATMECA est un très bon plan pour trouver ton ou ta prochaine fillot.e. Que tu sois d'Informatique, d'Élecronique, de Matmeca, de Télécom, de R&I ou encore de SEE, tu trouveras forcément ton bonheur.<br /><br />
-            Tind'eirb est une application de rencontre pour les futurs ingénieurs de l'ENSEIRB-MATMECA. Elle permet de les mettre en relation avec leurs futurs fillots en fonction de leurs centres d'intérêts, leurs passions, leurs projets, leurs envies, etc.
+        <div class="mentions text-gray-400">
+            Hé, t’es célibat'eirb ? Tu cherches un fillot ou une fillote ? C’est
+            sur Tind'eirb que ça se passe. Avec déjà plus de 10000 ingénieurs
+            diplômés depuis 1920, l'ENSEIRB-MATMECA est un très bon plan pour
+            trouver ton ou ta prochaine fillot.e. Que tu sois d'Informatique,
+            d'Élecronique, de Matmeca, de Télécom, de R&I ou encore de SEE, tu
+            trouveras forcément ton bonheur.<br /><br />
+            Tind'eirb est une application de rencontre pour les futurs
+            ingénieurs de l'ENSEIRB-MATMECA. Elle permet de les mettre en
+            relation avec leurs futurs fillots en fonction de leurs centres
+            d'intérêts, leurs passions, leurs projets, leurs envies, etc.
             <hr />
-            <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
-                <span>Pôle Web > Pôle Com >>> UNV > WST > JUP >>>>> MSQ > JK > NK  > BAR > Pôle event > CRB</span>
-                <span>🄯 2023 Pôle Web BDE. Aucun droit réservé.</span>
-            </div>
+            Pôle Web > Pôle Com >>> CRB > UNV > WST > JUP >>>>> MSQ > JK > NK >
+            BAR > Pôle event
+            <span style="float: right"
+                >&copy; 2023 Pôle Web BDE. Aucun droit réservé.</span
+            >
         </div>
     </div>
 </template>
@@ -69,9 +86,11 @@
 }
 
 .background-overlay {
-    background-image: linear-gradient(to bottom,
-            rgba(0, 0, 0, 0.5),
-            rgba(0, 0, 0, 0.5));
+    background-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.5),
+        rgba(0, 0, 0, 0.5)
+    );
 
     height: 100vh;
     display: flex;
@@ -85,7 +104,11 @@ header {
     align-items: center;
     height: 80px;
     padding: 0 20px;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
+    background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.8) 0%,
+        rgba(0, 0, 0, 0) 100%
+    );
     width: 100%;
     position: sticky;
     top: 0;
@@ -136,7 +159,7 @@ h1 sup {
 }
 
 .register-btn {
-    background: linear-gradient(0deg,#ff6036,#fd277a) no-repeat 50% fixed;
+    background: linear-gradient(0deg, #ff6036, #fd277a) no-repeat 50% fixed;
     color: #fff;
     padding: 8px 40px;
     border-radius: 24px;
@@ -169,7 +192,6 @@ hr {
     margin: 20px 0;
 }
 </style>
-
 
 <script setup lang="ts">
 import { ref, onBeforeMount, onBeforeUnmount } from "vue";
@@ -205,7 +227,7 @@ onBeforeMount(() => {
         window.history.replaceState(
             {},
             document.title,
-            window.location.pathname
+            window.location.pathname,
         );
 
         // Get current url
@@ -215,8 +237,9 @@ onBeforeMount(() => {
             .replace("&&", "&");
 
         fetch(
-            `${import.meta.env.VITE_API_URL
-            }/api/parrain/auth/cas?ticket=${ticket}&redirectUrl=${redirectUrl}`
+            `${
+                import.meta.env.VITE_API_URL
+            }/api/parrain/auth/cas?ticket=${ticket}&redirectUrl=${redirectUrl}`,
         )
             .then((response) => response.json())
             .then(({ username, password }) => {
@@ -224,10 +247,10 @@ onBeforeMount(() => {
             });
     }
 
-    window.addEventListener('scroll', handlescroll);
+    window.addEventListener("scroll", handlescroll);
 });
 
 onBeforeUnmount(() => {
-    window.removeEventListener('scroll', handlescroll);
+    window.removeEventListener("scroll", handlescroll);
 });
 </script>
