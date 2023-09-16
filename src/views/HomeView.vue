@@ -83,14 +83,13 @@
                         <div
                             class="flex flex-col w-full text-gray-500 dark:text-gray-200"
                             :class="{
-                                'text-white': activeFillotId === fillot.id,
+                                'text-white':
+                                    activeFillotId === fillot.id &&
+                                    fillot.parrain !== user.id,
                             }"
                         >
                             <h1
                                 class="font-semibold text-xl px-2 w-full text-ellipsis text-gray-900 dark:text-white"
-                                :class="{
-                                    'text-white': activeFillotId === fillot.id,
-                                }"
                             >
                                 {{ fillot.prenom }} {{ fillot.nom }}
                             </h1>
