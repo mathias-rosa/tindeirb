@@ -1,7 +1,12 @@
 <template>
-    <div class="flex items-center w-full h-full" v-if="user">
-        <div class="w-full md:max-w-lg h-full self-start flex flex-col">
-            <div class="w-full">
+    <div
+        class="flex items-center w-full h-full bg-gradient-to-r from-[#ef4a75]/10 to-[#fd5564]/10"
+        v-if="user"
+    >
+        <div
+            class="w-full md:max-w-md h-full self-start flex flex-col bg-white"
+        >
+            <div class="w-full shadow-sm">
                 <HeaderComponent />
                 <div class="w-full p-5">
                     <input
@@ -13,150 +18,145 @@
                 </div>
             </div>
 
-            <div class="overflow-y-scroll">
+            <div class="overflow-y-scroll my-1">
                 <div
                     v-for="fillot in filteredFillots"
                     :key="fillot.id"
                     class="flex gap-5 justify-between shadow-sm py-3 px-5 mb-1 w-full cursor-pointer items-center transition duration-500 ease-in-out hover:bg-gradient-to-tr from-yellow-500/5 to-rose-600/5"
-                    @click="activeFillot = fillot"
+                    @click="activeFillotId = fillot.id"
                     :class="{
                         'bg-gradient-to-tr from-yellow-500/5 to-rose-600/5':
-                            activeFillot === fillot,
-                        'bg-white': activeFillot !== fillot,
+                            activeFillotId === fillot.id,
+                        'bg-white': activeFillotId !== fillot.id,
                     }"
                 >
                     <img
                         :src="'https://cataas.com/cat?cas=' + fillot.id"
-                        class="w-16 h-16 rounded-full aspect-square object-cover"
+                        class="w-12 h-12 rounded-full aspect-square object-cover"
                     />
                     <div class="flex flex-col w-full text-gray-500">
                         <h1
-                            class="font-semibold text-2xl px-2 w-full text-ellipsis text-gray-900"
+                            class="font-semibold text-xl px-2 w-full text-ellipsis text-gray-900"
                         >
                             {{ fillot.prenom }} {{ fillot.nom }}
                         </h1>
-                        <h1
-                            class="w-fit py-1 px-2 rounded-full bg-amber-400 text-white"
-                            v-if="fillot.parrain === user.id"
-                        >
-                            Tu as adopté ce fillot
-                        </h1>
-                        <button
-                            class="w-fit hover:bg-green-500 hover:translate-x-2 hover:text-white py-1 px-2 rounded-full transition duration-200 ease-in-out"
-                            @click="selectFillot(fillot.id)"
-                            v-else-if="true"
-                        >
-                            Choisir ce fillot
-                        </button>
-                        <h1
-                            v-else-if="!mayAdopt"
-                            class="text-red-500 w-fit py-1 px-2"
-                        >
-                            Tu as déjà adopté
-                            {{ MAXIMUM_FILLOTS }}
-                            fillot{{ MAXIMUM_FILLOTS > 1 ? "s" : "" }}
-                        </h1>
-                        <h1 v-else class="w-fit py-1 px-2">
-                            Ce 1A a déjà été adopté
+
+                        <h1 class="w-fit py-1 px-2">
+                            {{ fillot.infos["3"] }}
                         </h1>
                     </div>
                 </div>
             </div>
         </div>
-        <div
-            class="bg-gradient-to-r from-[#ef4a75]/10 to-[#fd5564]/10 hidden sm:flex flex-col h-full w-full"
-            v-if="activeFillot"
-        >
+
+        <Transition name="fade">
             <div
-                class="w-full h-16 bg-white fixed z-10 shadow-sm flex items-center p-5 font-semibold text-xl"
+                class="hidden sm:flex flex-col h-full w-full"
+                v-if="activeFillot"
             >
-                {{ activeFillot.prenom }} {{ activeFillot.nom }}
+                <div
+                    class="w-full h-16 bg-white relative z-10 shadow-sm flex items-center p-5 font-semibold text-xl justify-between"
+                >
+                    <h1>{{ activeFillot.prenom }} {{ activeFillot.nom }}</h1>
+                    <button class="btn h-8" @click="activeFillotId = undefined">
+                        Fermer
+                    </button>
+                </div>
+                <div class="p-10 overflow-y-scroll test">
+                    <LeftBubble
+                        :sender="user.firstName"
+                        :message="`Salut ${activeFillot.infos['2']} ! Comment ça va ?`"
+                    />
+
+                    <RightBubble
+                        :sender="activeFillot.infos['2']"
+                        message="Yo ! Ça va nickel et toi ?"
+                    />
+
+                    <LeftBubble :sender="user.firstName" message="Super !" />
+                    <LeftBubble message="Dis moi tu viens d'où ? " />
+                    <LeftBubble message="(Je cherche un fillot)" />
+
+                    <RightBubble
+                        :sender="activeFillot.infos['2']"
+                        :message="`Je viens de ${activeFillot.infos['10']}`"
+                    />
+
+                    <LeftBubble
+                        :sender="user.firstName"
+                        message="Ouah 🤩 ! Trop bien !"
+                    />
+
+                    {{ activeFillot }}
+                </div>
+                <button
+                    class="select-btn bg-gray-500 cursor-not-allowed text-white"
+                    v-if="activeFillot.parrain === user.id"
+                >
+                    {{ activeFillot.prenom }} est déjà
+                    {{
+                        `${
+                            activeFillot.infos["3"] === "Femme"
+                                ? "ta fillote !"
+                                : "ton fillot !"
+                        }`
+                    }}
+                </button>
+                <button
+                    class="select-btn bg-rose-500 hover:bg-black"
+                    v-else-if="mayAdopt"
+                    @click="selectFillot(activeFillot.id)"
+                >
+                    Adopter {{ activeFillot.prenom }}
+                </button>
+                <button
+                    class="select-btn cursor-not-allowed bg-gray-500"
+                    v-else-if="!mayAdopt"
+                >
+                    Tu ne peux pas adopter {{ activeFillot.prenom }} car tu as
+                    déjà adopté
+                    {{ MAXIMUM_FILLOTS }}
+                    fillot{{ MAXIMUM_FILLOTS > 1 ? "s" : "" }}
+                </button>
+                <button
+                    class="select-btn cursor-not-allowed bg-gray-500"
+                    v-else
+                >
+                    {{ activeFillot.prenom }} a déjà été adopté par quelqu'un
+                    d'autre !
+                </button>
             </div>
-            <div class="p-10 mt-16 overflow-y-scroll">
-                <LeftBubble
-                    :sender="user.firstName"
-                    :message="`Salut ${activeFillot.infos['2']} ! Comment ça va ?`"
-                />
-
-                <RightBubble
-                    :sender="activeFillot.infos['2']"
-                    message="Yo ! Ça va nickel et toi ?"
-                />
-
-                <LeftBubble :sender="user.firstName" message="Super !" />
-                <LeftBubble message="Dis moi tu viens d'où ? " />
-                <LeftBubble message="(Je cherche un fillot)" />
-
-                <RightBubble
-                    :sender="activeFillot.infos['2']"
-                    :message="`Je viens de ${activeFillot.infos['10']}`"
-                />
-
-                <LeftBubble
-                    :sender="user.firstName"
-                    message="Ouah 🤩 ! Trop bien !"
-                />
-
-                {{ activeFillot }}
-            </div>
-        </div>
+        </Transition>
     </div>
     <LoginComponent v-else />
 </template>
 
+<style>
+.select-btn {
+    @apply h-16  text-white sticky z-10 shadow-sm flex items-center p-3 mt-2 mb-5 mx-10 font-semibold text-lg justify-center box-border flex-1 rounded-lg transition duration-300 ease-in-out;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.5s;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
+}
+</style>
+
 <script setup lang="ts">
-import { computed, ref, Ref, onBeforeUnmount } from "vue";
+import { computed, ref, Ref, onBeforeUnmount, watch } from "vue";
 import { pb, user } from "@/api/pocketbase";
+import { Fillot } from "@/api/pocketbase";
 import LoginComponent from "@/components/LoginComponent.vue";
-import { RecordModel } from "pocketbase";
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import LeftBubble from "@/components/LeftBubble.vue";
 import RightBubble from "@/components/RightBubble.vue";
 
 const MAXIMUM_FILLOTS = 1;
-
-interface Fillot extends RecordModel {
-    prenom: string;
-    nom: string;
-    infos: {
-        "0": string;
-        "1": string;
-        "2": string;
-        "3": string;
-        "4": string;
-        "5": string;
-        "6": string;
-        "7": string;
-        "8": string;
-        "9": string;
-        "10": string;
-        "11": string;
-        "12": string;
-        "13": string;
-        "14": string;
-        "15": string;
-        "16": string;
-        "17": string;
-        "18": string;
-        "19": string;
-        "20": string;
-        "21": string;
-        "22": string;
-        "23": string;
-        "24": string;
-        "25": string;
-        "26": string;
-        "27": string;
-        "28": string;
-        "29": string;
-        "30": string;
-        "31": string;
-        "32": string;
-        "33": string;
-    };
-    filiere: string;
-    parrain: string;
-}
 
 const liste_fillots: Ref<Fillot[]> = ref([]);
 
@@ -198,7 +198,18 @@ const selectFillot = async (id: string) => {
     });
 };
 
-const activeFillot = ref<Fillot>();
+const activeFillotId = ref<string | undefined>(undefined);
+
+const activeFillot = computed(() => {
+    if (!activeFillotId.value) {
+        return undefined;
+    }
+    return liste_fillots.value.find((fillot) => {
+        if (fillot.id === activeFillotId.value) {
+            return fillot;
+        }
+    });
+});
 
 const mayAdopt = computed(() => {
     const count = liste_fillots.value.filter((fillot) => {
@@ -209,14 +220,20 @@ const mayAdopt = computed(() => {
     return count < MAXIMUM_FILLOTS;
 });
 
-pb.collection("Fillots")
-    .getFullList({
-        sort: "prenom,nom",
-        filter: `filiere = "${user.value?.diploma.slice(0, 5)}"`,
-    })
-    .then((fillots) => {
-        liste_fillots.value = fillots as Fillot[];
-    });
+function loadFillots() {
+    pb.collection("Fillots")
+        .getFullList({
+            sort: "prenom,nom",
+            filter: `filiere = "${user.value?.diploma.slice(0, 5)}"`,
+        })
+        .then((fillots) => {
+            liste_fillots.value = fillots as Fillot[];
+        });
+}
+
+watch(() => user.value, loadFillots);
+
+loadFillots();
 
 pb.collection("Fillots").subscribe("*", async ({ action, record }) => {
     if (action === "update") {
