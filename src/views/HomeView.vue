@@ -3,11 +3,11 @@
         <img src="/img/logo.png" alt="Logo" class="w-32" />
     </div>
     <div
-        class="flex items-center w-full h-full bg-gradient-to-r from-[#ef4a75]/10 to-[#fd5564]/10"
+        class="flex items-center w-full h-full bg bg-rose-50 dark:bg-gray-950"
         v-if="user"
     >
         <div
-            class="w-full md:max-w-md h-full self-start flex flex-col bg-white"
+            class="w-full md:max-w-md h-full self-start flex flex-col bg-white dark:bg-gray-900"
         >
             <div class="w-full shadow-sm">
                 <HeaderComponent />
@@ -16,7 +16,7 @@
                         type="text"
                         placeholder="🔍 Rechercher un nom ou un mot clé (ex: BDE 👀)"
                         v-model="search"
-                        class="w-full px-5 py-3 rounded-full box-border bg-gray-100 outline-none hover:ring-2 hover:ring-gray-500 transition duration-300 ease-in-out"
+                        class="w-full px-5 py-3 rounded-full box-border bg-gray-100 dark:bg-gray-700 outline-none hover:ring-2 hover:ring-gray-500 transition duration-300 ease-in-out"
                     />
                 </div>
             </div>
@@ -28,8 +28,9 @@
                     class="flex gap-2 justify-between p-3 mb-1 w-full cursor-pointer items-center rounded-md"
                     @click="activeFillotId = fillot.id"
                     :class="{
-                        'bg-rose-500 text-white': activeFillotId === fillot.id,
-                        'bg-white hover:bg-rose-100 ':
+                        'bg-rose-500 text-white dark:text-gray-900':
+                            activeFillotId === fillot.id,
+                        'bg-white dark:bg-gray-900 hover:bg-rose-100 dark:hover:bg-rose-900 ':
                             activeFillotId !== fillot.id,
                     }"
                 >
@@ -38,13 +39,13 @@
                         class="w-12 h-12 rounded-full aspect-square object-cover"
                     />
                     <div
-                        class="flex flex-col w-full text-gray-500"
+                        class="flex flex-col w-full text-gray-500 dark:text-gray-200"
                         :class="{
                             'text-white': activeFillotId === fillot.id,
                         }"
                     >
                         <h1
-                            class="font-semibold text-xl px-2 w-full text-ellipsis text-gray-900"
+                            class="font-semibold text-xl px-2 w-full text-ellipsis text-gray-900 dark:text-white"
                             :class="{
                                 'text-white': activeFillotId === fillot.id,
                             }"
@@ -66,10 +67,13 @@
                 v-if="activeFillot"
             >
                 <div
-                    class="w-full h-16 bg-white relative z-10 shadow-sm flex items-center p-5 font-semibold text-xl justify-between"
+                    class="w-full h-16 bg-white dark:bg-gray-900 relative z-10 shadow-sm flex items-center p-5 font-semibold text-xl justify-between"
                 >
                     <h1>{{ activeFillot.prenom }} {{ activeFillot.nom }}</h1>
-                    <button class="btn h-8" @click="activeFillotId = undefined">
+                    <button
+                        class="btn dark:bg-white dark:text-gray-900 dark:hover:bg-rose-500 dark:hover:text-white"
+                        @click="activeFillotId = undefined"
+                    >
                         Fermer
                     </button>
                 </div>
@@ -426,7 +430,7 @@
                     }}
                 </button>
                 <button
-                    class="select-btn bg-rose-500 hover:bg-black"
+                    class="select-btn bg-rose-500 hover:bg-black dark:hover:bg-gray-50 dark:hover:text-gray-900"
                     v-else-if="mayAdopt"
                     @click="selectFillot(activeFillot.id)"
                 >

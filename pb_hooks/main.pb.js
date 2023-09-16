@@ -70,14 +70,14 @@ routerAdd("GET", "/api/parrain/auth/cas", (c) => {
         "IIEEL4",
         "IAERS4",
         "IAEEE4",
-        'IIEIN5',
+        "IIEIN5",
     ];
     if (!authorizedDiplomas.includes(data.attributes.diplome.join(""))) {
         return c.json(403, { message: "Unauthorized" });
     }
 
     const SHOTGUN_WAVES = {
-        "2023-09-15 12:00:00": ["mrosa001"],
+        "2023-09-17 12:00:00": ["mrosa001"],
         "2023-09-15 13:00:00": ["aboin"],
     };
     const SHOTGUNW_DATE_FOR_OTHERS = "2023-09-15 14:00:00";
