@@ -285,16 +285,26 @@ const membres = [
         age: 3,
         photo: './img/membres/yace.jpg',
         id: 'yace'
+    },
+    {
+        name: 'Mathis',
+        age: 20,
+        photo: './img/membres/mathis.jpg',
+    },
+    {
+        name: 'Marie',
+        age: 20,
+        photo: './img/membres/marie.jpg',
     }
 ]
 
-const randomMembers = ref(membres.concat(membres.map(m => ({ ...m, id: m.id + '2' }))).concat(membres.map(m => ({ ...m, id: m.id + '3' }))))
+const randomMembers = ref(membres.concat(membres.map(m => ({ ...m, id: m.id + '2' }))))
 const interval = ref<NodeJS.Timer | null>(null)
 
 onMounted(() => {
     interval.value = setInterval(() => {
         const random = membres.sort(() => Math.random() - 0.5)
-        randomMembers.value = random.concat(random.map(m => ({ ...m, id: m.id + '2' }))).concat(random.map(m => ({ ...m, id: m.id + '3' })))
+        randomMembers.value = random.concat(random.map(m => ({ ...m, id: m.id + '2' })))
     }, 5000)
 })
 
