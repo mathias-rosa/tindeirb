@@ -273,18 +273,29 @@ const membres = [
         age: 23,
         photo: './img/membres/luigi.jpg',
         id: 'luigi'
+    },
+    {
+        name: 'Rakel',
+        age: 23,
+        photo: './img/membres/rakel.jpg',
+        id: 'rakel'
+    },
+    {
+        name: 'Yace',
+        age: 3,
+        photo: './img/membres/yace.jpg',
+        id: 'yace'
     }
-    // @ts-ignore
 ]
 
-const randomMembers = ref(membres)
+const randomMembers = ref(membres.concat(membres.map(m => ({ ...m, id: m.id + '2' }))).concat(membres.map(m => ({ ...m, id: m.id + '3' }))))
 const interval = ref<NodeJS.Timer | null>(null)
 
 onMounted(() => {
     interval.value = setInterval(() => {
         const random = membres.sort(() => Math.random() - 0.5)
         randomMembers.value = random.concat(random.map(m => ({ ...m, id: m.id + '2' }))).concat(random.map(m => ({ ...m, id: m.id + '3' })))
-    }, 1000)
+    }, 5000)
 })
 
 onBeforeUnmount(() => {
