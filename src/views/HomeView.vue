@@ -103,7 +103,7 @@
                         message="Ok trop bien !"
                     />
                     <RightBubble
-                        message="Tu peux me donner ta Mensuration ? \n (comme première question c'est bizare mais c'est pas moi mdr)"
+                        :message="`Tu peux me donner ta Mensuration ? \n (comme première question c'est bizare mais c'est pas moi mdr)`"
                     />
 
                     <LeftBubble
@@ -310,15 +310,7 @@
 
                     <RightBubble
                         :sender="user.firstName"
-                        message="
-                        Imagine que tu te trouves paisiblement à bord d'un Drakkar en pleine navigation. \n
-                        Tout à coup, tu repères un énorme bateau de croisière aux couleurs bleu et jaune qui fonce vers toi à toute vitesse.
-                        Une collision semble inévitable ! \n 
-                        Ton Drakkar est violemment percuté et explose, disparaissant dans les profondeurs de l'océan. Tu te retrouves à la dérive, emporté par les courants pendant de longues heures, jusqu'à échouer finalement sur les rivages d'une île isolée.
-                        \n\n 
-                        De tout ce qui restait de ton Drakkar, tu as pu sauver uniquement un marcel noir avec un logo étrange, une raquette de ping-pong, un baril d'huile d'olive, et une moula. \n
-                        Face à cette situation difficile, que ferais-tu pour assurer ta survie en attendant l'arrivée des secours ?
-                        "
+                        :message="`Imagine que tu te trouves paisiblement à bord d'un Drakkar en pleine navigation. \nTout à coup, tu repères un énorme bateau de croisière aux couleurs bleu et jaune qui fonce vers toi à toute vitesse. \nUne collision semble inévitable !\nTon Drakkar est violemment percuté et explose, disparaissant dans les profondeurs de l'océan. Tu te retrouves à la dérive, emporté par les courants pendant de longues heures, jusqu'à échouer finalement sur les rivages d'une île isolée.\n   \nDe tout ce qui restait de ton Drakkar, tu as pu sauver uniquement un marcel noir avec un logo étrange, une raquette de ping-pong, un baril d'huile d'olive, et une moula. \nFace à cette situation difficile, que ferais-tu pour assurer ta survie en attendant l'arrivée des secours ?`"
                     />
 
                     <LeftBubble
@@ -348,7 +340,7 @@
 
                     <RightBubble
                         :sender="user.firstName"
-                        message="Pour toi le parrain idéal :"
+                        message="Quel est pour toi le parrain idéal ?"
                     />
 
                     <LeftBubble
@@ -415,6 +407,8 @@
                                 : 'fillot'
                         } ?`"
                     />
+
+                    <!-- {{ activeFillot.infos }} -->
 
                     <div class="chat-footer mx-2">Vu il y a 6 jouts</div>
                 </div>
