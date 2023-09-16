@@ -24,7 +24,7 @@
 
     <RightBubble :sender="user.firstName" message="Ok trop bien !" />
     <RightBubble
-        :message="`Tu peux me donner tes Mensuration ? \n (comme première question c'est bizare mais c'est pas moi mdr)`"
+        :message="`Tu peux me donner tes mensurations ? \n (comme première question c'est bizare mais c'est pas moi mdr)`"
     />
 
     <LeftBubble
