@@ -34,10 +34,16 @@
                             }
                         "
                         :class="{
+                            'bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700':
+                                fillot.parrain !== '' &&
+                                fillot.parrain !== user.id,
+                            'bg-orange-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700':
+                                fillot.parrain === user.id,
                             'bg-rose-500 text-white dark:text-gray-900':
                                 activeFillotId === fillot.id,
                             'bg-white dark:bg-gray-900 hover:bg-rose-100 dark:hover:bg-rose-900 ':
-                                activeFillotId !== fillot.id,
+                                activeFillotId !== fillot.id &&
+                                fillot.parrain === '',
                         }"
                     >
                         <img
@@ -59,8 +65,36 @@
                                 {{ fillot.prenom }} {{ fillot.nom }}
                             </h1>
 
-                            <h1 class="w-fit px-2">
-                                {{ fillot.infos["3"] }}
+                            <h1 class="w-fit px-2" v-if="fillot.parrain === ''">
+                                {{
+                                    `${
+                                        fillot.infos["3"] === "Femme"
+                                            ? "Orpheline"
+                                            : "Orphelin"
+                                    }`
+                                }}
+                            </h1>
+                            <h1
+                                class="w-fit px-2"
+                                v-if="fillot.parrain === user.id"
+                            >
+                                Vous avez adopté
+                                {{
+                                    `${
+                                        fillot.infos["3"] === "Femme"
+                                            ? "cette Eiseirbienne"
+                                            : "cet Eiseirbien"
+                                    }`
+                                }}
+                            </h1>
+                            <h1
+                                class="w-fit px-2"
+                                v-if="
+                                    fillot.parrain !== '' &&
+                                    fillot.parrain !== user.id
+                                "
+                            >
+                                A été adopté par un de vos collègues
                             </h1>
                         </div>
                     </div>
