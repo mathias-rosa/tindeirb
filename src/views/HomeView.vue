@@ -112,8 +112,8 @@
                                 {{
                                     `${
                                         fillot.infos["3"] === "Femme"
-                                            ? "cette Eiseirbienne"
-                                            : "cet Eiseirbien"
+                                            ? "cette Enseirbienne"
+                                            : "cet Enseirbien"
                                     }`
                                 }}
                             </h1>
@@ -130,18 +130,18 @@
                         <button
                             class="relative rounded-full h-8 flex items-center justify-center aspect-square bg-white shadow-md hover:scale-110 transition duration-300 ease-in-out"
                             @click="
-                                favorites.includes(fillot.id)
+                                user?.favorites.includes(fillot.id)
                                     ? removeFavorite(fillot.id)
                                     : addFavorite(fillot.id)
                             "
                         >
                             <img
                                 :src="
-                                    favorites.includes(fillot.id)
-                                        ? '/img/x.svg'
-                                        : '/img/heart.svg'
+                                    user?.favorites.includes(fillot.id)
+                                        ? '/img/reload.svg'
+                                        : '/img/star.svg'
                                 "
-                                alt="heart"
+                                alt="action"
                                 class="w-5 h-5"
                             />
                         </button>
@@ -321,17 +321,27 @@ const MAXIMUM_FILLOTS = 1;
 
 const currentView = ref("all");
 
-const favorites: Ref<String[]> = ref([]);
-
 const addFavorite = (id: string) => {
-    favorites.value.push(id);
+    if (!user.value) {
+        return alert("Tu dois être connecté pour ajouter un favori");
+    }
+    user.value.favorites.push(id);
+    pb.collection("users").update(user.value.id, {
+        favorites: user.value?.favorites,
+    });
 };
 
 const removeFavorite = (id: string) => {
-    favorites.value.splice(
-        favorites.value.findIndex((favorite) => favorite === id),
+    if (!user.value) {
+        return alert("Tu dois être connecté pour ajouter un favori");
+    }
+    user.value.favorites.splice(
+        user.value?.favorites.findIndex((favorite: string) => favorite === id),
         1
     );
+    pb.collection("users").update(user.value.id, {
+        favorites: user.value?.favorites,
+    });
 };
 
 const liste_fillots: Ref<Fillot[]> = ref([]);
@@ -343,7 +353,7 @@ const filteredFillots = computed(() => {
 
     if (currentView.value === "favorites") {
         fillots = fillots.filter((fillot) => {
-            if (favorites.value.includes(fillot.id)) {
+            if (user.value?.favorites.includes(fillot.id)) {
                 return fillot;
             }
         });
@@ -457,9 +467,17 @@ pb.collection("Fillots").subscribe("*", async ({ action, record }) => {
     }
 });
 
+pb.collection("users").subscribe("*", async ({ action, record }) => {
+    if (action === "update") {
+        if (record.id === user.value?.id) {
+            user.value = record;
+        }
+    }
+});
 // Unsubscribe
 
 onBeforeUnmount(() => {
     pb.collection("Fillots").unsubscribe("*");
+    pb.collection("users").unsubscribe("*");
 });
 </script>
