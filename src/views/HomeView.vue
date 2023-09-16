@@ -1,4 +1,7 @@
 <template>
+    <div class="splashscreen">
+        <img src="/img/logo.png" alt="Logo" class="w-32" />
+    </div>
     <div
         class="flex items-center w-full h-full bg-gradient-to-r from-[#ef4a75]/10 to-[#fd5564]/10"
         v-if="user"
@@ -470,6 +473,51 @@
 .fade-enter-from,
 .fade-leave-to {
     opacity: 0;
+}
+
+.splashscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(0deg,#ff6036,#fd277a) no-repeat 50% fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease-in-out;
+    opacity: 1;
+    animation: splashscreen 0.3s ease-in-out 1s forwards;
+}
+
+.splashscreen img {
+    width: 64px;
+    height: auto;
+    animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes splashscreen {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        display: none;
+        pointer-events: none;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 </style>
 
