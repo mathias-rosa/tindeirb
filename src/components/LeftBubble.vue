@@ -5,7 +5,7 @@
         </div>
         <div class="chat-bubble shadow-sm text-md text-white font-medium">
             <p v-if="message" style="white-space: pre-wrap">
-                {{ message }}
+                {{ beautifyMessage(message) }}
             </p>
             <p v-else>
                 {{
@@ -26,6 +26,20 @@ defineProps({
     sender: String,
     message: String,
 });
+
+const beautifyMessage = (message: string) => {
+    message = message.replace(/Tu adores l'ENSEIRB/g, "J'adore l'ENSEIRB");
+    message = message.replace(/Tu aimes le soleil/g, "J'aime le soleil");
+    message = message.replace(/Tu as foiré tes oraux/g, "J'ai foiré mes oraux");
+    switch (message) {
+        case "Parrain":
+            return "Je préfère un parrain";
+        case "Marraine":
+            return "Je préfère une marraine";
+        default:
+            return message;
+    }
+};
 
 const defautltMessages = [
     "En tant qu'élève de première année à l'ENSEIRB-MATMECA, il est important de noter que j'ai la flemme de répondre à cette question.",

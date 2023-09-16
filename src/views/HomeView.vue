@@ -2,143 +2,149 @@
     <div class="splashscreen">
         <img src="/img/logo.png" alt="Logo" class="w-32" />
     </div>
-    <div
-        class="flex items-center w-full h-full gradient dark:bg-gray-950"
-        v-if="user"
-    >
-        <div
-            class="w-full md:max-w-md h-full self-start flex flex-col bg-white dark:bg-gray-900 shadow-sm"
-            :class="{
-                'hidden md:flex': activeFillotId,
-            }"
-        >
-            <div class="w-full shadow-sm">
-                <HeaderComponent />
-                <div class="w-full p-5">
-                    <input
-                        type="text"
-                        placeholder="🔍 Rechercher un nom ou des mots clés (ex: BDE 👀)"
-                        v-model="search"
-                        class="w-full px-5 py-3 rounded-full box-border bg-gray-100 dark:bg-gray-700 outline-none hover:ring-2 hover:ring-gray-500 transition duration-300 ease-in-out"
-                    />
+    <div class="w-full h-full gradient dark:bg-gray-950" v-if="user">
+        <div class="bg w-full h-full flex items-center">
+            <div
+                class="w-full md:max-w-md h-full self-start flex flex-col bg-white dark:bg-gray-900 shadow-sm"
+                :class="{
+                    'hidden md:flex': activeFillotId,
+                }"
+            >
+                <div class="w-full shadow-sm">
+                    <HeaderComponent />
+                    <div class="w-full p-5">
+                        <input
+                            type="text"
+                            placeholder="🔍 Rechercher un nom ou des mots clés (ex: BDE 👀)"
+                            v-model="search"
+                            class="w-full px-5 py-3 rounded-full box-border bg-gray-100 dark:bg-gray-700 outline-none hover:ring-2 hover:ring-gray-500 transition duration-300 ease-in-out"
+                        />
+                    </div>
                 </div>
-            </div>
 
-            <div class="overflow-y-scroll m-2 mr-0 pr-1">
-                <div
-                    v-for="fillot in filteredFillots"
-                    :key="fillot.id"
-                    class="flex gap-2 justify-between p-3 mb-1 w-full cursor-pointer items-center rounded-md"
-                    @click="
-                        () => {
-                            scrollToTop();
-                            activeFillotId = fillot.id;
-                        }
-                    "
-                    :class="{
-                        'bg-rose-500 text-white dark:text-gray-900':
-                            activeFillotId === fillot.id,
-                        'bg-white dark:bg-gray-900 hover:bg-rose-100 dark:hover:bg-rose-900 ':
-                            activeFillotId !== fillot.id,
-                    }"
-                >
-                    <img
-                        :src="'https://cataas.com/cat?cas=' + fillot.id"
-                        class="w-12 h-12 rounded-full aspect-square object-cover"
-                    />
+                <div class="overflow-y-scroll m-2 mr-0 pr-1">
                     <div
-                        class="flex flex-col w-full text-gray-500 dark:text-gray-200"
+                        v-for="fillot in filteredFillots"
+                        :key="fillot.id"
+                        class="flex gap-2 justify-between p-3 mb-1 w-full cursor-pointer items-center rounded-md"
+                        @click="
+                            () => {
+                                scrollToTop();
+                                activeFillotId = fillot.id;
+                            }
+                        "
                         :class="{
-                            'text-white': activeFillotId === fillot.id,
+                            'bg-rose-500 text-white dark:text-gray-900':
+                                activeFillotId === fillot.id,
+                            'bg-white dark:bg-gray-900 hover:bg-rose-100 dark:hover:bg-rose-900 ':
+                                activeFillotId !== fillot.id,
                         }"
                     >
-                        <h1
-                            class="font-semibold text-xl px-2 w-full text-ellipsis text-gray-900 dark:text-white"
+                        <img
+                            :src="'https://cataas.com/cat?cas=' + fillot.id"
+                            class="w-12 h-12 rounded-full aspect-square object-cover"
+                        />
+                        <div
+                            class="flex flex-col w-full text-gray-500 dark:text-gray-200"
                             :class="{
                                 'text-white': activeFillotId === fillot.id,
                             }"
                         >
-                            {{ fillot.prenom }} {{ fillot.nom }}
-                        </h1>
+                            <h1
+                                class="font-semibold text-xl px-2 w-full text-ellipsis text-gray-900 dark:text-white"
+                                :class="{
+                                    'text-white': activeFillotId === fillot.id,
+                                }"
+                            >
+                                {{ fillot.prenom }} {{ fillot.nom }}
+                            </h1>
 
-                        <h1 class="w-fit px-2">
-                            {{ fillot.infos["3"] }}
-                        </h1>
+                            <h1 class="w-fit px-2">
+                                {{ fillot.infos["3"] }}
+                            </h1>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="flex flex-col h-screen w-full z-10 bg" v-if="activeFillot">
-            <div
-                class="w-full min-h-16 h-fit md:h-16 bg-white dark:bg-gray-900 relative z-10 shadow-sm flex flex-col md:flex-row items-center gap-3 md:gap-0 p-5 font-semibold text-lg justify-between"
-            >
-                <router-link
-                    to="/"
-                    class="text-rose-500 font-semibold text-2xl tracking-tight md:hidden"
-                    >Tind'eirb</router-link
+            <div class="flex flex-col h-screen w-full z-10" v-if="activeFillot">
+                <div
+                    class="w-full min-h-16 h-fit md:h-16 bg-white dark:bg-gray-900 relative z-10 shadow-sm flex flex-col md:flex-row items-center gap-3 md:gap-0 p-5 font-semibold text-lg justify-between"
                 >
-                <div class="flex w-full items-center justify-between">
-                    <h1>{{ activeFillot.prenom }} {{ activeFillot.nom }}</h1>
-                    <button
-                        class="btn dark:bg-white dark:text-gray-900 dark:hover:bg-rose-500 dark:hover:text-white"
-                        @click="activeFillotId = undefined"
+                    <router-link
+                        to="/"
+                        class="text-rose-500 font-semibold text-2xl tracking-tight md:hidden"
+                        >Tind'eirb</router-link
                     >
-                        Fermer
-                    </button>
+                    <div class="flex w-full items-center justify-between">
+                        <h1>
+                            {{ activeFillot.prenom }} {{ activeFillot.nom }}
+                        </h1>
+                        <button
+                            class="btn dark:bg-white dark:text-gray-900 dark:hover:bg-rose-500 dark:hover:text-white"
+                            @click="activeFillotId = undefined"
+                        >
+                            Fermer
+                        </button>
+                    </div>
                 </div>
+                <div class="p-10 flex-1 overflow-y-scroll" ref="discussion">
+                    <ChatComponent
+                        :activeFillot="activeFillot"
+                        :user="user"
+                        :key="activeFillot.id"
+                    />
+                </div>
+                <button
+                    class="select-btn bg-gray-500 cursor-not-allowed text-white"
+                    v-if="activeFillot.parrain === user.id"
+                >
+                    {{ activeFillot.prenom }} est déjà
+                    {{
+                        `${
+                            activeFillot.infos["3"] === "Femme"
+                                ? "ta fillote !"
+                                : "ton fillot !"
+                        }`
+                    }}
+                </button>
+                <button
+                    class="select-btn bg-rose-500"
+                    v-else-if="shotgunDate.getTime() > currentTime"
+                >
+                    <p>
+                        Tu pourras adopter {{ activeFillot.prenom }} dans &nbsp;
+                    </p>
+                    <CountdownTimer :targetDate="shotgunDate" />
+                </button>
+                <button
+                    class="select-btn bg-rose-500 hover:bg-black dark:hover:bg-gray-50 dark:hover:text-gray-900"
+                    v-else-if="mayAdopt"
+                    @click="selectFillot(activeFillot.id)"
+                >
+                    <p>Adopter {{ activeFillot?.prenom }}</p>
+                </button>
+                <button
+                    class="select-btn cursor-not-allowed bg-gray-500"
+                    v-else-if="!mayAdopt"
+                >
+                    <p>
+                        Tu ne peux pas adopter {{ activeFillot?.prenom }} car tu
+                        as déjà adopté
+                        {{ MAXIMUM_FILLOTS }}
+                        fillot{{ MAXIMUM_FILLOTS > 1 ? "s" : "" }}
+                    </p>
+                </button>
+                <button
+                    class="select-btn cursor-not-allowed bg-gray-500"
+                    v-else
+                >
+                    <p>
+                        {{ activeFillot?.prenom }} a déjà été adopté par
+                        quelqu'un d'autre !
+                    </p>
+                </button>
             </div>
-            <div class="p-10 flex-1 overflow-y-scroll" ref="discussion">
-                <ChatComponent
-                    :activeFillot="activeFillot"
-                    :user="user"
-                    :key="activeFillot.id"
-                />
-            </div>
-            <button
-                class="select-btn bg-gray-500 cursor-not-allowed text-white"
-                v-if="activeFillot.parrain === user.id"
-            >
-                {{ activeFillot.prenom }} est déjà
-                {{
-                    `${
-                        activeFillot.infos["3"] === "Femme"
-                            ? "ta fillote !"
-                            : "ton fillot !"
-                    }`
-                }}
-            </button>
-            <button
-                class="select-btn bg-rose-500"
-                v-else-if="shotgunDate.getTime() > currentTime"
-            >
-                <p>Tu pourras adopter {{ activeFillot.prenom }} dans &nbsp;</p>
-                <CountdownTimer :targetDate="shotgunDate" />
-            </button>
-            <button
-                class="select-btn bg-rose-500 hover:bg-black dark:hover:bg-gray-50 dark:hover:text-gray-900"
-                v-else-if="mayAdopt"
-                @click="selectFillot(activeFillot.id)"
-            >
-                <p>Adopter {{ activeFillot?.prenom }}</p>
-            </button>
-            <button
-                class="select-btn cursor-not-allowed bg-gray-500"
-                v-else-if="!mayAdopt"
-            >
-                <p>
-                    Tu ne peux pas adopter {{ activeFillot?.prenom }} car tu as
-                    déjà adopté
-                    {{ MAXIMUM_FILLOTS }}
-                    fillot{{ MAXIMUM_FILLOTS > 1 ? "s" : "" }}
-                </p>
-            </button>
-            <button class="select-btn cursor-not-allowed bg-gray-500" v-else>
-                <p>
-                    {{ activeFillot?.prenom }} a déjà été adopté par quelqu'un
-                    d'autre !
-                </p>
-            </button>
         </div>
     </div>
     <LoginComponent v-else />
