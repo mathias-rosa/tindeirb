@@ -18,30 +18,38 @@
                 </div>
             </div>
 
-            <div class="overflow-y-scroll my-1">
+            <div class="overflow-y-scroll m-2 mr-0 pr-1">
                 <div
                     v-for="fillot in filteredFillots"
                     :key="fillot.id"
-                    class="flex gap-5 justify-between shadow-sm py-3 px-5 mb-1 w-full cursor-pointer items-center transition duration-500 ease-in-out hover:bg-gradient-to-tr from-yellow-500/5 to-rose-600/5"
+                    class="flex gap-2 justify-between p-3 mb-1 w-full cursor-pointer items-center rounded-md"
                     @click="activeFillotId = fillot.id"
                     :class="{
-                        'bg-gradient-to-tr from-yellow-500/5 to-rose-600/5':
-                            activeFillotId === fillot.id,
-                        'bg-white': activeFillotId !== fillot.id,
+                        'bg-rose-500 text-white': activeFillotId === fillot.id,
+                        'bg-white hover:bg-rose-100 ':
+                            activeFillotId !== fillot.id,
                     }"
                 >
                     <img
                         :src="'https://cataas.com/cat?cas=' + fillot.id"
                         class="w-12 h-12 rounded-full aspect-square object-cover"
                     />
-                    <div class="flex flex-col w-full text-gray-500">
+                    <div
+                        class="flex flex-col w-full text-gray-500"
+                        :class="{
+                            'text-white': activeFillotId === fillot.id,
+                        }"
+                    >
                         <h1
                             class="font-semibold text-xl px-2 w-full text-ellipsis text-gray-900"
+                            :class="{
+                                'text-white': activeFillotId === fillot.id,
+                            }"
                         >
                             {{ fillot.prenom }} {{ fillot.nom }}
                         </h1>
 
-                        <h1 class="w-fit py-1 px-2">
+                        <h1 class="w-fit px-2">
                             {{ fillot.infos["3"] }}
                         </h1>
                     </div>
@@ -163,19 +171,30 @@ const liste_fillots: Ref<Fillot[]> = ref([]);
 const search = ref("");
 
 const filteredFillots = computed(() => {
-    return liste_fillots.value.filter(
-        (fillot) =>
-            `${fillot.prenom} ${fillot.nom}`
-                .toLowerCase()
-                .startsWith(search.value.toLowerCase()) ||
-            `${fillot.nom} ${fillot.prenom}`
-                .toLowerCase()
-                .startsWith(search.value.toLowerCase()) ||
-            Object.values(fillot.infos)
-                .join(" ")
-                .toLowerCase()
-                .includes(search.value.toLowerCase())
-    );
+    // split search keywords by space
+    const keywords = search.value.split(" ");
+    // filter fillots by keywords
+
+    if (!search.value) {
+        return liste_fillots.value;
+    }
+
+    return liste_fillots.value.filter((fillot) => {
+        // check if fillot matches all keywords
+
+        return keywords.every((keyword) => {
+            // check if keyword is in fillot's name
+            return (
+                fillot.prenom.toLowerCase().startsWith(keyword.toLowerCase()) ||
+                fillot.nom.toLowerCase().startsWith(keyword.toLowerCase()) ||
+                Object.values(fillot.infos)
+                    .splice(9)
+                    .join(" ")
+                    .toLowerCase()
+                    .includes(keyword.toLowerCase())
+            );
+        });
+    });
 });
 
 const selectFillot = async (id: string) => {
