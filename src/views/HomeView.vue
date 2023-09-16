@@ -143,6 +143,15 @@
                     }}
                 </button>
                 <button
+                    class="select-btn cursor-not-allowed bg-gray-500"
+                    v-else-if="activeFillot.parrain !== ''"
+                >
+                    <p>
+                        {{ activeFillot?.prenom }} a déjà été adopté par
+                        quelqu'un d'autre !
+                    </p>
+                </button>
+                <button
                     class="select-btn bg-rose-500"
                     v-else-if="shotgunDate.getTime() > currentTime"
                 >
@@ -169,15 +178,6 @@
                         as déjà adopté
                         {{ MAXIMUM_FILLOTS }}
                         fillot{{ MAXIMUM_FILLOTS > 1 ? "s" : "" }}
-                    </p>
-                </button>
-                <button
-                    class="select-btn cursor-not-allowed bg-gray-500"
-                    v-else
-                >
-                    <p>
-                        {{ activeFillot?.prenom }} a déjà été adopté par
-                        quelqu'un d'autre !
                     </p>
                 </button>
             </div>
@@ -316,9 +316,6 @@ const selectFillot = async (id: string) => {
     }
     await pb.collection("Fillots").update(fillot.id, {
         parrain: user.value?.id,
-    });
-    await pb.collection("Users").update(user.value.id, {
-        fillots: [fillot.id, ...user.value.fillots],
     });
 };
 
