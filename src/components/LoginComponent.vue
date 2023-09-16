@@ -79,13 +79,18 @@
                     Pôle Web > Pôle Com >>> CRB > UNV > WST > JUP >>>>> MSQ > JK
                     > NK > BAR > Pôle event
                 </p>
-                <span>&copy; 2023 Pôle Web BDE. Aucun droit réservé.</span>
+                <span><span class="copyleft">&copy;</span> 2023 Pôle Web BDE. Aucun droit réservé.</span>
+            </div>
             </div>
         </div>
     </div>
 </template>
 
 <style scoped>
+.copyleft {
+    display: inline-block;
+    transform: rotate(180deg);
+}
 ::placeholder {
     color: #fff;
 }
