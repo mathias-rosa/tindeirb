@@ -1,21 +1,15 @@
 <template>
-    <div>
-        <!-- <p>{{ targetDate.toLocaleDateString() }}</p> -->
-        <p v-if="timeRemaining > 0" class="font-semibold">
-            {{
-                `${
-                    days > 0
-                        ? days === 1
-                            ? days + "jour,"
-                            : days + "jours, "
-                        : ""
-                }`
-            }}
-            {{ `${hours > 0 ? hours + "h, " : ""}` }}
-            {{ `${minutes > 0 ? minutes + " min et " : ""}` }}
-            {{ seconds }} s
-        </p>
-    </div>
+    <!-- <p>{{ targetDate.toLocaleDateString() }}</p> -->
+    <p v-if="timeRemaining > 0" class="font-semibold inline-block">
+        {{
+            `${
+                days > 0 ? (days === 1 ? days + "jour," : days + "jours, ") : ""
+            }`
+        }}
+        {{ `${hours > 0 ? hours + "h, " : ""}` }}
+        {{ `${minutes > 0 ? minutes + " min et " : ""}` }}
+        {{ seconds }} s
+    </p>
 </template>
 
 <script lang="ts">

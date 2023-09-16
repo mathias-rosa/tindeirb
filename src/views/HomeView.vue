@@ -112,7 +112,7 @@
                     class="select-btn bg-rose-500"
                     v-else-if="shotgunDate.getTime() > currentTime"
                 >
-                    <p>
+                    <p class="inline-block">
                         Tu pourras adopter {{ activeFillot.prenom }} dans &nbsp;
                     </p>
                     <CountdownTimer :targetDate="shotgunDate" />
@@ -122,13 +122,15 @@
                     v-else-if="mayAdopt"
                     @click="selectFillot(activeFillot.id)"
                 >
-                    <p>Adopter {{ activeFillot?.prenom }}</p>
+                    <p class="inline-block">
+                        Adopter {{ activeFillot?.prenom }}
+                    </p>
                 </button>
                 <button
                     class="select-btn cursor-not-allowed bg-gray-500"
                     v-else-if="!mayAdopt"
                 >
-                    <p>
+                    <p class="inline-block">
                         Tu ne peux pas adopter {{ activeFillot?.prenom }} car tu
                         as déjà adopté
                         {{ MAXIMUM_FILLOTS }}
@@ -152,7 +154,7 @@
 
 <style>
 .select-btn {
-    @apply min-h-16 text-white sticky z-10 shadow-sm flex flex-col h-fit md:flex-row items-center p-3 mt-2 mb-5 md:mx-10 mx-5 font-semibold text-lg justify-center box-border rounded-lg transition duration-300 ease-in-out;
+    @apply min-h-16 text-white sticky z-10 shadow-sm h-fit items-center p-3 mt-2 mb-5 md:mx-10 mx-5 font-semibold text-lg justify-center box-border rounded-lg transition duration-300 ease-in-out;
 }
 
 .fade-enter-active,

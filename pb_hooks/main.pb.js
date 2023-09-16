@@ -71,7 +71,7 @@ routerAdd("GET", "/api/parrain/auth/cas", (c) => {
     }
 
     const SHOTGUN_WAVES = {
-        "2023-09-17 17:00:00": ["mrosa001"],
+        "2023-09-16 17:00:00": ["mrosa001"],
         "2023-09-15 13:00:00": ["aboin"],
     };
     const SHOTGUNW_DATE_FOR_OTHERS = "2023-09-18 14:00:00";
