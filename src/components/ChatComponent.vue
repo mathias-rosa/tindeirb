@@ -15,14 +15,16 @@
 
     <RightBubble :sender="user.firstName" message="Super !" />
 
-    <RightBubble message="Je te contacte parce que je cherche un fillot." />
+    <RightBubble
+        message="Je te contacte parce que je cherche un fillot / une fillote."
+    />
     <RightBubble message="Je peux te poser quelques questions ?" />
 
     <LeftBubble :sender="activeFillot.prenom" message="Ouais carément !" />
 
     <RightBubble :sender="user.firstName" message="Ok trop bien !" />
     <RightBubble
-        :message="`Tu peux me donner ta Mensuration ? \n (comme première question c'est bizare mais c'est pas moi mdr)`"
+        :message="`Tu peux me donner tes Mensuration ? \n (comme première question c'est bizare mais c'est pas moi mdr)`"
     />
 
     <LeftBubble
@@ -31,6 +33,25 @@
     />
 
     <RightBubble :sender="user.firstName" message="Ok nickel 👌" />
+    <RightBubble
+        message="Si tu devais changer de nom, comment tu t'appellerais ?"
+    />
+
+    <LeftBubble
+        :sender="activeFillot.prenom"
+        :message="`${activeFillot.infos['7']} ${activeFillot.infos['6']}`"
+    />
+
+    <RightBubble
+        v-if="
+            activeFillot.infos['7'] === activeFillot.prenom &&
+            activeFillot.infos['6'] === activeFillot.nom
+        "
+        :sender="user.firstName"
+        message="Pas très original 😅"
+    />
+    <RightBubble v-else :sender="user.firstName" message="Stylé !" />
+
     <RightBubble message="Et de quelle formation viens tu ?" />
 
     <LeftBubble
@@ -164,7 +185,7 @@
 
     <RightBubble :sender="user.firstName" message="Ok prochaine rubrique" />
     <RightBubble message="Fais nous rêver c'est ton moment !" />
-    <RightBubble message="Quel est l'objectif de ton année :" />
+    <RightBubble message="Quel est l'objectif de ton année ?" />
 
     <LeftBubble
         :sender="activeFillot.prenom"
@@ -173,7 +194,7 @@
 
     <RightBubble
         :sender="user.firstName"
-        message="Si tu était un légume, lequel serais-tu et pourquoi?"
+        message="Si tu étais un légume, lequel serais-tu et pourquoi ?"
     />
 
     <LeftBubble
@@ -217,7 +238,7 @@
 
     <RightBubble
         :sender="user.firstName"
-        message="Quel est pour toi le parrain idéal ?"
+        message="Quel est pour toi le parrain ou la marraine idéal.e"
     />
 
     <LeftBubble
