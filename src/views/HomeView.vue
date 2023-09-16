@@ -17,7 +17,7 @@
                 <div class="w-full p-5">
                     <input
                         type="text"
-                        placeholder="🔍 Rechercher un nom ou un mot clé (ex: BDE 👀)"
+                        placeholder="🔍 Rechercher un nom ou des mots clés (ex: BDE 👀)"
                         v-model="search"
                         class="w-full px-5 py-3 rounded-full box-border bg-gray-100 dark:bg-gray-700 outline-none hover:ring-2 hover:ring-gray-500 transition duration-300 ease-in-out"
                     />
