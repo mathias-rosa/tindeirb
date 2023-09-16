@@ -20,6 +20,36 @@
                             class="w-full px-5 py-3 rounded-full box-border bg-gray-100 dark:bg-gray-700 outline-none hover:ring-2 hover:ring-gray-500 transition duration-300 ease-in-out"
                         />
                     </div>
+
+                    <div class="tabs px-5">
+                        <a
+                            class="tab text-lg transition duration-300 ease-in-out"
+                            :class="{
+                                'tab-active tab-bordered':
+                                    currentView === 'all',
+                            }"
+                            @click="currentView = 'all'"
+                            >Tous</a
+                        >
+                        <a
+                            class="tab text-lg transition duration-300 ease-in-out"
+                            :class="{
+                                'tab-active tab-bordered':
+                                    currentView === 'favorites',
+                            }"
+                            @click="currentView = 'favorites'"
+                            >Favoris</a
+                        >
+                        <a
+                            class="tab text-lg transition duration-300 ease-in-out"
+                            @click="currentView = 'mine'"
+                            :class="{
+                                'tab-active tab-bordered':
+                                    currentView === 'mine',
+                            }"
+                            >Mes fillot.e.s</a
+                        >
+                    </div>
                 </div>
 
                 <div class="overflow-y-scroll m-2 mr-0 pr-1">
@@ -97,6 +127,24 @@
                                 A été adopté par un de vos collègues
                             </h1>
                         </div>
+                        <button
+                            class="relative rounded-full h-8 flex items-center justify-center aspect-square bg-white shadow-md hover:scale-110 transition duration-300 ease-in-out"
+                            @click="
+                                favorites.includes(fillot.id)
+                                    ? removeFavorite(fillot.id)
+                                    : addFavorite(fillot.id)
+                            "
+                        >
+                            <img
+                                :src="
+                                    favorites.includes(fillot.id)
+                                        ? '/img/x.svg'
+                                        : '/img/heart.svg'
+                                "
+                                alt="heart"
+                                class="w-5 h-5"
+                            />
+                        </button>
                     </div>
                 </div>
             </div>
@@ -271,20 +319,51 @@ const scrollToTop = () => {
 
 const MAXIMUM_FILLOTS = 1;
 
+const currentView = ref("all");
+
+const favorites: Ref<String[]> = ref([]);
+
+const addFavorite = (id: string) => {
+    favorites.value.push(id);
+};
+
+const removeFavorite = (id: string) => {
+    favorites.value.splice(
+        favorites.value.findIndex((favorite) => favorite === id),
+        1
+    );
+};
+
 const liste_fillots: Ref<Fillot[]> = ref([]);
 
 const search = ref("");
 
 const filteredFillots = computed(() => {
+    let fillots = liste_fillots.value;
+
+    if (currentView.value === "favorites") {
+        fillots = fillots.filter((fillot) => {
+            if (favorites.value.includes(fillot.id)) {
+                return fillot;
+            }
+        });
+    } else if (currentView.value === "mine") {
+        fillots = fillots.filter((fillot) => {
+            if (fillot.parrain === user.value?.id) {
+                return fillot;
+            }
+        });
+    }
+
     // split search keywords by space
     const keywords = search.value.replace(",", " ").split(" ");
     // filter fillots by keywords
 
     if (!search.value) {
-        return liste_fillots.value;
+        return fillots;
     }
 
-    return liste_fillots.value.filter((fillot) => {
+    return fillots.filter((fillot) => {
         // check if fillot matches all keywords
 
         return keywords.every((keyword) => {
