@@ -15,7 +15,12 @@
                 </button>
             </header>
             <main :style="{ opacity: 1 - scroll }">
-                <h1>Découvrez<br />votre fillot.e<sup>TM</sup></h1>
+                <h1 class="text-5xl md:text-[110px]">
+                    Découvrez<br />votre fillot.e<sup
+                        class="text-3xl md:text-[34px]"
+                        >TM</sup
+                    >
+                </h1>
                 <template v-if="showPassword">
                     <input
                         type="text"
@@ -61,11 +66,13 @@
             relation avec leurs futurs fillots en fonction de leurs centres
             d'intérêts, leurs passions, leurs projets, leurs envies, etc.
             <hr />
-            Pôle Web > Pôle Com >>> CRB > UNV > WST > JUP >>>>> MSQ > JK > NK >
-            BAR > Pôle event
-            <span style="float: right"
-                >&copy; 2023 Pôle Web BDE. Aucun droit réservé.</span
-            >
+            <div class="flex justify-between gap-3 flex-col lg:flex-row">
+                <p>
+                    Pôle Web > Pôle Com >>> CRB > UNV > WST > JUP >>>>> MSQ > JK
+                    > NK > BAR > Pôle event
+                </p>
+                <span>&copy; 2023 Pôle Web BDE. Aucun droit réservé.</span>
+            </div>
         </div>
     </div>
 </template>
@@ -80,8 +87,7 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed;*/
-
+    background-attachment: fixed;
     height: 100vh;
 }
 
@@ -133,6 +139,12 @@ header {
     border-radius: 20px;
     font-size: 20px;
     font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.login-btn:hover {
+    background: #ff3683;
+    color: #fff;
 }
 
 main {
@@ -142,7 +154,6 @@ main {
 }
 
 h1 {
-    font-size: 110px;
     font-weight: 600;
     color: #fff;
     margin-bottom: 20px;
@@ -152,7 +163,6 @@ h1 {
 }
 
 h1 sup {
-    font-size: 34px;
     font-weight: normal;
     color: #fff;
     margin-top: 50px;
@@ -188,8 +198,8 @@ footer {
 hr {
     border: 0;
     height: 1px;
-    background: #444;
     margin: 20px 0;
+    @apply bg-gray-400;
 }
 </style>
 

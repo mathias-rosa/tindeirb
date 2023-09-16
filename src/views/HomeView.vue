@@ -3,7 +3,7 @@
         <img src="/img/logo.png" alt="Logo" class="w-32" />
     </div>
     <div
-        class="flex items-center w-full h-full bg bg-rose-50 dark:bg-gray-950"
+        class="flex items-center w-full h-full gradient dark:bg-gray-950"
         v-if="user"
     >
         <div
@@ -29,7 +29,12 @@
                     v-for="fillot in filteredFillots"
                     :key="fillot.id"
                     class="flex gap-2 justify-between p-3 mb-1 w-full cursor-pointer items-center rounded-md"
-                    @click="activeFillotId = fillot.id"
+                    @click="
+                        () => {
+                            activeFillotId = fillot.id;
+                            scrollToTop();
+                        }
+                    "
                     :class="{
                         'bg-rose-500 text-white dark:text-gray-900':
                             activeFillotId === fillot.id,
@@ -64,7 +69,7 @@
             </div>
         </div>
 
-        <div class="flex flex-col h-screen w-full z-10" v-if="activeFillot">
+        <div class="flex flex-col h-screen w-full z-10 bg" v-if="activeFillot">
             <div
                 class="w-full min-h-16 h-fit md:h-16 bg-white dark:bg-gray-900 relative z-10 shadow-sm flex flex-col md:flex-row items-center gap-3 md:gap-0 p-5 font-semibold text-lg justify-between"
             >
@@ -83,7 +88,7 @@
                     </button>
                 </div>
             </div>
-            <div class="p-10 flex-1 overflow-y-scroll">
+            <div class="p-10 flex-1 overflow-y-scroll" ref="discussion">
                 <p class="text-gray-800 dark:text-gray-200 text-center w-full">
                     Début de votre discussion avec {{ activeFillot.prenom }}
                 </p>
@@ -244,16 +249,6 @@
                 />
 
                 <RightBubble message="et c'est quoi ”un listeux” ?" />
-
-                <LeftBubble
-                    :sender="activeFillot.prenom"
-                    :message="activeFillot.infos['20']"
-                />
-
-                <RightBubble
-                    :sender="user.firstName"
-                    message="C'est quoi ”un listeux” ?"
-                />
 
                 <LeftBubble
                     :sender="activeFillot.prenom"
@@ -488,7 +483,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(0deg,#ff6036,#fd277a) no-repeat 50% fixed;
+    background: linear-gradient(0deg, #ff6036, #fd277a) no-repeat 50% fixed;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -502,6 +497,10 @@
     width: 64px;
     height: auto;
     animation: pulse 1s ease-in-out infinite;
+}
+
+.gradient {
+    background: linear-gradient(0deg, #ff603622, #fd277a22) no-repeat 50% fixed;
 }
 
 @keyframes splashscreen {
@@ -537,6 +536,15 @@ import HeaderComponent from "@/components/HeaderComponent.vue";
 import LeftBubble from "@/components/LeftBubble.vue";
 import RightBubble from "@/components/RightBubble.vue";
 import CountdownTimer from "@/components/CountdownTimer.vue";
+
+const discussion = ref<HTMLElement | null>(null);
+
+const scrollToTop = () => {
+    discussion.value?.scrollTo({
+        top: 0,
+        behavior: "smooth",
+    });
+};
 
 const MAXIMUM_FILLOTS = 1;
 
