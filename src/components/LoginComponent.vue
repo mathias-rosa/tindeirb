@@ -1,5 +1,6 @@
 <template>
     <div class="background">
+        <PhotosBackground />
         <div class="background-overlay">
             <header>
                 <div class="logo">
@@ -44,8 +45,10 @@
             Avec déjà plus de 10000 ingénieurs diplômés depuis 1920, l'ENSEIRB-MATMECA est un très bon plan pour trouver ton ou ta prochaine fillot.e. Que tu sois d'Informatique, d'Élecronique, de Matmeca, de Télécom, de R&I ou encore de SEE, tu trouveras forcément ton bonheur.<br /><br />
             Tind'eirb est une application de rencontre pour les futurs ingénieurs de l'ENSEIRB-MATMECA. Elle permet de les mettre en relation avec leurs futurs fillots en fonction de leurs centres d'intérêts, leurs passions, leurs projets, leurs envies, etc.
             <hr />
-            Pôle Web > Pôle Com >>> UNV > WST > JUP >>>>> MSQ > JK > NK  > BAR > Pôle event > CRB
-            <span style="float: right;">🄯 2023 Pôle Web BDE. Aucun droit réservé.</span>
+            <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+                <span>Pôle Web > Pôle Com >>> UNV > WST > JUP >>>>> MSQ > JK > NK  > BAR > Pôle event > CRB</span>
+                <span>🄯 2023 Pôle Web BDE. Aucun droit réservé.</span>
+            </div>
         </div>
     </div>
 </template>
@@ -56,11 +59,11 @@
 }
 
 .background {
-    background-image: url("/img/background.webp");
+    /*background-image: url("/img/background.webp");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed;
+    background-attachment: fixed;*/
 
     height: 100vh;
 }
@@ -155,7 +158,7 @@ footer {
 
 .mentions {
     background-color: #111418;
-    padding: 20px 70px;
+    padding: 40px 70px;
     font-size: 16px;
 }
 
@@ -171,6 +174,7 @@ hr {
 <script setup lang="ts">
 import { ref, onBeforeMount, onBeforeUnmount } from "vue";
 import { login } from "@/api/pocketbase";
+import PhotosBackground from "@/components/PhotosBackground.vue";
 
 const email = ref("");
 const password = ref("");
