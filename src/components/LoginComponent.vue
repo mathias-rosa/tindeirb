@@ -4,8 +4,16 @@
         <div class="background-overlay">
             <header>
                 <div class="logo">
-                    <img src="/img/logo.png" alt="Logo" class="w-32" />
-                    <img src="/img/logo_text.png" alt="Logo" class="w-32" />
+                    <img
+                        src="/img/logo.png"
+                        alt="Logo"
+                        class="h-7 md:h-8 w-auto"
+                    />
+                    <img
+                        src="/img/logo_text.png"
+                        alt="Logo"
+                        class="h-7 md:h-8 w-auto"
+                    />
                 </div>
                 <button
                     class="login-btn"
@@ -127,7 +135,6 @@ header {
 }
 
 .logo img {
-    height: 36px;
     width: auto;
     margin-right: 4px;
 }
