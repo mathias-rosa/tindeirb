@@ -290,11 +290,13 @@ const membres = [
         name: 'Mathis',
         age: 20,
         photo: './img/membres/mathis.jpg',
+        id: 'mathis'
     },
     {
         name: 'Marie',
         age: 20,
         photo: './img/membres/marie.jpg',
+        id: 'marie'
     }
 ]
 
