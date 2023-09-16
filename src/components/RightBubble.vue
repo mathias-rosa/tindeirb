@@ -4,7 +4,7 @@
             {{ sender }}
         </div>
         <div
-            class="chat-bubble shadow-sm text-md bg-white text-gray-800 font-medium"
+            class="chat-bubble shadow-sm text-md bg-white/80 backdrop-blur-sm text-gray-800 font-medium"
         >
             <p v-if="message" style="white-space: pre-wrap">
                 {{ message }}

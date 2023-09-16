@@ -7,7 +7,7 @@
         v-if="user"
     >
         <div
-            class="w-full md:max-w-md h-full self-start flex flex-col bg-white dark:bg-gray-900"
+            class="w-full md:max-w-md h-full self-start flex flex-col bg-white dark:bg-gray-900 shadow-sm"
         >
             <div class="w-full shadow-sm">
                 <HeaderComponent />
@@ -77,7 +77,13 @@
                         Fermer
                     </button>
                 </div>
-                <div class="p-10 overflow-y-scroll test">
+                <div class="p-10 overflow-y-scroll">
+                    <p
+                        class="text-gray-800 dark:text-gray-200 text-center w-full"
+                    >
+                        Début de votre discussion avec {{ activeFillot.prenom }}
+                    </p>
+
                     <RightBubble
                         :sender="user.firstName"
                         :message="`Salut ${activeFillot.prenom} ! Comment ça va ?`"
@@ -414,7 +420,7 @@
 
                     <!-- {{ activeFillot.infos }} -->
 
-                    <div class="chat-footer mx-2">Vu il y a 6 jouts</div>
+                    <div class="chat-footer mx-2">Vu il y a 6 jours</div>
                 </div>
                 <button
                     class="select-btn bg-gray-500 cursor-not-allowed text-white"
@@ -430,17 +436,24 @@
                     }}
                 </button>
                 <button
+                    class="select-btn bg-rose-500"
+                    v-else-if="shotgunDate.getTime() > currentTime"
+                >
+                    Tu pourras adopter {{ activeFillot.prenom }} dans
+                    &nbsp;<CountdownTimer :targetDate="shotgunDate" />
+                </button>
+                <button
                     class="select-btn bg-rose-500 hover:bg-black dark:hover:bg-gray-50 dark:hover:text-gray-900"
                     v-else-if="mayAdopt"
                     @click="selectFillot(activeFillot.id)"
                 >
-                    Adopter {{ activeFillot.prenom }}
+                    Adopter {{ activeFillot?.prenom }}
                 </button>
                 <button
                     class="select-btn cursor-not-allowed bg-gray-500"
                     v-else-if="!mayAdopt"
                 >
-                    Tu ne peux pas adopter {{ activeFillot.prenom }} car tu as
+                    Tu ne peux pas adopter {{ activeFillot?.prenom }} car tu as
                     déjà adopté
                     {{ MAXIMUM_FILLOTS }}
                     fillot{{ MAXIMUM_FILLOTS > 1 ? "s" : "" }}
@@ -449,7 +462,7 @@
                     class="select-btn cursor-not-allowed bg-gray-500"
                     v-else
                 >
-                    {{ activeFillot.prenom }} a déjà été adopté par quelqu'un
+                    {{ activeFillot?.prenom }} a déjà été adopté par quelqu'un
                     d'autre !
                 </button>
             </div>
@@ -527,6 +540,7 @@ import LoginComponent from "@/components/LoginComponent.vue";
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import LeftBubble from "@/components/LeftBubble.vue";
 import RightBubble from "@/components/RightBubble.vue";
+import CountdownTimer from "@/components/CountdownTimer.vue";
 
 const MAXIMUM_FILLOTS = 1;
 
@@ -613,8 +627,21 @@ function loadFillots() {
             liste_fillots.value = fillots as Fillot[];
         });
 }
+const shotgunDate = ref(new Date(user.value?.shotgunDate));
 
-watch(() => user.value, loadFillots);
+watch(
+    () => user.value,
+    () => {
+        loadFillots();
+        shotgunDate.value = new Date(user.value?.shotgunDate);
+    }
+);
+
+const currentTime = ref(Date.now());
+
+setInterval(() => {
+    currentTime.value = Date.now();
+}, 1000);
 
 loadFillots();
 

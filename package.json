@@ -13,6 +13,7 @@
         "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
     },
     "dependencies": {
+        "@chenfengyuan/vue-countdown": "^2.1.2",
         "pinia": "^2.1.4",
         "pocketbase": "^0.17.3",
         "vue": "^3.3.4",
