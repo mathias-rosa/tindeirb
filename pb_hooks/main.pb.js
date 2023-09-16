@@ -23,8 +23,6 @@ routerAdd("GET", "/api/parrain/auth/cas", (c) => {
     let ticket = c.queryParam("ticket");
     let redirectUrl = c.queryParam("redirectUrl");
 
-    console.log("coucou");
-
     if (
         !ticket ||
         typeof ticket !== "string" ||
@@ -38,8 +36,6 @@ routerAdd("GET", "/api/parrain/auth/cas", (c) => {
 
     const serviceUrl = `${CAS_PROXY_URL}${redirectUrl}`;
 
-    console.log("serviceUrl", serviceUrl);
-
     // Exchange ticket for user info
     let res = $http.send({
         url: `https://cas.bordeaux-inp.fr/serviceValidate?service=${encodeURIComponent(
@@ -52,8 +48,6 @@ routerAdd("GET", "/api/parrain/auth/cas", (c) => {
      * @type {import("./types.d.ts").BdxInpCasResponse}
      */
     let response = res.json;
-
-    console.log(response);
 
     if (!("authenticationSuccess" in response.serviceResponse)) {
         return c.json(401, { message: "Invalid ticket" });
@@ -145,15 +139,6 @@ onModelAfterUpdate((e) => {
 onAfterBootstrap(() => {
     console.log("App initialized!");
 });
-
-$app.rootCmd.addCommand(
-    new Command({
-        use: "hello",
-        run: (cmd, args) => {
-            console.log("Hello world!" + args.join(" "));
-        },
-    })
-);
 
 $app.rootCmd.addCommand(
     new Command({
