@@ -240,9 +240,15 @@
                         :key="activeFillot.id"
                     />
                 </div>
+                <button class="select-btn bg-rose-500" v-if="parrainYear > 4">
+                    <p class="inline-block">
+                        Tu ne peux pas adopter de fillot.e.s car tu es trop
+                        vieux !
+                    </p>
+                </button>
                 <button
                     class="select-btn bg-gray-500 cursor-not-allowed text-white"
-                    v-if="activeFillot.parrain === user.id"
+                    v-else-if="activeFillot.parrain === user.id"
                 >
                     {{ activeFillot.prenom }} est déjà
                     {{
@@ -382,6 +388,12 @@ const scrollToTop = () => {
 };
 
 const MAXIMUM_FILLOTS = 3;
+const parrainYear = computed(() => {
+    if (!user.value) {
+        return 0;
+    }
+    return user.value.diploma.substring(5, 6);
+});
 
 const currentView = ref("all");
 
