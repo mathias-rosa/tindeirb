@@ -24,6 +24,113 @@ routerAdd("GET", "/api/parrain/auth/cas", (c) => {
     let ticket = c.queryParam("ticket");
     let redirectUrl = c.queryParam("redirectUrl");
 
+    const BDA = [
+        "aalbarran",
+        "acharlier002",
+        "acoutureau",
+        "adedecker",
+        "ahauswald",
+        "aosetek",
+        "aroussely",
+        "avanlancker",
+        "bhuet",
+        "capel",
+        "cdomas",
+        "clmaitre002",
+        "cpiette",
+        "electakone",
+        "emalletdech",
+        "eodounlami",
+        "eskubler006",
+        "fcoutant",
+        "ighanem015",
+        "jduchiron",
+        "jdunoyer",
+        "mabeauvais",
+        "maparicio001",
+        "mmkadem",
+        "mweiss003",
+        "rgamain",
+        "soyhanto",
+        "vrieffel001",
+        "zrihani019",
+    ];
+
+    const bureauBDE = [
+        "adurand015",
+        "hracape",
+        "lazouz",
+        "rgodin002",
+        "tbley001",
+        "tchatelain",
+    ];
+
+    const BDE = [
+        "aallardin",
+        "bdupouy004",
+        "btabardel",
+        "ebardat",
+        "eskubler006",
+        "gperrouelle",
+        "lelice",
+        "lmoreau005",
+        "lponsin",
+        "lvichet",
+        "madelahay",
+        "mchallut",
+        "mdesboisren",
+        "metienne009",
+        "mliateni",
+        "mrosa001",
+        "nbossi",
+        "nlebrun002",
+        "oclafitte",
+        "pgallas",
+        "rdarragon",
+        "tclaudel",
+        "tcoutan",
+        "thumbertcla",
+        "tkamil",
+        "tmorel003",
+        "vmonti",
+        "ykouassi003",
+    ];
+
+    const BDS = [
+        "abenhnini",
+        "aclaudon001",
+        "adedecker",
+        "aelouazzani",
+        "aespinosa002",
+        "aldelaveau",
+        "amuller005",
+        "bfourcade003",
+        "bglacial",
+        "chalonso",
+        "cmorellini",
+        "egerard003",
+        "electakone",
+        "fcoutant",
+        "froyonchale",
+        "hbastien",
+        "jtcandele",
+        "lkrumm",
+        "lperier001",
+        "lperrin011",
+        "mantoine002",
+        "mdanel001",
+        "mhamoura019",
+        "mlgendre",
+        "mmonello",
+        "ndeprelle",
+        "odulhoste",
+        "tcharpentie",
+        "wyengue",
+        "ysol",
+    ];
+
+    const BAR = [];
+
     if (
         !ticket ||
         typeof ticket !== "string" ||
@@ -71,11 +178,14 @@ routerAdd("GET", "/api/parrain/auth/cas", (c) => {
         return c.json(403, { message: "Unauthorized" });
     }
 
+    // Les horraires sont en UTC (il faut donc ajouter 2h pour avoir l'heure française)
     const SHOTGUN_WAVES = {
-        "2023-09-16 17:00:00": ["mrosa001"],
-        "2023-09-15 13:00:00": ["aboin"],
+        "2023-09-20 10:40:00": bureauBDE,
+        "2023-09-20 11:00:00": BDE,
+        "2023-09-20 11:30:00": BAR,
+        "2023-09-20 16:00:00": [...BDA, ...BDS],
     };
-    const SHOTGUNW_DATE_FOR_OTHERS = "2023-09-18 14:00:00";
+    const SHOTGUNW_DATE_FOR_OTHERS = "2023-09-21 10:50:00";
 
     let shotgunDate = SHOTGUNW_DATE_FOR_OTHERS;
     for (const [date, usernames] of Object.entries(SHOTGUN_WAVES)) {
