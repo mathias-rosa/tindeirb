@@ -33,3 +33,9 @@ pb_migrations
 
 # Pocketbase platform-specific binary
 pocketbase_arm64
+
+# Pocketbase public folder
+pb_public
+
+# Environtment variables
+.env
