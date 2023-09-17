@@ -186,12 +186,12 @@ routerAdd("GET", "/api/parrain/auth/cas", (c) => {
 
     // Les horraires sont en UTC (il faut donc ajouter 2h pour avoir l'heure française)
     const SHOTGUN_WAVES = {
-        "2023-09-20 10:40:00": bureauBDE,
-        "2023-09-20 11:00:00": BDE,
-        "2023-09-20 11:30:00": BAR,
-        "2023-09-20 16:00:00": [...BDA, ...BDS],
+        "2023-09-19 10:40:00": bureauBDE,
+        "2023-09-19 11:00:00": BDE,
+        "2023-09-19 11:30:00": BAR,
+        "2023-09-19 16:00:00": [...BDA, ...BDS],
     };
-    const SHOTGUNW_DATE_FOR_OTHERS = "2023-09-21 10:50:00";
+    const SHOTGUNW_DATE_FOR_OTHERS = "2023-09-20 10:50:00";
 
     let shotgunDate = SHOTGUNW_DATE_FOR_OTHERS;
     for (const [date, usernames] of Object.entries(SHOTGUN_WAVES)) {

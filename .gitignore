@@ -36,6 +36,7 @@ pocketbase_arm64
 
 # Pocketbase public folder
 pb_public
+pb_data/
 
 # Environtment variables
 .env
