@@ -30,3 +30,6 @@ coverage
 # Pocketbase data
 # pb_data
 pb_migrations
+
+# Pocketbase platform-specific binary
+pocketbase_arm64
