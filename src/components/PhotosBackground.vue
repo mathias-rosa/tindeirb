@@ -194,7 +194,7 @@ const membres = [
         name: 'Tom',
         age: 22,
         photo: './img/membres/tom.jpg',
-        id: 'tom'
+        id: 'tom1'
     },
     {
         name: 'Julie',
@@ -297,6 +297,12 @@ const membres = [
         age: 20,
         photo: './img/membres/marie.jpg',
         id: 'marie'
+    },
+    {
+        name: 'Tom',
+        age: 21,
+        photo: './img/membres/tom2.jpg',
+        id: 'tom2'
     }
 ]
 
