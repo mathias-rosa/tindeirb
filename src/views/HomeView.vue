@@ -15,7 +15,7 @@
                     <div class="w-full p-5">
                         <input
                             type="text"
-                            placeholder="🔍 Rechercher un nom ou des mots clés (ex: BDE 👀)"
+                            placeholder="🔍 Rechercher un nom ou des mots-clés"
                             v-model="search"
                             class="w-full px-5 py-3 rounded-full box-border bg-gray-100 dark:bg-gray-700 outline-none hover:ring-2 hover:ring-gray-500 transition duration-300 ease-in-out"
                         />
@@ -425,6 +425,23 @@ const search = ref("");
 const filteredFillots = computed(() => {
     let fillots = liste_fillots.value;
 
+    function formatString(text: string) {
+        return text
+            .normalize("NFD")
+            .replace(/\p{Diacritic}/gu, "")
+            .toLowerCase();
+    }
+
+    function generateSearchString(fillot: Fillot) {
+        const infos: string[] = [];
+        for (const [key, value] of Object.entries(fillot.infos)) {
+            if (parseInt(key) > 8) {
+                infos.push(formatString(value));
+            }
+        }
+        return infos.join(" ");
+    }
+
     if (currentView.value === "favorites") {
         fillots = fillots.filter((fillot) => {
             if (user.value?.favorites.includes(fillot.id)) {
@@ -449,17 +466,14 @@ const filteredFillots = computed(() => {
 
     return fillots.filter((fillot) => {
         // check if fillot matches all keywords
+        console.log(generateSearchString(fillot));
 
         return keywords.every((keyword) => {
             // check if keyword is in fillot's name
             return (
-                fillot.prenom.toLowerCase().startsWith(keyword.toLowerCase()) ||
-                fillot.nom.toLowerCase().startsWith(keyword.toLowerCase()) ||
-                Object.values(fillot.infos)
-                    .splice(9)
-                    .join(" ")
-                    .toLowerCase()
-                    .includes(keyword.toLowerCase())
+                formatString(fillot.prenom).startsWith(formatString(keyword)) ||
+                formatString(fillot.nom).startsWith(formatString(keyword)) ||
+                generateSearchString(fillot).includes(formatString(keyword))
             );
         });
     });
