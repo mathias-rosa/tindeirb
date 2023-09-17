@@ -76,10 +76,14 @@
                                 fillot.parrain === '',
                         }"
                     >
-                        <img
+                        <!-- <img
                             :src="'https://cataas.com/cat?cas=' + fillot.id"
                             class="w-12 h-12 rounded-full aspect-square object-cover"
-                        />
+                        /> -->
+                        <div class="w-16 h-16">
+                            <ProfilePicture :seed="fillot.id" />
+                        </div>
+
                         <div
                             class="flex flex-col w-full text-gray-500 dark:text-gray-200"
                             :class="{
@@ -306,6 +310,7 @@ import LoginComponent from "@/components/LoginComponent.vue";
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import CountdownTimer from "@/components/CountdownTimer.vue";
 import ChatComponent from "@/components/ChatComponent.vue";
+import ProfilePicture from "@/components/ProfilePicture.vue";
 
 const discussion = ref<HTMLElement | null>(null);
 

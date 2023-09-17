@@ -1,5 +1,10 @@
 <template>
     <div class="chat chat-start">
+        <div class="chat-image avatar">
+            <div class="w-10 rounded-full">
+                <ProfilePicture :seed="senderId" />
+            </div>
+        </div>
         <div class="chat-header py-1 px-3" v-if="sender">
             {{ sender }}
         </div>
@@ -22,9 +27,14 @@
 </template>
 
 <script setup lang="ts">
+import ProfilePicture from "./ProfilePicture.vue";
 defineProps({
     sender: String,
     message: String,
+    senderId: {
+        type: String,
+        required: true,
+    },
 });
 
 const beautifyMessage = (message: string) => {
