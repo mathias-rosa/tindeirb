@@ -264,8 +264,14 @@ onBeforeMount(() => {
             }/api/parrain/auth/cas?ticket=${ticket}&redirectUrl=${redirectUrl}`,
         )
             .then((response) => response.json())
-            .then(({ username, password }) => {
-                login(username, password);
+            .then(({ status, message, username, password }) => {
+                if (status === "success") {
+                    login(username, password);
+                } else {
+                    // TODO : Une belle popup ici
+                    alert(message);
+                    loading.value = false;
+                }
             });
     }
 

@@ -118,7 +118,10 @@ routerAdd("GET", "/api/parrain/auth/cas", (c) => {
         !redirectUrl ||
         typeof redirectUrl !== "string"
     ) {
-        return c.json(400, { message: "Invalid request" });
+        return c.json(400, {
+            status: "error",
+            message: "Requête invalide",
+        });
     }
 
     const CAS_PROXY_URL = "https://tcoutan.zzz.bordeaux-inp.fr/casAuth/?url=";
@@ -139,7 +142,10 @@ routerAdd("GET", "/api/parrain/auth/cas", (c) => {
     let response = res.json;
 
     if (!("authenticationSuccess" in response.serviceResponse)) {
-        return c.json(401, { message: "Invalid ticket" });
+        return c.json(401, {
+            status: "error",
+            message: "Ticket CAS invalide"
+        });
     }
 
     const data = response.serviceResponse.authenticationSuccess;
@@ -161,8 +167,22 @@ routerAdd("GET", "/api/parrain/auth/cas", (c) => {
         "IAERS5",
         "IAEEE5",
     ];
+
+    // Les dérogations sont des cas particuliers (redoublants)
+    // On indique en clé le nom d'utilisateur et en valeur le diplôme qu'on leur accorde bien que ce ne soit pas celui retourné par le CAS
+    const DEROGATIONS = {
+        "jpierrel001": "IIEIM4",
+    }
+
+    if (username in DEROGATIONS) {
+        data.attributes.diplome = [DEROGATIONS[username]];
+    }
+
     if (!authorizedDiplomas.includes(data.attributes.diplome.join(""))) {
-        return c.json(403, { message: "Unauthorized" });
+        return c.json(403, {
+            status: "error",
+            message: "Vous n'êtes pas autorisé à vous connecter, seul les 2A et 3A ont accès à cette application"
+        });
     }
 
     // Les horraires sont en UTC (il faut donc ajouter 2h pour avoir l'heure française)
@@ -212,7 +232,11 @@ routerAdd("GET", "/api/parrain/auth/cas", (c) => {
         user.set("shotgunDate", shotgunDate);
         $app.dao().saveRecord(user);
 
-        return c.json(200, { username, password });
+        return c.json(200, {
+            status: "success",
+            username,
+            password
+        });
     } else {
         // Create user
         const userCollection = $app.dao().findCollectionByNameOrId("users");
@@ -227,7 +251,11 @@ routerAdd("GET", "/api/parrain/auth/cas", (c) => {
         user.setPassword(password);
         $app.dao().saveRecord(user);
 
-        return c.json(200, { username, password });
+        return c.json(200, {
+            status: "success",
+            username,
+            password
+        });
     }
 });
 
