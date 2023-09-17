@@ -112,10 +112,14 @@
                                 v-if="fillot.parrain === ''"
                             >
                                 {{
+                                    getFiliaire(
+                                        fillot.filiere,
+                                        fillot.infos["3"]
+                                    ) +
                                     `${
                                         fillot.infos["3"] === "Femme"
-                                            ? "Orpheline"
-                                            : "Orphelin"
+                                            ? " orpheline"
+                                            : " orphelin"
                                     }`
                                 }}
                             </h1>
@@ -434,6 +438,36 @@ const removeFavorite = (id: string) => {
 };
 
 const liste_fillots: Ref<Fillot[]> = ref([]);
+
+const getFiliaire = (code: string, genre: string) => {
+    if (genre === "Femme") {
+        switch (code) {
+            case "IIEIN":
+                return "Informaticienne";
+            case "IIETE":
+                return "Télécom";
+            case "IIEMM":
+                return "Matméca";
+            case "IIEEL":
+                return "Electronicienne";
+            default:
+                return "Animal";
+        }
+    } else {
+        switch (code) {
+            case "IIEIN":
+                return "Informaticien";
+            case "IIETE":
+                return "Télécom";
+            case "IIEMM":
+                return "Matméca";
+            case "IIEEL":
+                return "Electronicien";
+            default:
+                return "Animal";
+        }
+    }
+};
 
 const search = ref("");
 
