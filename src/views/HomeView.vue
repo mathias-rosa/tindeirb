@@ -108,7 +108,7 @@
                                 v-if="fillot.parrain === ''"
                             >
                                 {{
-                                    getFiliaire(
+                                    getFilliere(
                                         fillot.filiere,
                                         fillot.infos["3"]
                                     ) +
@@ -435,7 +435,7 @@ const removeFavorite = (id: string) => {
 
 const liste_fillots: Ref<Fillot[]> = ref([]);
 
-const getFiliaire = (code: string, genre: string) => {
+const getFilliere = (code: string, genre: string) => {
     if (genre === "Femme") {
         switch (code) {
             case "IIEIN":
@@ -471,7 +471,9 @@ const filteredFillots = computed(() => {
     let fillots = liste_fillots.value;
 
     function formatString(text: string) {
-        return text.toString().normalize("NFD")
+        return text
+            .toString()
+            .normalize("NFD")
             .replace(/\p{Diacritic}/gu, "")
             .toLowerCase();
     }
