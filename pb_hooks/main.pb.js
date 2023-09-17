@@ -259,9 +259,9 @@ routerAdd("GET", "/api/parrain/auth/cas", (c) => {
     }
 });
 
-onModelAfterUpdate((e) => {
+/*onModelAfterUpdate((e) => {
     console.log("user updated...", e.model.get("email"));
-}, "users");
+}, "users");*/
 
 onRecordBeforeUpdateRequest((e) => {
     if (e.record.get("parrain") !== "") {
