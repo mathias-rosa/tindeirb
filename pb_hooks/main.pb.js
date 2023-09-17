@@ -411,6 +411,9 @@ $app.rootCmd.addCommand(
 
             const Fillots = $app.dao().findCollectionByNameOrId("Fillots");
 
+            const fillots = arrayOf(new Record());
+            $app.dao().recordQuery("Fillots").all(fillots);
+
             data.forEach((row) => {
                 const fillot = new Record(Fillots);
                 let casId = "unknown";
@@ -425,6 +428,18 @@ $app.rootCmd.addCommand(
                 } else {
                     console.log("casId is not valid", row["4"]);
                 }
+
+                if (
+                    fillots.some(
+                        (fillot) =>
+                            fillot.get("nom") === beautifyName(row["1"]) &&
+                            fillot.get("prenom") === beautifyName(row["2"])
+                    )
+                ) {
+                    console.log("fillot already exists", row["4"]);
+                    return;
+                }
+
                 fillot.set("cas", casId);
                 fillot.set("nom", beautifyName(row["1"]));
                 fillot.set("prenom", beautifyName(row["2"]));
