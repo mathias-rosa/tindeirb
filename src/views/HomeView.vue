@@ -31,7 +31,12 @@
                                 'tab-active tab-bordered':
                                     currentView === 'all',
                             }"
-                            @click="currentView = 'all'"
+                            @click.exact="currentView = 'all'"
+                            @click.ctrl.prevent="
+                                currentView === 'everyone'
+                                    ? (currentView = 'all')
+                                    : (currentView = 'everyone')
+                            "
                             >Tous</a
                         >
                         <a
@@ -242,6 +247,17 @@
                     </p>
                 </button>
                 <button
+                    class="select-btn bg-rose-500"
+                    v-else-if="
+                        activeFillot.filiere !== user?.diploma.slice(0, 5)
+                    "
+                >
+                    <p class="inline-block">
+                        Tu ne peux pas adopter {{ activeFillot.prenom }} car tu
+                        n'es pas dans la même filière !
+                    </p>
+                </button>
+                <button
                     class="select-btn bg-gray-500 cursor-not-allowed text-white"
                     v-else-if="activeFillot.parrain === user.id"
                 >
@@ -441,7 +457,13 @@ const filteredFillots = computed(() => {
         return infos.join(" ");
     }
 
-    if (currentView.value === "favorites") {
+    if (currentView.value === "all") {
+        fillots = fillots.filter((fillot) => {
+            if (fillot.filiere === user.value?.diploma.slice(0, 5)) {
+                return fillot;
+            }
+        });
+    } else if (currentView.value === "favorites") {
         fillots = fillots.filter((fillot) => {
             if (user.value?.favorites.includes(fillot.id)) {
                 return fillot;
@@ -520,7 +542,7 @@ function loadFillots() {
     pb.collection("Fillots")
         .getFullList({
             sort: "prenom,nom",
-            filter: `filiere = "${user.value?.diploma.slice(0, 5)}"`,
+            // filter: `filiere = "${user.value?.diploma.slice(0, 5)}"`,
         })
         .then((fillots) => {
             liste_fillots.value = fillots as Fillot[];
