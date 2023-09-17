@@ -329,7 +329,7 @@ onMounted(() => {
         randomMembers.value = random.concat(
             random.map((m) => ({ ...m, id: m.id + "2" }))
         );
-    }, 5000);
+    }, 3000);
 });
 
 onBeforeUnmount(() => {
