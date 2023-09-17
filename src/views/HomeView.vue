@@ -161,16 +161,59 @@
                         class="text-rose-500 font-semibold text-2xl tracking-tight md:hidden"
                         >Tind'eirb</router-link
                     >
-                    <div class="flex w-full items-center justify-between">
-                        <h1>
-                            {{ activeFillot.prenom }} {{ activeFillot.nom }}
-                        </h1>
+                    <div class="flex w-full items-center gap-4">
                         <button
-                            class="btn dark:bg-white dark:text-gray-900 dark:hover:bg-rose-500 dark:hover:text-white"
+                            class="dark:bg-white dark:text-gray-900 dark:hover:bg-rose-500 dark:hover:text-white"
                             @click="activeFillotId = undefined"
                         >
-                            Fermer
+                            <img
+                                src="/arrow-left-solid.svg"
+                                class="w-6 h-6 dark:filter-invert"
+                                alt="Retour"
+                            />
                         </button>
+                        <div class="w-10 h-10">
+                            <ProfilePicture :seed="activeFillot.id" />
+                        </div>
+                        <div>
+                            <h1>
+                                {{ activeFillot.prenom }} {{ activeFillot.nom }}
+                            </h1>
+                            <h1
+                                class="font-light text-sm text-gray-500 dark:text-gray-200 -mt-1"
+                                v-if="activeFillot.parrain === ''"
+                            >
+                                {{
+                                    `${
+                                        activeFillot.infos["3"] === "Femme"
+                                            ? "Cette 1A recherche un parrain ou une marraine"
+                                            : "Ce 1A recherche un parrain ou une marraine"
+                                    }`
+                                }}
+                            </h1>
+                            <h1
+                                class="font-light text-sm text-gray-500 dark:text-gray-200 -mt-1"
+                                v-if="activeFillot.parrain === user.id"
+                            >
+                                Vous avez adopté
+                                {{
+                                    `${
+                                        activeFillot.infos["3"] === "Femme"
+                                            ? "cette Enseirbienne"
+                                            : "cet Enseirbien"
+                                    }`
+                                }}
+                            </h1>
+                            <h1
+                                class="font-light text-sm text-gray-500 dark:text-gray-200 -mt-1"
+                                v-if="
+                                    activeFillot.parrain !== '' &&
+                                    activeFillot.parrain !== user.id
+                                "
+                            >
+                                A été adopté par un de vos collègues
+                            </h1>
+                        </div>
                     </div>
                 </div>
                 <div class="p-10 flex-1 overflow-y-scroll" ref="discussion">
