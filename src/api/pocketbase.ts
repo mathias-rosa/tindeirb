@@ -1,5 +1,5 @@
 import PocketBase from "pocketbase";
-import { RecordModel } from "pocketbase";
+import type { RecordModel } from "pocketbase";
 import { ref } from "vue";
 
 

@@ -439,8 +439,8 @@
 </template>
 
 <script setup lang="ts">
-import { PropType } from "vue";
-import { Fillot } from "@/api/pocketbase";
+import type { PropType } from "vue";
+import type { Fillot } from "@/api/pocketbase";
 import LeftBubble from "@/components/LeftBubble.vue";
 import RightBubble from "@/components/RightBubble.vue";
 defineProps({

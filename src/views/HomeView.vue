@@ -366,9 +366,10 @@
 </style>
 
 <script setup lang="ts">
-import { computed, ref, Ref, onBeforeUnmount, watch } from "vue";
+import { computed, ref, onBeforeUnmount, watch } from "vue";
+import type { Ref } from "vue";
 import { pb, user } from "@/api/pocketbase";
-import { Fillot } from "@/api/pocketbase";
+import type { Fillot } from "@/api/pocketbase";
 import LoginComponent from "@/components/LoginComponent.vue";
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import CountdownTimer from "@/components/CountdownTimer.vue";

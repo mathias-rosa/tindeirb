@@ -55,7 +55,7 @@ export default {
             currentTime.value = new Date();
         };
 
-        let interval: NodeJS.Timer;
+        let interval: ReturnType<typeof setInterval>;
 
         onMounted(() => {
             // Mettre à jour le compte à rebours chaque seconde

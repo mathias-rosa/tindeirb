@@ -4,21 +4,30 @@
             <div class="screen">
                 <div class="encoche"></div>
                 <img src="/img/tinder.svg" alt="tinder" class="logo" />
-                <div class="photo" :style="{ backgroundImage: 'url(' + membre.photo + ')' }">
+                <div
+                    class="photo"
+                    :style="{ backgroundImage: 'url(' + membre.photo + ')' }"
+                >
                     <div class="description">
                         <span class="name">
                             {{ membre.name }},
-                            <span class="age">
-                                &nbsp;{{ membre.age }}
-                            </span>
-                            <img src="/img/check.svg" alt="verified" class="verified" />
+                            <span class="age"> &nbsp;{{ membre.age }} </span>
+                            <img
+                                src="/img/check.svg"
+                                alt="verified"
+                                class="verified"
+                            />
                         </span>
                         <img src="/img/info.svg" alt="info" class="info" />
                     </div>
                 </div>
                 <div class="buttons">
-                    <img v-for="icon of ['reload', 'x', 'star', 'heart', 'bolt'] " :src="'/img/' + icon + '.svg'"
-                        :key="icon" :alt="icon" />
+                    <img
+                        v-for="icon of ['reload', 'x', 'star', 'heart', 'bolt']"
+                        :src="'/img/' + icon + '.svg'"
+                        :key="icon"
+                        :alt="icon"
+                    />
                 </div>
             </div>
         </div>
@@ -26,7 +35,6 @@
 </template>
 
 <style scoped>
-
 #photos-background {
     background-color: #010101;
     display: flex;
@@ -105,7 +113,11 @@
     align-items: center;
     padding: 14px 12px;
     box-sizing: border-box;
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
+    background: linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.8) 0%,
+        rgba(0, 0, 0, 0) 100%
+    );
 }
 
 .name {
@@ -114,7 +126,7 @@
     color: #fff;
     display: flex;
     align-items: center;
-    font-family: 'Outfit', sans-serif;
+    font-family: "Outfit", sans-serif;
     text-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
 }
 
@@ -161,164 +173,168 @@
 </style>
 
 <script lang="ts" setup>
-import { onBeforeUnmount, onMounted, ref } from 'vue';
+import { onBeforeUnmount, onMounted, ref } from "vue";
 
 /**
-                 * @type {
-                 * name: string,
-                 * age: number,
-                 * photo: string
-                 * id: string
-                 * }[]
-                 */
+ * @type {
+ * name: string,
+ * age: number,
+ * photo: string
+ * id: string
+ * }[]
+ */
 const membres = [
     {
-        name: 'Amandine',
+        name: "Amandine",
         age: 22,
-        photo: './img/membres/amandine.jpg',
-        id: 'amandine'
+        photo: "./img/membres/amandine.jpg",
+        id: "amandine",
     },
     {
-        name: 'Arthur',
+        name: "Arthur",
         age: 20,
-        photo: './img/membres/arthur.jpg',
-        id: 'arthur'
+        photo: "./img/membres/arthur.jpg",
+        id: "arthur",
     },
     {
-        name: 'Élise',
+        name: "Élise",
         age: 21,
-        photo: './img/membres/elise.jpg',
-        id: 'elise'
+        photo: "./img/membres/elise.jpg",
+        id: "elise",
     },
     {
-        name: 'Tom',
+        name: "Tom",
         age: 22,
-        photo: './img/membres/tom.jpg',
-        id: 'tom1'
+        photo: "./img/membres/tom.jpg",
+        id: "tom1",
     },
     {
-        name: 'Julie',
+        name: "Julie",
         age: 21,
-        photo: './img/membres/julie.jpg',
-        id: 'julie'
+        photo: "./img/membres/julie.jpg",
+        id: "julie",
     },
     {
-        name: 'Romain',
+        name: "Romain",
         age: 21,
-        photo: './img/membres/romain.jpg',
-        id: 'romain'
+        photo: "./img/membres/romain.jpg",
+        id: "romain",
     },
     {
-        name: 'Angel',
+        name: "Angel",
         age: 21,
-        photo: './img/membres/angel.jpg',
-        id: 'angel'
+        photo: "./img/membres/angel.jpg",
+        id: "angel",
     },
     {
-        name: 'Nathan',
+        name: "Nathan",
         age: 20,
-        photo: './img/membres/nathan.jpg',
-        id: 'nathan'
+        photo: "./img/membres/nathan.jpg",
+        id: "nathan",
     },
     {
-        name: 'Mathias',
+        name: "Mathias",
         age: 20,
-        photo: './img/membres/mathias.jpg',
-        id: 'mathias'
+        photo: "./img/membres/mathias.jpg",
+        id: "mathias",
     },
     {
-        name: 'Alexandre',
+        name: "Alexandre",
         age: 22,
-        photo: './img/membres/alexandre.jpg',
-        id: 'alexandre'
+        photo: "./img/membres/alexandre.jpg",
+        id: "alexandre",
     },
     {
-        name: 'Florian',
+        name: "Florian",
         age: 23,
-        photo: './img/membres/florian.jpg',
-        id: 'florian'
+        photo: "./img/membres/florian.jpg",
+        id: "florian",
     },
     {
-        name: 'Léo',
+        name: "Léo",
         age: 20,
-        photo: './img/membres/leo.jpg',
-        id: 'leo'
+        photo: "./img/membres/leo.jpg",
+        id: "leo",
     },
     {
-        name: 'Mathieu',
+        name: "Mathieu",
         age: 21,
-        photo: './img/membres/mathieu.jpg',
-        id: 'mathieu1'
+        photo: "./img/membres/mathieu.jpg",
+        id: "mathieu1",
     },
     {
-        name: 'Mathieu',
+        name: "Mathieu",
         age: 21,
-        photo: './img/membres/mathieu2.jpg',
-        id: 'mathieu2'
+        photo: "./img/membres/mathieu2.jpg",
+        id: "mathieu2",
     },
     {
-        name: 'Mathieu',
+        name: "Mathieu",
         age: 21,
-        photo: './img/membres/mathieu3.jpg',
-        id: 'mathieu3'
+        photo: "./img/membres/mathieu3.jpg",
+        id: "mathieu3",
     },
     {
-        name: 'Alycia',
+        name: "Alycia",
         age: 22,
-        photo: './img/membres/alycia.jpg',
-        id: 'alycia'
+        photo: "./img/membres/alycia.jpg",
+        id: "alycia",
     },
     {
-        name: 'Luigi',
+        name: "Luigi",
         age: 23,
-        photo: './img/membres/luigi.jpg',
-        id: 'luigi'
+        photo: "./img/membres/luigi.jpg",
+        id: "luigi",
     },
     {
-        name: 'Rakel',
+        name: "Rakel",
         age: 23,
-        photo: './img/membres/rakel.jpg',
-        id: 'rakel'
+        photo: "./img/membres/rakel.jpg",
+        id: "rakel",
     },
     {
-        name: 'Yace',
+        name: "Yace",
         age: 3,
-        photo: './img/membres/yace.jpg',
-        id: 'yace'
+        photo: "./img/membres/yace.jpg",
+        id: "yace",
     },
     {
-        name: 'Mathis',
+        name: "Mathis",
         age: 20,
-        photo: './img/membres/mathis.jpg',
-        id: 'mathis'
+        photo: "./img/membres/mathis.jpg",
+        id: "mathis",
     },
     {
-        name: 'Marie',
+        name: "Marie",
         age: 20,
-        photo: './img/membres/marie.jpg',
-        id: 'marie'
+        photo: "./img/membres/marie.jpg",
+        id: "marie",
     },
     {
-        name: 'Tom',
+        name: "Tom",
         age: 21,
-        photo: './img/membres/tom2.jpg',
-        id: 'tom2'
-    }
-]
+        photo: "./img/membres/tom2.jpg",
+        id: "tom2",
+    },
+];
 
-const randomMembers = ref(membres.concat(membres.map(m => ({ ...m, id: m.id + '2' }))))
-const interval = ref<NodeJS.Timer | null>(null)
+const randomMembers = ref(
+    membres.concat(membres.map((m) => ({ ...m, id: m.id + "2" })))
+);
+const interval = ref<ReturnType<typeof setInterval> | null>(null);
 
 onMounted(() => {
     interval.value = setInterval(() => {
-        const random = membres.sort(() => Math.random() - 0.5)
-        randomMembers.value = random.concat(random.map(m => ({ ...m, id: m.id + '2' })))
-    }, 5000)
-})
+        const random = membres.sort(() => Math.random() - 0.5);
+        randomMembers.value = random.concat(
+            random.map((m) => ({ ...m, id: m.id + "2" }))
+        );
+    }, 5000);
+});
 
 onBeforeUnmount(() => {
     if (interval.value) {
-        clearInterval(interval.value)
+        clearInterval(interval.value);
     }
-})
+});
 </script>
