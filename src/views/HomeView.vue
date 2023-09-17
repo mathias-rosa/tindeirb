@@ -5,7 +5,7 @@
     <div class="w-full h-full gradient dark:bg-gray-950" v-if="user">
         <div class="bg w-full h-full flex items-center">
             <div
-                class="w-full md:max-w-md h-full self-start flex flex-col bg-white dark:bg-gray-900 shadow-sm"
+                class="w-full md:max-w-md h-full self-start flex flex-col bg-white/90 backdrop-blur-md dark:bg-gray-900 shadow-sm"
                 :class="{
                     'hidden md:flex': activeFillotId,
                 }"
@@ -71,7 +71,7 @@
                                 fillot.parrain !== user.id,
                             'bg-orange-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700':
                                 fillot.parrain === user.id,
-                            'bg-white dark:bg-gray-900 hover:bg-rose-100 dark:hover:bg-rose-900 ':
+                            '  hover:bg-rose-100 dark:hover:bg-rose-900 ':
                                 activeFillotId !== fillot.id &&
                                 fillot.parrain === '',
                         }"
@@ -171,13 +171,8 @@
 
             <div class="flex flex-col h-screen w-full z-10" v-if="activeFillot">
                 <div
-                    class="w-full min-h-16 h-fit md:h-16 bg-white dark:bg-gray-900 relative z-10 shadow-sm flex flex-col md:flex-row items-center gap-3 md:gap-0 p-5 font-semibold text-lg justify-between"
+                    class="w-full min-h-16 h-fit md:h-16 bg-white/80 backdrop-blur-md dark:bg-gray-900 relative z-10 shadow-sm flex flex-col md:flex-row items-center gap-3 md:gap-0 p-5 font-semibold text-lg justify-between"
                 >
-                    <router-link
-                        to="/"
-                        class="text-rose-500 font-semibold text-2xl tracking-tight md:hidden"
-                        >Tind'eirb</router-link
-                    >
                     <div class="flex w-full items-center gap-4">
                         <button @click="activeFillotId = undefined">
                             <img
