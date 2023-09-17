@@ -12,6 +12,9 @@
             >
                 <div class="w-full shadow-sm">
                     <HeaderComponent />
+                    <!-- <h1 class="px-4">
+                        {{ config?.MAX_FILLOTS }}
+                    </h1> -->
                     <div class="w-full p-5">
                         <input
                             type="text"
@@ -256,8 +259,19 @@
                     v-else-if="activeFillot.parrain !== ''"
                 >
                     <p>
-                        {{ activeFillot?.prenom }} a déjà été adopté par
+                        {{ activeFillot.prenom }} a déjà été adopté par
                         quelqu'un d'autre !
+                    </p>
+                </button>
+                <button
+                    class="select-btn cursor-not-allowed bg-gray-500"
+                    v-else-if="!mayAdopt"
+                >
+                    <p class="inline-block">
+                        Tu ne peux pas adopter {{ activeFillot.prenom }} car tu
+                        as déjà adopté
+                        {{ config?.MAX_FILLOTS }}
+                        fillot{{ config?.MAX_FILLOTS > 1 ? "s" : "" }}
                     </p>
                 </button>
                 <button
@@ -275,18 +289,7 @@
                     @click="selectFillot(activeFillot.id)"
                 >
                     <p class="inline-block">
-                        Adopter {{ activeFillot?.prenom }}
-                    </p>
-                </button>
-                <button
-                    class="select-btn cursor-not-allowed bg-gray-500"
-                    v-else-if="!mayAdopt"
-                >
-                    <p class="inline-block">
-                        Tu ne peux pas adopter {{ activeFillot?.prenom }} car tu
-                        as déjà adopté
-                        {{ MAXIMUM_FILLOTS }}
-                        fillot{{ MAXIMUM_FILLOTS > 1 ? "s" : "" }}
+                        Adopter {{ activeFillot.prenom }}
                     </p>
                 </button>
             </div>
@@ -380,7 +383,8 @@ const scrollToTop = () => {
     });
 };
 
-const MAXIMUM_FILLOTS = 3;
+const config = ref<any>(undefined);
+
 const parrainYear = computed(() => {
     if (!user.value) {
         return 0;
@@ -461,7 +465,6 @@ const filteredFillots = computed(() => {
 
     return fillots.filter((fillot) => {
         // check if fillot matches all keywords
-        console.log(generateSearchString(fillot));
 
         return keywords.every((keyword) => {
             // check if keyword is in fillot's name
@@ -510,7 +513,7 @@ const mayAdopt = computed(() => {
             return fillot;
         }
     }).length;
-    return count < MAXIMUM_FILLOTS;
+    return count < (config.value?.MAX_FILLOTS ?? 0);
 });
 
 function loadFillots() {
@@ -557,6 +560,26 @@ pb.collection("users").subscribe("*", async ({ action, record }) => {
         }
     }
 });
+
+function loadConfig() {
+    pb.collection("config")
+        .getFullList()
+        .then((configs) => {
+            config.value = configs.reduce((acc: any, config: any) => {
+                acc[config.key] = config.value;
+                return acc;
+            }, {});
+        });
+}
+
+pb.collection("config").subscribe("*", async ({ action, record }) => {
+    if (action === "update") {
+        config.value[record.key] = record.value;
+    }
+});
+
+loadConfig();
+
 // Unsubscribe
 
 onBeforeUnmount(() => {

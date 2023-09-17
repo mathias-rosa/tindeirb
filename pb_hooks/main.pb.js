@@ -2,24 +2,6 @@
 
 /* eslint-disable no-undef */
 
-routerAdd("GET", "/api/hello/:name", (c) => {
-    let name = c.pathParam("name");
-
-    return c.json(200, { message: "Hello " + name });
-});
-
-routerAdd("GET", "/api/parrain/shotgun/:id", (c) => {
-    let id = c.pathParam("id");
-
-    const fillot = new Record();
-    $app.dao()
-        .recordQuery("Fillots")
-        .where($dbx.exp("id = {:id}", { id }))
-        .first(fillot);
-
-    // Do whatever you want with the fillot
-});
-
 routerAdd("GET", "/api/parrain/auth/cas", (c) => {
     let ticket = c.queryParam("ticket");
     let redirectUrl = c.queryParam("redirectUrl");
@@ -81,7 +63,6 @@ routerAdd("GET", "/api/parrain/auth/cas", (c) => {
         "mdesboisren",
         "metienne009",
         "mliateni",
-        "mrosa001",
         "nbossi",
         "nlebrun002",
         "oclafitte",
@@ -186,6 +167,7 @@ routerAdd("GET", "/api/parrain/auth/cas", (c) => {
 
     // Les horraires sont en UTC (il faut donc ajouter 2h pour avoir l'heure française)
     const SHOTGUN_WAVES = {
+        "2023-09-17 18:43:00": ["mrosa001"],
         "2023-09-19 10:40:00": bureauBDE,
         "2023-09-19 11:00:00": BDE,
         "2023-09-19 11:30:00": BAR,
@@ -255,9 +237,14 @@ onModelAfterUpdate((e) => {
 
 onRecordBeforeUpdateRequest((e) => {
     if (e.record.get("parrain") !== "") {
-        const MAX_FILLOTS = 3;
-
         const fillot = $app.dao().findRecordById("Fillots", e.record.get("id"));
+
+        const MAX_FILLOTS = parseInt(
+            $app
+                .dao()
+                .findFirstRecordByData("config", "key", "MAX_FILLOTS")
+                .get("value")
+        );
 
         // get parrain record
 
@@ -303,6 +290,7 @@ onRecordBeforeUpdateRequest((e) => {
 
         if (shotgunDate.getTime() >= Date.now()) {
             console.log("La date de shotgun n'est pas encore passée");
+
             e.cancel();
         }
 
