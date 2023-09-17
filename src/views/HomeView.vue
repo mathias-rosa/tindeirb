@@ -64,13 +64,13 @@
                             }
                         "
                         :class="{
+                            'bg-rose-500 hover:bg-rose-500 text-white dark:text-gray-900':
+                                activeFillotId === fillot.id,
                             'bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700':
                                 fillot.parrain !== '' &&
                                 fillot.parrain !== user.id,
                             'bg-orange-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700':
                                 fillot.parrain === user.id,
-                            'bg-rose-500 text-white dark:text-gray-900':
-                                activeFillotId === fillot.id,
                             'bg-white dark:bg-gray-900 hover:bg-rose-100 dark:hover:bg-rose-900 ':
                                 activeFillotId !== fillot.id &&
                                 fillot.parrain === '',
@@ -86,19 +86,23 @@
 
                         <div
                             class="flex flex-col w-full text-gray-500 dark:text-gray-200"
-                            :class="{
-                                'text-white':
-                                    activeFillotId === fillot.id &&
-                                    fillot.parrain !== user.id,
-                            }"
                         >
                             <h1
                                 class="font-semibold text-xl px-2 w-full text-ellipsis text-gray-900 dark:text-white"
+                                :class="{
+                                    'text-white': activeFillotId === fillot.id,
+                                }"
                             >
                                 {{ fillot.prenom }} {{ fillot.nom }}
                             </h1>
 
-                            <h1 class="w-fit px-2" v-if="fillot.parrain === ''">
+                            <h1
+                                class="w-fit px-2"
+                                :class="{
+                                    'text-white': activeFillotId === fillot.id,
+                                }"
+                                v-if="fillot.parrain === ''"
+                            >
                                 {{
                                     `${
                                         fillot.infos["3"] === "Femme"
@@ -109,6 +113,9 @@
                             </h1>
                             <h1
                                 class="w-fit px-2"
+                                :class="{
+                                    'text-white': activeFillotId === fillot.id,
+                                }"
                                 v-if="fillot.parrain === user.id"
                             >
                                 Vous avez adopté
@@ -130,14 +137,24 @@
                                 A été adopté par un de vos collègues
                             </h1>
                         </div>
+
                         <button
-                            class="relative rounded-full h-8 flex items-center justify-center aspect-square bg-white shadow-md hover:scale-110 transition duration-300 ease-in-out"
+                            class="rounded-full h-8 flex items-center justify-center aspect-square bg-white shadow-md hover:scale-110 transition duration-300 ease-in-out group"
                             @click="
                                 user?.favorites.includes(fillot.id)
                                     ? removeFavorite(fillot.id)
                                     : addFavorite(fillot.id)
                             "
                         >
+                            <span
+                                class="absolute group-hover:inline-block hidden line-clamp-1 text-xs px-2 py-1 bg-gray-900 text-white rounded-md whitespace-nowrap z-20 right-5 shadow-md bottom-6"
+                            >
+                                {{
+                                    user?.favorites.includes(fillot.id)
+                                        ? "Retirer des favoris"
+                                        : "Ajouter aux favoris"
+                                }}
+                            </span>
                             <img
                                 :src="
                                     user?.favorites.includes(fillot.id)
@@ -282,7 +299,7 @@
 
 <style>
 .select-btn {
-    @apply min-h-16 text-white sticky z-10 shadow-sm h-fit items-center p-3 mt-2 mb-5 md:mx-10 mx-5 font-semibold text-lg justify-center box-border rounded-lg transition duration-300 ease-in-out;
+    @apply min-h-16 text-white sticky z-10 shadow-md h-fit items-center p-3 mt-2 mb-5 md:mx-10 mx-5 font-semibold text-lg justify-center box-border rounded-lg transition duration-300 ease-in-out;
 }
 
 .fade-enter-active,
