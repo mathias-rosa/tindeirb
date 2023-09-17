@@ -179,13 +179,10 @@
                         >Tind'eirb</router-link
                     >
                     <div class="flex w-full items-center gap-4">
-                        <button
-                            class="dark:bg-white dark:text-gray-900 dark:hover:bg-rose-500 dark:hover:text-white"
-                            @click="activeFillotId = undefined"
-                        >
+                        <button @click="activeFillotId = undefined">
                             <img
                                 src="/arrow-left-solid.svg"
-                                class="w-6 h-6 dark:filter-invert"
+                                class="w-6 h-6 dark:invert"
                                 alt="Retour"
                             />
                         </button>
