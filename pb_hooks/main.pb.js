@@ -172,7 +172,13 @@ routerAdd("GET", "/api/parrain/auth/cas", (c) => {
         "IIEEL4",
         "IAERS4",
         "IAEEE4",
+        // Les 3A sont autorisés à s'inscrire mais ils ne peuvent pas parrainer
         "IIEIN5",
+        "IIETE5",
+        "IIEMM5",
+        "IIEEL5",
+        "IAERS5",
+        "IAEEE5",
     ];
     if (!authorizedDiplomas.includes(data.attributes.diplome.join(""))) {
         return c.json(403, { message: "Unauthorized" });
