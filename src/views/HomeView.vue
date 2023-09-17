@@ -140,7 +140,7 @@
 
                         <button
                             class="rounded-full h-8 flex items-center justify-center aspect-square bg-white shadow-md hover:scale-110 transition duration-300 ease-in-out group"
-                            @click="
+                            @click.stop="
                                 user?.favorites.includes(fillot.id)
                                     ? removeFavorite(fillot.id)
                                     : addFavorite(fillot.id)
@@ -381,7 +381,7 @@ const scrollToTop = () => {
     });
 };
 
-const MAXIMUM_FILLOTS = 1;
+const MAXIMUM_FILLOTS = 3;
 
 const currentView = ref("all");
 

@@ -1,4 +1,5 @@
 /// <reference path="../pb_data/types.d.ts" />
+
 /* eslint-disable no-undef */
 
 routerAdd("GET", "/api/hello/:name", (c) => {
@@ -135,6 +136,76 @@ routerAdd("GET", "/api/parrain/auth/cas", (c) => {
 onModelAfterUpdate((e) => {
     console.log("user updated...", e.model.get("email"));
 }, "users");
+
+onRecordBeforeUpdateRequest((e) => {
+    if (e.record.get("parrain") !== "") {
+        const MAX_FILLOTS = 3;
+
+        const fillot = $app.dao().findRecordById("Fillots", e.record.get("id"));
+
+        // get parrain record
+
+        const parrain = $app
+            .dao()
+            .findRecordById("users", e.record.get("parrain"));
+
+        // check if fillot has already a parrain
+
+        if (fillot.get("parrain") !== "") {
+            e.cancel();
+        }
+
+        // count number of fillots of parrain
+
+        const fillots = arrayOf(new Record());
+
+        $app.dao().recordQuery("Fillots").all(fillots);
+
+        // C'est pas opti, je sais mais j'arrive pas à filtrer et je sais faire du JS
+        // donc ça sera comme ça 😅
+        const parrainNbFillots = fillots.reduce((acc, fillot) => {
+            if (fillot.get("parrain") === parrain.get("id")) {
+                acc++;
+            }
+            return acc;
+        }, 0);
+
+        // check if parrain has already MAX_FILLOTS fillots
+
+        if (parrainNbFillots >= MAX_FILLOTS) {
+            console.log("Vous avez déjà trop de fillots");
+            e.cancel();
+        }
+
+        //  @request.auth.shotgunDate <= @now
+
+        // check if shotgun date is passed
+
+        const shotgunDate = new Date(
+            parrain.get("shotgunDate").toString().replace(" ", "T")
+        );
+
+        if (shotgunDate.getTime() >= Date.now()) {
+            console.log("La date de shotgun n'est pas encore passée");
+            e.cancel();
+        }
+
+        // check if fillot is in the same "filiere" as parrain
+
+        const parrainFiliere = parrain.get("diploma").substring(0, 5);
+        const parrainYear = parrain.get("diploma").substring(5, 6);
+
+        if (parrainFiliere !== fillot.get("filiere")) {
+            console.log("T'es pas dans la même filière");
+            e.cancel();
+        }
+
+        if (parrainYear !== "4") {
+            console.log("Seuls les 2A peuvent parrainer");
+            e.cancel();
+        }
+    }
+}, "Fillots");
 
 onAfterBootstrap(() => {
     console.log("App initialized!");

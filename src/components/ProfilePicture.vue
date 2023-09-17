@@ -20,6 +20,16 @@ const avatar = (id: string) => {
     return createAvatar(funEmoji, {
         seed: id,
         radius: 50,
+        mouth: [
+            "plain",
+            "lilSmile",
+            "cute",
+            "wideSmile",
+            "smileTeeth",
+            "smileLol",
+            "tongueOut",
+            "faceMask",
+        ],
     });
 };
 </script>
