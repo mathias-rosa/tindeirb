@@ -473,9 +473,7 @@ $app.rootCmd.addCommand(
                 fillot.set("prenom", beautifyName(row["2"]));
                 fillot.set("filiere", convertFiliere(row["5"]));
                 fillot.set("infos", {
-                    ...row.map((v) => {
-                        v.toString().trim();
-                    })
+                    ...row
                 });
                 $app.dao().saveRecord(fillot);
             });

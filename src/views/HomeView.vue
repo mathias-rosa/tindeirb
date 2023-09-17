@@ -84,10 +84,6 @@
                                 fillot.parrain === '',
                         }"
                     >
-                        <!-- <img
-                            :src="'https://cataas.com/cat?cas=' + fillot.id"
-                            class="w-12 h-12 rounded-full aspect-square object-cover"
-                        /> -->
                         <div class="w-16 h-16">
                             <ProfilePicture :seed="fillot.id" />
                         </div>
@@ -475,8 +471,7 @@ const filteredFillots = computed(() => {
     let fillots = liste_fillots.value;
 
     function formatString(text: string) {
-        return text
-            .normalize("NFD")
+        return text.toString().normalize("NFD")
             .replace(/\p{Diacritic}/gu, "")
             .toLowerCase();
     }
