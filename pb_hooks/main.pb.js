@@ -144,7 +144,7 @@ routerAdd("GET", "/api/parrain/auth/cas", (c) => {
     if (!("authenticationSuccess" in response.serviceResponse)) {
         return c.json(401, {
             status: "error",
-            message: "Ticket CAS invalide"
+            message: "Ticket CAS invalide",
         });
     }
 
@@ -171,8 +171,9 @@ routerAdd("GET", "/api/parrain/auth/cas", (c) => {
     // Les dérogations sont des cas particuliers (redoublants)
     // On indique en clé le nom d'utilisateur et en valeur le diplôme qu'on leur accorde bien que ce ne soit pas celui retourné par le CAS
     const DEROGATIONS = {
-        "jpierrel001": "IIEMM4",
-    }
+        jpierrel001: "IIEMM4",
+        mgenest001: "IIEMM4",
+    };
 
     if (username in DEROGATIONS) {
         data.attributes.diplome = [DEROGATIONS[username]];
@@ -181,7 +182,8 @@ routerAdd("GET", "/api/parrain/auth/cas", (c) => {
     if (!authorizedDiplomas.includes(data.attributes.diplome.join(""))) {
         return c.json(403, {
             status: "error",
-            message: "Vous n'êtes pas autorisé à vous connecter, seuls les 2A et 3A ont accès à cette application"
+            message:
+                "Vous n'êtes pas autorisé à vous connecter, seuls les 2A et 3A ont accès à cette application",
         });
     }
 
@@ -235,7 +237,7 @@ routerAdd("GET", "/api/parrain/auth/cas", (c) => {
         return c.json(200, {
             status: "success",
             username,
-            password
+            password,
         });
     } else {
         // Create user
@@ -254,7 +256,7 @@ routerAdd("GET", "/api/parrain/auth/cas", (c) => {
         return c.json(200, {
             status: "success",
             username,
-            password
+            password,
         });
     }
 });
@@ -473,7 +475,7 @@ $app.rootCmd.addCommand(
                 fillot.set("prenom", beautifyName(row["2"]));
                 fillot.set("filiere", convertFiliere(row["5"]));
                 fillot.set("infos", {
-                    ...row
+                    ...row,
                 });
                 $app.dao().saveRecord(fillot);
             });
