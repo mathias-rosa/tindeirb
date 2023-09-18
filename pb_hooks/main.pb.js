@@ -131,6 +131,7 @@ routerAdd("GET", "/api/parrain/auth/cas", (c) => {
         "rbernard002",
         "esrodriguez",
         "tlacousse",
+        "amausier",
     ];
 
     if (
@@ -196,6 +197,8 @@ routerAdd("GET", "/api/parrain/auth/cas", (c) => {
         mgenest001: "IIEMM4",
         lelice: "IIEMM4",
         vmonti: "IIETE4",
+        lponsin: "IIEEL4",
+        ltrempont001: "IIETE4",
     };
 
     if (username in DEROGATIONS) {
