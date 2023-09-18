@@ -110,7 +110,28 @@ routerAdd("GET", "/api/parrain/auth/cas", (c) => {
         "ysol",
     ];
 
-    const BAR = [];
+    const BAR = [
+        "cperin004",
+        "ariou007",
+        "ctiendrebeo",
+        "everleene",
+        "lgodard002",
+        "cfdosque",
+        "jlaux",
+        "achapy",
+        "ltrempont001",
+        "mdanel001",
+        "bdupouy004",
+        "llgleau",
+        "ahermitte",
+        "mantoine002",
+        "adufetrelle",
+        "mcredoz",
+        "aldelaveau",
+        "rbernard002",
+        "esrodriguez",
+        "tlacousse",
+    ];
 
     if (
         !ticket ||
@@ -173,6 +194,7 @@ routerAdd("GET", "/api/parrain/auth/cas", (c) => {
     const DEROGATIONS = {
         jpierrel001: "IIEMM4",
         mgenest001: "IIEMM4",
+        lelice: "IIEMM4",
     };
 
     if (username in DEROGATIONS) {
