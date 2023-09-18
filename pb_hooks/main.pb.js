@@ -199,6 +199,7 @@ routerAdd("GET", "/api/parrain/auth/cas", (c) => {
         vmonti: "IIETE4",
         lponsin: "IIEEL4",
         ltrempont001: "IIETE4",
+        adufetrelle: "IIEIN4",
     };
 
     if (username in DEROGATIONS) {
