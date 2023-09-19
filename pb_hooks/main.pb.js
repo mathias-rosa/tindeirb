@@ -198,7 +198,7 @@ routerAdd("GET", "/api/parrain/auth/cas", (c) => {
         lelice: "IIEMM4",
         vmonti: "IIETE4",
         lponsin: "IIEEL4",
-        ltrempont001: "IIETE4",
+        ltrempont001: "IIEMM4",
         adufetrelle: "IIEIN4",
     };
 
