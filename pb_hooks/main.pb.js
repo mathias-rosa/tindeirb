@@ -146,7 +146,7 @@ routerAdd("GET", "/api/parrain/auth/cas", (c) => {
         });
     }
 
-    const CAS_PROXY_URL = "https://tcoutan.zzz.bordeaux-inp.fr/casAuth/?url=";
+    const CAS_PROXY_URL = "https://cas.serveur-bde.eirb.fr/?token=";
 
     const serviceUrl = `${CAS_PROXY_URL}${redirectUrl}`;
 
@@ -167,6 +167,7 @@ routerAdd("GET", "/api/parrain/auth/cas", (c) => {
         return c.json(401, {
             status: "error",
             message: "Ticket CAS invalide",
+            response: response
         });
     }
 

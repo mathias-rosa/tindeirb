@@ -229,8 +229,10 @@ const loading = ref(false);
 function loginWithCas() {
     // Get current url
     const redirectUrl = window.location.href;
-    const serviceUrl = "https://tcoutan.zzz.bordeaux-inp.fr/casAuth/";
-    const authenticationCasUrl = `https://cas.bordeaux-inp.fr/?service=${serviceUrl}?url=${redirectUrl}`;
+    const token = btoa(redirectUrl);
+    const serviceUrl = "https://cas.serveur-bde.eirb.fr/";
+    const encodedUrl = encodeURIComponent(`${serviceUrl}?token=${token}`);
+    const authenticationCasUrl = `https://cas.bordeaux-inp.fr/?service=${encodedUrl}`;
     window.location.href = authenticationCasUrl;
 }
 
@@ -261,10 +263,12 @@ onBeforeMount(() => {
         fetch(
             `${
                 import.meta.env.VITE_API_URL
-            }/api/parrain/auth/cas?ticket=${ticket}&redirectUrl=${redirectUrl}`,
+            }/api/parrain/auth/cas?ticket=${ticket}&redirectUrl=${btoa(redirectUrl)}`
         )
             .then((response) => response.json())
-            .then(({ status, message, username, password }) => {
+            .then((data) => {
+                // console.log(data);
+                const { status, message, username, password } = data;
                 if (status === "success") {
                     login(username, password);
                 } else {
