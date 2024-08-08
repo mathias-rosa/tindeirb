@@ -1,46 +1,58 @@
-# tindeirb
+# Tindeirb
 
-This template should help get you started developing with Vue 3 in Vite.
+Application PocketBase - Vite + Vue pour shotgun son fillot a la rentrée.
 
-## Recommended IDE Setup
+## Fonctionnalités
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+- Mise a jour en temps réel sans raffraichissemnt
+- Se connecter avec le CAS et avoir ses bons roles, fillières etc
+- Voir les réponses des 1A de sa fillière
+- Voir les réponses de tous les 1A (crtl click sur all) : esater egg sur demande d'aboin 😁
+- Possibilité de shotgun un fillot
+- Plusieurs vagues possibles
+- Privilèges de certains utilisateurs
+ 
 
-## Type Support for `.vue` Imports in TS
+## Technologies
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+- Framework: Vue
+- Database: [PocketBase](https://pocketbase.io/)
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+On a choisi pocketbase car c'est une base de donnée et un backend opensource et surtout self hostable qui fonctionne en temps réel un peu comme firebase mais complétement gratuite. Pour un usage Enseirb ça marche bien, pas de soucis de performances alors que quasi tous les 2A étaient dessus en même temps.
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+Puisque PocketBase est un backend la majorité se fait sur l'interface graphique mais pour implementer des logiques plus poussées (aka connexion par cas), on peut écrire un script en js ou en go. On a choisi JS, le fichier est `pb_hooks/main.pb.js`
 
-## Customize configuration
+> A noter, PocketBase tient en un exécutable qu'il faut telecharger depuis le site https://pocketbase.io/docs/ (différent selon l'os)
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+> On a developpé sous linux, ça devrait marcher sous d'autres os mais on ne garantit pas. On a aussi constaté des lenteurs de pocketbase avec wsl et un décallage temporel bizare.
 
-## Project Setup
+> Il peut être utile de resynchroniser son horloge avec un serveur temporel pour ne pas avoir de bugs bizarre avec les dates des shotguns 
 
-```sh
-npm install
+## Developpement
+
+### Installation des dépendances
+
+```bash
+npm i
 ```
 
-### Compile and Hot-Reload for Development
+### Démarrer le serveur de développement
 
-```sh
+
+```bash
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+> Lance le front et le back
+Pour lancer uniquement le front / back : `npm run front` / `npm run back`
 
-```sh
+### Build le front
+
+```bash
 npm run build
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+### Deploiement
 
-```sh
-npm run lint
-```
+#### Back
+https://pocketbase.io/docs/going-to-production/#minimal-setup
