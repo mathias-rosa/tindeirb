@@ -108,8 +108,11 @@
     "type": "text", 
     "question": [
       "Tu sais ce que c'est qu'une brasse, voila : ", 
-      "BRASSE DNS VS MFB", 
-      "A ton tour maintenant, fait une brasse de 40 mots minimum sur les carottes"
+      "Tu te trouves paisiblement attablé dans un coin tranquille d'une taverne sombre, dégustant une boisson locale en compagnie de Dionysos et de ses disciples. L'atmosphère est douce et apaisante, les rires des convives résonnent autour de toi, emplis de la chaleur d'une soirée bien arrosée. Soudain, la porte de la taverne s'ouvre avec fracas, laissant entrer une bande de mafieux aux costumes impeccables, arborant des regards menaçants. Le chef, un homme au costume noir et bleu, fixe Dionysos d'un œil mauvais. La tension monte rapidement, les disciples du dieu se lèvent, prêts à le défendre.",
+      "Les mafieux avancent rapidement, et en un instant, la taverne se transforme en un champ de bataille. Dionysos se dresse, mais l'affrontement est inévitable. Les coups pleuvent, les tables sont renversées, et la taverne se met à trembler sous la violence des échanges. Dans le chaos, tu es violemment projeté à travers une fenêtre, atterrissant dans une ruelle sombre et déserte.", 
+      "Quand tu te réveilles sous les gravas, tu constates  que la taverne n'est plus qu'un tas de ruines fumantes, tout comme la ville toute entière. Les mafieux n'ont laissé que des restes de costumes noirs tâchés de sang et Dionysos et ses disciples ont disparus, laissant derrière eux un paysage de désolation. Seul dans ces ruines dignes des plus grandes batailles de la Grèce antique, tu réalises que tout ce que tu as pu sauver du chaos est un marcel noir arborant un logo étrange, une balle légèrement dégonflée, 3 tranches de pains au sègle, et une petite bourse en cuir contenant 3 pieces d'argent.", 
+      "Face à cette situation inattendue et seul à des kilomètres à la ronde, tu te prépares à survivre en attendant l'arrivée de Dionysos ou de secours.", 
+      "Quel est ton plan ?"
     ]
   },
   {
@@ -159,7 +162,8 @@
       "C'est noté",
       "Maintenant, c'est ton moment de briller",
       "200m brasse olympique contre Léon Marchand :", 
-      "Donne toi a fond sur celle la !"
+      "Donne toi a fond sur celle la !", 
+      "Sujet: La carrote"
     ]
   },
   {
