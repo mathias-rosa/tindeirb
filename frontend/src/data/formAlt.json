@@ -1,0 +1,278 @@
+[
+    {
+        "type": "text",
+        "question": [
+            "🦍 OUGA OUGA OUGA 🦍",
+            "Comment vas-tu, mon animales ?"
+        ]
+    },
+    {
+        "type": "qcm",
+        "question": "Quelle est ta filière ?",
+        "option": [
+            "R&I",
+            "SEE"
+        ]
+    },
+    {
+        "type": "text",
+        "question": [
+            "Quel est ton âge ?",
+            "En années humaines et schtroumpfs."
+        ]
+    },
+    {
+        "type": "qcm",
+        "question": "Les canalisations d'une maison fuient. Sachant qu'un millilitre d'eau s'écoule toutes les secondes, si l'on ne répare pas la fuite mais si l'on met du GAFFER, seulement cinq microlitres d'eau s'écoulent toutes les secondes. Comment s'appelle le plombier ?",
+        "option": [
+            "Oui",
+            "Non",
+            "Bob le bricoleur"
+        ]
+    },
+    {
+        "type": "text",
+        "question": [
+            "Quel est ton surnom ?",
+            "Si tu en as plusieurs, n'hésite pas à les partager."
+        ]
+    },
+    {
+        "type": "text",
+        "question": [
+            "Tu viens d'où ?",
+            "(On parle de tes etudes, hein, on s'en branle d'où tu habites.)"
+        ]
+    },
+    {
+        "type": "text",
+        "question": "Quelle est ton entreprise ?"
+    },
+    {
+        "type": "text",
+        "question": [
+            "Elle est où ? (Chaque année, il y a des gens qui partent à l'autre bout du pays.)",
+            "(PS : pense à la présidente du BAE qui va subir un coup d'état à cause de ça !)",
+            "(PPS : elle ne sait pas que j'ai mis ça.)",
+            "(PPPS : Mais ne t'inquiète pas, elle ne fera rien.)",
+            "Mais du coup, où est ton entreprise ?"
+        ]
+    },
+    {
+        "type": "text",
+        "question": "C'est quoi une brasse ? (40 mots MINIMUM)"
+    },
+    {
+        "type": "text",
+        "question": "Que cherches-tu comme relation avec ton/ta parrain/marraine ?"
+    },
+    {
+        "type": "qcm",
+        "question": "Tu préfères avoir ?",
+        "option": [
+            "Une marraine",
+            "Un parrain",
+            "Un cheval"
+        ]
+    },
+    {
+        "type": "text",
+        "question": "Si tu avais 5 millions d'euros, dans quel bar de Bordeaux irais-tu ?"
+    },
+    {
+        "type": "text",
+        "question": "Ici, on brasse quoi ? (Attention aux mauvaises réponses.)"
+    },
+    {
+        "type": "qcm",
+        "question": "Tu aimes l'argent ?",
+        "option": [
+            "OUI",
+            "OUIIIIII",
+            "OUIIIIIIIIIIIIIIIIIII"
+        ]
+    },
+    {
+        "type": "text",
+        "question": [
+            "Que signifient ou à quoi correspondent ces acronymes ?",
+            "MFB, DNS, CRB, VLH, OLP, ATL, US, SMR, OCT, ECT"
+        ]
+    },
+    {
+        "type": "qcm",
+        "question": "La vie associative t'intéresse ?",
+        "option": [
+            "Oui",
+            "Non",
+            "Je ne sais pas"
+        ]
+    },
+    {
+        "type": "text",
+        "question": [
+            "Si oui à la question précédente, quelle(s) association(s) t'intéresse(nt) ?",
+            "Si non, pourquoi cela ne t'intéresse pas ?"
+        ]
+    },
+    {
+        "type": "text",
+        "question": "C'est quoi une liste ?"
+    },
+    {
+        "type": "qcm",
+        "question": "Ça t'intéresse de lister ?",
+        "option": [
+            "BDE",
+            "BDS",
+            "BDA",
+            "BAE",
+            "BAR", 
+            "Les 4 (y en a 5)",
+            "Les 3",
+            "Les 2"
+        ]
+    },
+    {
+        "type": "qcm",
+        "question": "Ton starter ?",
+        "option": [
+            "Salamèche",
+            "Bulbizarre",
+            "Carapuce"
+        ]
+    },
+    {
+        "type": "text",
+        "question": "Quelle est ta boisson préférée ?"
+    },
+    {
+        "type": "qcm",
+        "question": "Tu aimes faire la fête ?",
+        "option": [
+            "Oui",
+            "Non",
+            "Féria tout l'été et quand il n'y a plus de féria, je vais en festival !"
+        ]
+    },
+    {
+        "type": "text",
+        "question": "C'est quoi une tessonade ?"
+    },
+    {
+        "type": "text",
+        "question": "Tu fais du sport ? Si oui, lequel ?"
+    },
+    {
+        "type": "qcm",
+        "question": "Il est beau le logo MFB ?",
+        "option": [
+            "Oui",
+            "Le plus beau",
+            "Fait par une IA",
+            "DNS est mieux (message de tes parrains : non !)"
+        ]
+    },
+    {
+        "type": "text",
+        "question": "C'est quoi le BAEuuuuuuuuuuh ?"
+    },
+    {
+        "type": "text",
+        "question": "As-tu une anecdote à nous raconter sur toi ?"
+    },
+    {
+        "type": "text",
+        "question": "Un train quitte Paris à 6h. Il roule à 56 km/h. Un autre train quitte Lyon à 8h. Il roule à 69 km/h. Il vont se rencontrer a un moment, mais toi t'aimes la voiture ?"
+    },
+    {
+        "type": "qcm",
+        "question": "Vodka au piment ?",
+        "option": [
+            "Pourquoi pas",
+            "J'adore",
+            "Vous avez des médocs contre les brûlures d'estomac ?",
+            "Je n'aurais pas rêvé mieux",
+            "Je ne bois pas"
+        ]
+    },
+    {
+        "type": "text",
+        "question": "Ta première cuite, tu avais quel âge ? (Si tu n'en as jamais pris, ce n'est pas grave, bienvenue en école d'ingé.)"
+    },
+    {
+        "type": "qcm",
+        "question": "Tu viens au WEI (week-end d'intégration) ?",
+        "option": [
+            "Comment rater ça ?",
+            "Meilleur week-end de ma vie !",
+            "Non (et je rate quelque chose)"
+        ]
+    },
+    {
+        "type": "qcm",
+        "question": "Tu viens au WES (week-end sportif) ?",
+        "option": [
+            "C'est vraiment bien ? (réponse de tes parrains : on ne sait pas, on n'y est pas allé)",
+            "Oui, la base, le sport",
+            "Toujours une bonne raison de prendre une cuite",
+            "'Non, j'ai un repas de famille.'"
+        ]
+    },
+    {
+        "type": "qcm",
+        "question": "Tu connais le tram de l'ambiance ?",
+        "option": [
+            "Bien sûr !",
+            "Y'AAAAAAAVAIIIIIIIT DES CRO-CO-DILE ET DES ORANG-OUTAN...",
+            "Non, mais je vais vite le découvrir",
+            "Non, c'est dangereux ? (réponse de tes parrains : si tu vois des gens en uniforme à la sortie, tu cours.)"
+        ]
+    },
+    {
+        "type": "qcm",
+        "question": "Considérant les enjeux globaux actuels, comment envisagez-vous la mise en œuvre d'une stratégie inclusive et durable pour répondre aux attentes des citoyens tout en renforçant la compétitivité économique de notre pays dans un contexte de transition numérique et écologique ?",
+        "option": [
+            "Oui",
+            "Non"
+        ]
+    },
+    {
+        "type": "text",
+        "question": [
+            "Tu aimes faire quoi en dehors des cours ?",
+            "(Toutes les réponses sont bonnes, profite, c'est le meilleur moment pour trouver quelqu'un qui aime ce que tu fais !)"
+        ]
+    },
+    {
+        "type": "qcm",
+        "question": "Préfères-tu vivre modestement de ta passion ou vivre aisément d'une autre profession ?",
+        "option": [
+            "Vous êtes relou avec vos questions",
+            "Oui",
+            "Non",
+            "42"
+        ]
+    },
+    {
+        "type": "qcm",
+        "question": "Tu connais le 22 ?",
+        "option": [
+            "Oui",
+            "Non"
+        ]
+    },
+    {
+        "type": "qcm",
+        "question": "MFB > OLP > ATL > DNS ?",
+        "option": [
+            "Oui",
+            "Non",
+            "Je ne comprends rien à votre charabia"
+        ]
+    },
+    {
+        "type": "text",
+        "question": "Et pour finir, qui aimerais-tu comme parrain/marraine ? (Attention, cela ne veut pas dire que tu l'auras ! C'est encore à nous de décider ^^)"
+    }
+]
