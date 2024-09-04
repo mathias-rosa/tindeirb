@@ -25,12 +25,13 @@ Du côté de la base de données, deux tables ont étés mit en place:
   - diploma: Text
   - shotgunDate: Date
   - favorites: relation multiple sur users
-  - parrainL relation simple sur users
+  - parrain: relation simple sur users
   - infos: JSON
   - API Rules: List/Search rule a été changée pour vide
 - config (Type Base) 
   - key: text
   - value: text
+  - API Rules: List/Search et View sont mit a vide 
   - 2 champs ont étés complétés: 
     - "TIME": "now" (Se met a jour via un cron dans le backend)
     - "MAX_FILLOTS": 5

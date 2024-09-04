@@ -283,7 +283,7 @@ const FillotView: React.FC<FillotViewProps> = ({ user, logout, pb, setUser }) =>
                     />
                     <LeftBubble
                       sender="Tind'eirb"
-                      message="Tes reponses ont ete enregistrees, prepare toi aux prochaines semaines !!!"
+                      message="Tes réponses ont été enregistrées, prépare toi aux prochaines semaines !!!"
                       senderId={TINDEIRB_ID}
                     />
                   </>

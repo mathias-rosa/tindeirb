@@ -34,6 +34,13 @@ routerAdd("GET", "/api/auth/cas", (c) => {
   const data = response.serviceResponse.authenticationSuccess;
   const username = data.user;
 
+  const currentYear = new Date().getFullYear();
+  const previousYear = (currentYear - 1).toString();
+
+  if (data.attributes.supannEtuAnneeInscription[0] === previousYear && data.attributes.diplome[0].endsWith("4")) {
+    data.attributes.diplome[0] = data.attributes.diplome[0].slice(0, -1) + "5";
+  }
+
   const DEROGATIONS = {
     pvautrindip: "IIEMM4",
     gbemenebata: "IIEMM4", 

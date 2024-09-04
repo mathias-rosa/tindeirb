@@ -264,15 +264,19 @@ const ParrainView: React.FC<ParrainViewProps> = ({ user, pb, logout, setUser }) 
             currentTime={currentTime}
           />
           <TabNavigation currentTab={currentTab} setCurrentTab={handleTabChange} />
-          <FillotList
-            filteredFillots={filteredFillots}
-            user={user}
-            activeFillot={activeFillot}
-            setActiveFillot={setActiveFillot}
-            addFavorite={addFavorite}
-            removeFavorite={removeFavorite}
-            getFilliere={getFilliere}
-          />
+          { 
+            filteredFillots.length !== 0 ?
+              <FillotList
+                filteredFillots={filteredFillots}
+                user={user}
+                activeFillot={activeFillot}
+                setActiveFillot={setActiveFillot}
+                addFavorite={addFavorite}
+                removeFavorite={removeFavorite}
+                getFilliere={getFilliere}
+              />
+            : <p className='font-semibold text-center mt-10'>Aucuns fillots disponibles</p>
+          }
         </div>
 
         {activeFillot && (
