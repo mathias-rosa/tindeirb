@@ -35,11 +35,16 @@ routerAdd("GET", "/api/auth/cas", (c) => {
   const username = data.user;
 
   const currentYear = new Date().getFullYear();
-  const previousYear = (currentYear - 1).toString();
+  const currentMonth = new Date().getMonth();
+  const currentSchoolYear = currentMonth >= 8 ? currentYear : currentYear - 1;
 
-  if (data.attributes.supannEtuAnneeInscription[0] === previousYear && data.attributes.diplome[0].endsWith("4")) {
-    data.attributes.diplome[0] = data.attributes.diplome[0].slice(0, -1) + "5";
-  }
+  const group = data.attributes.diplome[0].slice(0, -1);
+  const level = data.attributes.diplome[0].slice(-1);
+
+  const yearDiff = currentSchoolYear - parseInt(data.attributes.supannEtuAnneeInscription[0]);
+  const yearNumber = yearDiff + parseInt(level);
+
+  data.attributes.diplome = [ group + yearNumber ];
 
   const DEROGATIONS = {
     pvautrindip: "IIEMM4",
@@ -56,6 +61,8 @@ routerAdd("GET", "/api/auth/cas", (c) => {
     thbesson: "IIEEL4", 
     jxu002: "IIEIN4", 
     atunney: "IIEIN4", 
+    warzeqi002: "IIEIN4", 
+    strailine: "IIEIN4", 
 
     // bgrolleau001: "IAERS3",
     // bgrolleau001: "IIEIN4"
@@ -102,7 +109,7 @@ routerAdd("GET", "/api/auth/cas", (c) => {
     "lkelekemalh", "rkuhn", "mpereiraped", "mrhazza001", "ndelaere", "atunney", 
     "mcathelin001 ", "meiraudo", "mbouchez001", "thbesson", "mgenetet",
     "pvautrindip", "xpommies", "vmenaut", "cpalluat", "mgretener", "negloff", 
-    "rdauny", "llunet001", "alacaud"
+    "rdauny", "llunet001", "alacaud", "rferrat"
   ]
 
   const BDA = [
@@ -119,19 +126,20 @@ routerAdd("GET", "/api/auth/cas", (c) => {
     "pdelesquend", "cdubeuf001", "cdugitgros", "negloff", "amfoucher", 
     "ifrancois001", "pjgauthey003", "alacaud", "llunet001", "tmartin016", 
     "tmenier", "lmezailles", "polli", "vpanou003", "mapelletier", "mrhazza001", 
-    "julienrichard2", "oslangloi001", "atrandafire", "rzoudji"
+    "julienrichard2", "oslangloi001", "atrandafire", "rzoudji", 
   ]
 
+  // WARNING: Les heures sont au format UTC donc heure reel = heure + 2
   const SHOTGUN_WAVES = {
-    "2024-09-16 10:50:00": ["bgrolleau001"], 
-    "2024-09-16 16:50:00": BUREAU_BDE, 
-    "2024-09-16 17:00:00": BDE, 
-    "2024-08-27 17:30:00": BAR, 
-    "2024-09-16 17:45:00": BUREAU_BAE, 
-    "2024-09-16 18:00:00": [...BDA, ...BDS],
+    "2024-09-05 09:00:00": ["bgrolleau001"], 
+    "2024-09-16 14:50:00": BUREAU_BDE, 
+    "2024-09-16 15:00:00": BDE, 
+    "2024-08-27 15:30:00": BAR, 
+    "2024-09-16 15:45:00": BUREAU_BAE, 
+    "2024-09-16 16:00:00": [...BDA, ...BDS],
   }  
 
-  const SHOTGUNW_DATE_FOR_OTHERS = "2024-09-16 19:00:00";
+  const SHOTGUNW_DATE_FOR_OTHERS = "2024-09-16 17:00:00";
 
   var shotgunDate = SHOTGUNW_DATE_FOR_OTHERS;
   for (const [date, usernames] of Object.entries(SHOTGUN_WAVES)) {
