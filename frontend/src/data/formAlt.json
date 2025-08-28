@@ -3,7 +3,7 @@
         "type": "text",
         "question": [
             "🦍 OUGA OUGA OUGA 🦍",
-            "Comment vas-tu, mon animales ?"
+            "Comment vas-tu, mon animal ?"
         ]
     },
     {
@@ -18,7 +18,7 @@
         "type": "text",
         "question": [
             "Quel est ton âge ?",
-            "En années humaines et schtroumpfs."
+            "En années humaines et Monsieur/Madame ?."
         ]
     },
     {
@@ -51,11 +51,12 @@
     {
         "type": "text",
         "question": [
-            "Elle est où ? (Chaque année, il y a des gens qui partent à l'autre bout du pays.)",
-            "(PS : pense à la présidente du BAE qui va subir un coup d'état à cause de ça !)",
-            "(PPS : elle ne sait pas que j'ai mis ça.)",
-            "(PPPS : Mais ne t'inquiète pas, elle ne fera rien.)",
-            "Mais du coup, où est ton entreprise ?"
+            "Elle est où ton alternance ? On demande juste au cas où on doit organiser des soirées.",
+            "Tu travailles dans quel coin ? (C'est pas pour stalker, c'est pour t'envoyer du love à distance. Promis.)",
+            "Elle est où ? (On veut juste savoir si tu vas devoir prendre un Ouigo toutes les semaines.)",
+            "(PS : si c'est trop loin, on fait une cagnotte pour les billets de train ?)",
+            "(PPS : en vrai, on est juste curieux et inquiets, pas relous.)",
+            "(PPPS : ok peut-être un peu relous, mais gentiment... elle est où ??)"
         ]
     },
     {
@@ -70,14 +71,14 @@
         "type": "qcm",
         "question": "Tu préfères avoir ?",
         "option": [
-            "Une marraine",
-            "Un parrain",
-            "Un cheval"
+            "Une Madame marraine",
+            "Un Monsieur parrain",
+            "Iel."
         ]
     },
     {
         "type": "text",
-        "question": "Si tu avais 5 millions d'euros, dans quel bar de Bordeaux irais-tu ?"
+        "question": "Si tu avais 5 millions d'euros, dans quel bar de Bordeaux irais-tu ? Si tu n'es pas de Bordeaux, tu m'offres une pinte. Mais surtout, tu es capable d'en enfiler combien ?"
     },
     {
         "type": "text",
@@ -89,14 +90,15 @@
         "option": [
             "OUI",
             "OUIIIIII",
-            "OUIIIIIIIIIIIIIIIIIII"
+            "OUIIIIIIIIIIIIIIIIIII",
+            "Ma seule monnaie c'est le houblon."
         ]
     },
     {
         "type": "text",
         "question": [
             "Que signifient ou à quoi correspondent ces acronymes ?",
-            "MFB, DNS, CRB, VLH, OLP, ATL, US, SMR, OCT, ECT"
+            "MNT, GLT, MFB, DNS, HLD, TMT, OLP, ATL, FFL, OCT"
         ]
     },
     {
@@ -127,7 +129,7 @@
             "BDS",
             "BDA",
             "BAE",
-            "BAR", 
+            "BAR",
             "Les 4 (y en a 5)",
             "Les 3",
             "Les 2"
@@ -157,6 +159,16 @@
     },
     {
         "type": "text",
+        "question": [
+            "Tu sais ce que c'est qu'une brasse, voilà : ",
+            "Tu glandes dans un bistrot parisien crasseux, un café tiède à la main, cerné par des wannabe politologues qui s'égosillent sur le gouvernement. Ça braille, ça gesticule, un vrai cirque. Tout à coup, François Bayrou, le roi du Béarn, déboule comme un taureau, écharpe tricolore en bandoulière, suivi de sa garde rapprochée, tous l'air de sortir d'une réunion de crise à Pau. « Fini le bordel, place au bon sens centriste ! » beugle-t-il, brandissant un programme plus flou qu'un brouillard pyrénéen.",
+            "En un éclair, c'est l'apocalypse : les tables volent, les arguments s'entrechoquent, et un plateau de croissants part en missile. T'en prends un en pleine tronche, et boum, te voilà projeté à travers la vitrine, atterrissant dans une ruelle où flotte une odeur de désillusion politique.",
+            "Dans tes poches, tu trouves une écharpe tricolore en lambeaux, un croissant réduit en poussière et trois pièces de 2 euros ornées d'un coq fatigué.",
+            "Quel est ton plan ?"
+        ]
+    },
+    {
+        "type": "text",
         "question": "C'est quoi une tessonade ?"
     },
     {
@@ -165,12 +177,12 @@
     },
     {
         "type": "qcm",
-        "question": "Il est beau le logo MFB ?",
+        "question": "Il est beau le logo MNT ?",
         "option": [
-            "Oui",
+            "Oui Monsieur Le Ministre",
             "Le plus beau",
             "Fait par une IA",
-            "DNS est mieux (message de tes parrains : non !)"
+            "TMT est mieux (message de tes parrains : non !)"
         ]
     },
     {
@@ -180,6 +192,10 @@
     {
         "type": "text",
         "question": "As-tu une anecdote à nous raconter sur toi ?"
+    },
+    {
+        "type": "text",
+        "question": "Question musique : t'es plus du genre rock'n'roll, pop, rap, shatta, hip-hop, techno, house… ou alors un style complètement loufoque qu'on n'a même pas vu venir ?"
     },
     {
         "type": "text",
@@ -205,15 +221,16 @@
         "question": "Tu viens au WEI (week-end d'intégration) ?",
         "option": [
             "Comment rater ça ?",
-            "Meilleur week-end de ma vie !",
-            "Non (et je rate quelque chose)"
+            "Besoin d'être convaincu !",
+            "Non (et je rate quelque chose)",
+            "BIDART !"
         ]
     },
     {
         "type": "qcm",
         "question": "Tu viens au WES (week-end sportif) ?",
         "option": [
-            "C'est vraiment bien ? (réponse de tes parrains : on ne sait pas, on n'y est pas allé)",
+            "C'est vraiment bien ? (réponse de tes parrains : on y est allez et c'était grave cool)",
             "Oui, la base, le sport",
             "Toujours une bonne raison de prendre une cuite",
             "'Non, j'ai un repas de famille.'"
@@ -256,15 +273,7 @@
     },
     {
         "type": "qcm",
-        "question": "Tu connais le 22 ?",
-        "option": [
-            "Oui",
-            "Non"
-        ]
-    },
-    {
-        "type": "qcm",
-        "question": "MFB > OLP > ATL > DNS ?",
+        "question": "MNT > HLD > TMT > GLT ?",
         "option": [
             "Oui",
             "Non",
