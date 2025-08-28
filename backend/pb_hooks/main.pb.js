@@ -89,57 +89,57 @@ routerAdd("GET", "/api/auth/cas", (c) => {
   }
 
   const BUREAU_BDE = [
-    "ameunier010", "jmaulard", "jrami001", "kvaude", 
-    "lpoitau", "osajid", "smachat"    
+    // "ameunier010", "jmaulard", "jrami001", "kvaude", 
+    // "lpoitau", "osajid", "smachat"    
   ]
 
   const BUREAU_BAE = [
-    "feck", "bgrolleau001", "mpetitdemang", 
-    "rcastellobra", "anevelesbats", "ndubuisson"
+    // "feck", "bgrolleau001", "mpetitdemang", 
+    // "rcastellobra", "anevelesbats", "ndubuisson"
   ]
 
   const BDE = [
-    "acarle001", "agoncalvesp", "anevelesbats", "abaillif", "alelong003", 
-    "felmeady", "fmonange", "gbemenebata", "jvernet", "mfrancois008", 
-    "mlapalu", "prajot", "strailine", "tschnetz", "warzeqi002", 
-    "waarab", "Lbenzino", "pmocquery"
+    // "acarle001", "agoncalvesp", "anevelesbats", "abaillif", "alelong003", 
+    // "felmeady", "fmonange", "gbemenebata", "jvernet", "mfrancois008", 
+    // "mlapalu", "prajot", "strailine", "tschnetz", "warzeqi002", 
+    // "waarab", "Lbenzino", "pmocquery"
   ]
 
   const BAR = [
-    "lkelekemalh", "rkuhn", "mpereiraped", "mrhazza001", "ndelaere", "atunney", 
-    "mcathelin001 ", "meiraudo", "mbouchez001", "thbesson", "mgenetet",
-    "pvautrindip", "xpommies", "vmenaut", "cpalluat", "mgretener", "negloff", 
-    "rdauny", "llunet001", "alacaud", "rferrat"
+    // "lkelekemalh", "rkuhn", "mpereiraped", "mrhazza001", "ndelaere", "atunney", 
+    // "mcathelin001 ", "meiraudo", "mbouchez001", "thbesson", "mgenetet",
+    // "pvautrindip", "xpommies", "vmenaut", "cpalluat", "mgretener", "negloff", 
+    // "rdauny", "llunet001", "alacaud", "rferrat"
   ]
 
   const BDA = [
-    "narebiere", "tmonseran", "groger001", "lcouteret", "gconte008", 
-    "echampagne", "lderamat", "tmenier", "gmaraninchi", "flacroix002", 
-    "mdudot001", "craynaud009", "avendrely", "znurkhanova", "dyan", 
-    "ddelpy", "thorrut", "alevalade", "mpetitdemang", "jvoisin004", 
-    "fbabin001", "wye001", "psboucher001", "lescot001", "ndacremont", 
-    "movaere"  
+    // "narebiere", "tmonseran", "groger001", "lcouteret", "gconte008", 
+    // "echampagne", "lderamat", "tmenier", "gmaraninchi", "flacroix002", 
+    // "mdudot001", "craynaud009", "avendrely", "znurkhanova", "dyan", 
+    // "ddelpy", "thorrut", "alevalade", "mpetitdemang", "jvoisin004", 
+    // "fbabin001", "wye001", "psboucher001", "lescot001", "ndacremont", 
+    // "movaere"  
   ]
 
   const BDS = [
-    "gancey", "lobertet", "thbesson", "vcamon", "mcheron001", "ccossec", 
-    "pdelesquend", "cdubeuf001", "cdugitgros", "negloff", "amfoucher", 
-    "ifrancois001", "pjgauthey003", "alacaud", "llunet001", "tmartin016", 
-    "tmenier", "lmezailles", "polli", "vpanou003", "mapelletier", "mrhazza001", 
-    "julienrichard2", "oslangloi001", "atrandafire", "rzoudji", 
+    // "gancey", "lobertet", "thbesson", "vcamon", "mcheron001", "ccossec", 
+    // "pdelesquend", "cdubeuf001", "cdugitgros", "negloff", "amfoucher", 
+    // "ifrancois001", "pjgauthey003", "alacaud", "llunet001", "tmartin016", 
+    // "tmenier", "lmezailles", "polli", "vpanou003", "mapelletier", "mrhazza001", 
+    // "julienrichard2", "oslangloi001", "atrandafire", "rzoudji", 
   ]
 
   // WARNING: Les heures sont au format UTC donc heure reel = heure + 2
   const SHOTGUN_WAVES = {
-    "2024-09-05 09:00:00": ["bgrolleau001"], 
-    "2024-09-16 14:50:00": BUREAU_BDE, 
-    "2024-09-16 15:00:00": BDE, 
-    "2024-08-27 15:30:00": BAR, 
-    "2024-09-16 15:45:00": BUREAU_BAE, 
-    "2024-09-16 16:00:00": [...BDA, ...BDS],
+    "2025-09-05 09:00:00": ["nforest001", "thomrenard"], 
+    "2025-09-15 14:50:00": BUREAU_BDE, 
+    "2025-09-15 15:00:00": BDE, 
+    "2025-09-15 15:30:00": BAR, 
+    "2025-09-15 15:45:00": BUREAU_BAE, 
+    "2025-09-15 16:00:00": [...BDA, ...BDS],
   }  
 
-  const SHOTGUNW_DATE_FOR_OTHERS = "2024-09-16 17:00:00";
+  const SHOTGUNW_DATE_FOR_OTHERS = "2025-09-15 17:00:00";
 
   var shotgunDate = SHOTGUNW_DATE_FOR_OTHERS;
   for (const [date, usernames] of Object.entries(SHOTGUN_WAVES)) {
