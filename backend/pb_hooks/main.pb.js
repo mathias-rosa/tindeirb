@@ -2,6 +2,30 @@ routerAdd("GET", "/api/auth/cas", (c) => {
   let ticket = c.queryParam("ticket");
   let redirectUrl = c.queryParam("redirectUrl");
 
+  const TINDEIRB_OPEN = new Date("2025-09-05T19:00:00");
+
+  function getTimeRemaining(targetDate) {
+    const now = new Date();
+    const diff = targetDate - now;
+
+    if (diff <= 0) {
+      return null; // déjà ouvert
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+
+    return { days, hours, minutes };
+  }
+
+  if(getTimeRemaining(TINDEIRB_OPEN)){
+    return c.json(403, {
+    status: "error",
+    message: `L'application ouvrira le Jeudi 5 Septembre à 19h00 !`
+  });
+  }
+
   if (
     !ticket || typeof ticket !== 'string' ||
     !redirectUrl || typeof redirectUrl !== 'string'
