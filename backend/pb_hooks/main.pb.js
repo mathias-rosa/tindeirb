@@ -77,8 +77,8 @@ routerAdd("GET", "/api/auth/cas", (c) => {
     "IIETE3", "IIETE4", "IIETE5",  // Telecom
     "IIEMM3", "IIEMM4", "IIEMM5",  // MMK
     "IIEEL3", "IIEEL4", "IIEEL5",  // Elec
-    "IAERS3", "IAERS4", "IAERS5",  // R&I
-    "IAEEE3", "IAEEE4", "IAEEE5"   // SEE
+    "IAERI3", "IAERI4", "IAERI5",  // R&I
+    "IAESE3", "IAESE4", "IAESE5"   // SEE
   ] 
 
   if (!AUTHORIZED_DIPLOMAS.includes(data.attributes.diplome.join(""))) {

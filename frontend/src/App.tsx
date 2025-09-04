@@ -3,9 +3,9 @@ import { useUserStore } from './store/useUserStore';
 import pb, { isAuthenticated, login, logout } from './api/pocketbase';
 import './i18n';
 import LoginView from './views/LoginView';
-import ParrainView from './views/ParrainView'; 
-import FillotView from './views/FillotView'; 
-import { Notification, notify } from './components/Notifications'; 
+import ParrainView from './views/ParrainView';
+import FillotView from './views/FillotView';
+import { Notification, notify } from './components/Notifications';
 import { User } from './types';
 
 import './App.css';
@@ -30,7 +30,7 @@ const createCompleteUser = (partialUser: Partial<User> = {}): User => {
 // Function to handle the CAS login process
 // It triggers the loading state and redirects the user to the CAS authentication page.
 const loginWithCas = (setLoading: React.Dispatch<React.SetStateAction<boolean>>) => {
-  setLoading(true); 
+  setLoading(true);
   const redirectUrl = window.location.href;
   const serviceUrl = "https://cas.serveur-bde.eirb.fr/";
   const encodedUrl = encodeURIComponent(`${serviceUrl}?token=${btoa(redirectUrl)}`);
@@ -39,7 +39,7 @@ const loginWithCas = (setLoading: React.Dispatch<React.SetStateAction<boolean>>)
 }
 
 function App() {
-  const { user, setUser, clearUser } = useUserStore(); 
+  const { user, setUser, clearUser } = useUserStore();
   const [loading, setLoading] = useState<boolean>(false);
 
   /*
@@ -95,36 +95,36 @@ function App() {
 
       // Send the CAS ticket to the backend for validation and login
       fetch(
-        `${import.meta.env.VITE_API_URL}/api/auth/cas?ticket=${ticket}&redirectUrl=${btoa(redirectUrl)}`, 
+        `${import.meta.env.VITE_API_URL}/api/auth/cas?ticket=${ticket}&redirectUrl=${btoa(redirectUrl)}`,
         { method: "GET" }
       )
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.status === 'success') {
-          // If successful, log the user into PocketBase with the returned credentials
-          login(data.username, data.password).then(() => {
-            const currentUser = pb.authStore.model ? createCompleteUser(pb.authStore.model) : createCompleteUser({
-              firstName: data.firstName,
-              lastName: data.lastName,
-              parrain: data.parrain,
-              infos: data.infos,
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.status === 'success') {
+            // If successful, log the user into PocketBase with the returned credentials
+            login(data.username, data.password).then(() => {
+              const currentUser = pb.authStore.model ? createCompleteUser(pb.authStore.model) : createCompleteUser({
+                firstName: data.firstName,
+                lastName: data.lastName,
+                parrain: data.parrain,
+                infos: data.infos,
+              });
+              setUser(currentUser);
+              localStorage.setItem('userDiplome', data.diplome);
+            }).catch(() => {
+              notify("Login failed");
+            }).finally(() => {
+              setLoading(false);
             });
-            setUser(currentUser);
-            localStorage.setItem('userDiplome', data.diplome);
-          }).catch(() => {
-            notify("Login failed");
-          }).finally(() => {
+          } else {
+            notify(data.message);
             setLoading(false);
-          });
-        } else {
-          notify(data.message);
+          }
+        })
+        .catch(() => {
+          notify("Login failed");
           setLoading(false);
-        }
-      })
-      .catch(() => {
-        notify("Login failed");
-        setLoading(false);
-      });
+        });
     }
   }, [setUser]);
 
@@ -143,15 +143,15 @@ function App() {
       "IIETE4",     // 2A Telecom
       "IIEMM4",     // 2A Matmeca
       "IIEEL4",     // 2A Elec
-      "IAERS4",     // 2A R&I
-      "IAEEE4",     // 2A SEE
+      "IAERI4",     // 2A R&I
+      "IAESE4",     // 2A SEE
       // Les 3A sont autorisés à s'inscrire mais ils ne peuvent pas parrainer
-      "IIEIN5", 
-      "IIETE5", 
-      "IIEMM5", 
-      "IIEEL5", 
-      "IAERS5", 
-      "IAEEE5"
+      "IIEIN5",
+      "IIETE5",
+      "IIEMM5",
+      "IIEEL5",
+      "IAERI4",
+      "IAESE5"
     ];
     return parrains.includes(diplome || '');
   };
@@ -169,22 +169,22 @@ function App() {
             {
               // Render the ParrainView if the user is a Parrain
               isParrain(user.diplome) ? (
-                <ParrainView 
-                  user={user} 
+                <ParrainView
+                  user={user}
                   setUser={setUser}
-                  pb={pb} 
-                  logout={handleLogout} 
-                  isAuthenticated={isAuthenticated} 
+                  pb={pb}
+                  logout={handleLogout}
+                  isAuthenticated={isAuthenticated}
                 />
               ) : (
                 // Otherwise, render the FillotView
-                <FillotView 
-                  user={user} 
-                  pb={pb} 
-                  logout={handleLogout} 
-                  isAuthenticated={isAuthenticated} 
+                <FillotView
+                  user={user}
+                  pb={pb}
+                  logout={handleLogout}
+                  isAuthenticated={isAuthenticated}
                   setUser={setUser}
-                />    
+                />
               )
             }
           </div>
