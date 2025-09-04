@@ -283,10 +283,11 @@
     {
         "type": "text",
         "question": "Pour que l'on puisse préparer ton t-shirt / pull de famille, c'est quoi ta taille fillot.e ? (du XXS au 5XL ça passe) !"
-    }
+    },
     {
         "type": "text",
         "question": "Et pour finir, qui aimerais-tu comme parrain/marraine ? (Attention, cela ne veut pas dire que tu l'auras ! C'est encore à nous de décider ^^)"
     }
 ]
+
 
