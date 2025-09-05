@@ -2,7 +2,7 @@ routerAdd("GET", "/api/auth/cas", (c) => {
   let ticket = c.queryParam("ticket");
   let redirectUrl = c.queryParam("redirectUrl");
 
-  const TINDEIRB_OPEN = new Date("2025-09-06T19:00:00");
+  const TINDEIRB_OPEN = new Date("2025-09-03T19:00:00");
 
   function getTimeRemaining(targetDate) {
     const now = new Date();
@@ -87,7 +87,7 @@ routerAdd("GET", "/api/auth/cas", (c) => {
     atunney: "IIEIN4", 
     warzeqi002: "IIEIN4", 
     strailine: "IIEIN4",
-    thomrenard: "IAERI3"
+    // thomrenard: "IAERI3"
 
     // bgrolleau001: "IAERS3",
     // bgrolleau001: "IIEIN4"
@@ -217,16 +217,21 @@ routerAdd("GET", "/api/auth/cas", (c) => {
 })
 
 routerAdd("GET", "/api/fillots", (c) => {
-  let diploma = c.queryParam("diploma");
-  if (!diploma || typeof diploma !== 'string') {
+  let idParrain = c.queryParam("idParrain");
+  
+  if (!idParrain || typeof idParrain !== 'string') {
     return c.json(400, {
       status: "error", 
       message: "Requête invalide"
     });
   }
 
+  const parrain = $app.dao().findRecordById("users", idParrain);
+  const parrainDiploma = parrain.get("diploma");
+  
   const fillots = arrayOf(new Record());
-  const fillotDiploma = diploma.slice(0, -1) + "3";
+  const fillotDiploma = parrainDiploma.slice(0, -1) + "3";
+
 
   $app.dao()
     .recordQuery("users")

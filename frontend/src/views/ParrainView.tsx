@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { User } from '../types'; 
+import { User } from '../types';
 import Header from '../components/Parrain/Header';
 import TabNavigation from '../components/Parrain/TabNavigation';
 import FillotList from '../components/Parrain/FillotList';
@@ -15,8 +15,8 @@ export interface Fillot {
   diploma: string;
   parrain: string;
   infos: {
-    res: string[]; 
-    sex: string;   
+    res: string[];
+    sex: string;
   } | null;
 }
 
@@ -78,8 +78,7 @@ const ParrainView: React.FC<ParrainViewProps> = ({ user, pb, logout, setUser }) 
   // Fetch fillots from the database based on the user's diploma
   const fetchFillots = async () => {
     try {
-      const diploma = user.diplome;
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/fillots?diploma=${encodeURIComponent(diploma)}`);
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/fillots?idParrain=${encodeURIComponent(user.id)}`);
       const data = await response.json();
       if (data.status === 'success') {
         setListFillots(data.fillots);
@@ -161,13 +160,13 @@ const ParrainView: React.FC<ParrainViewProps> = ({ user, pb, logout, setUser }) 
         const matchesName = `${fillot.firstName} ${fillot.lastName}`.toLowerCase().includes(lowerSearchTerm);
         const matchesInfo = fillot.infos
           ? Object.values(fillot.infos).some(infoValue => {
-              if (typeof infoValue === 'string') {
-                return infoValue.toLowerCase().includes(lowerSearchTerm);
-              } else if (Array.isArray(infoValue)) {
-                return infoValue.some(item => item.toLowerCase().includes(lowerSearchTerm));
-              }
-              return false;
-            })
+            if (typeof infoValue === 'string') {
+              return infoValue.toLowerCase().includes(lowerSearchTerm);
+            } else if (Array.isArray(infoValue)) {
+              return infoValue.some(item => item.toLowerCase().includes(lowerSearchTerm));
+            }
+            return false;
+          })
           : false;
         return matchesName || matchesInfo;
       })
@@ -252,9 +251,8 @@ const ParrainView: React.FC<ParrainViewProps> = ({ user, pb, logout, setUser }) 
     <div className="w-full h-full gradient dark:bg-gray-950">
       <div className="w-full h-full flex items-center bg">
         <div
-          className={`w-full md:max-w-md h-full self-start flex flex-col bg-white/90 backdrop-blur-md dark:bg-gray-900 shadow-sm ${
-            activeFillot && 'hidden md:flex'
-          }`}
+          className={`w-full md:max-w-md h-full self-start flex flex-col bg-white/90 backdrop-blur-md dark:bg-gray-900 shadow-sm ${activeFillot && 'hidden md:flex'
+            }`}
         >
           <Header
             logout={logout}
@@ -264,7 +262,7 @@ const ParrainView: React.FC<ParrainViewProps> = ({ user, pb, logout, setUser }) 
             currentTime={currentTime}
           />
           <TabNavigation currentTab={currentTab} setCurrentTab={handleTabChange} />
-          { 
+          {
             filteredFillots.length !== 0 ?
               <FillotList
                 filteredFillots={filteredFillots}
@@ -275,19 +273,19 @@ const ParrainView: React.FC<ParrainViewProps> = ({ user, pb, logout, setUser }) 
                 removeFavorite={removeFavorite}
                 getFilliere={getFilliere}
               />
-            : <p className='font-semibold text-center mt-10'>Aucuns fillots disponibles</p>
+              : <p className='font-semibold text-center mt-10'>Aucuns fillots disponibles</p>
           }
         </div>
 
         {activeFillot && (
           <div className="flex flex-col h-screen w-full z-10">
-            <Discussion 
-              activeFillot={activeFillot} 
-              user={user} 
+            <Discussion
+              activeFillot={activeFillot}
+              user={user}
               currentTime={currentTime}
               maxFillots={maxFillots}
-              setActiveFillot={setActiveFillot} 
-              getAdoptionStatus={getAdoptionStatus} 
+              setActiveFillot={setActiveFillot}
+              getAdoptionStatus={getAdoptionStatus}
             />
           </div>
         )}
