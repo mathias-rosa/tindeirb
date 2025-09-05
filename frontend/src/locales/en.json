@@ -15,7 +15,7 @@
     "mention": {
       "1": "Hey, are you a single student at ENSEIRB-MATMECA? Looking for a fillot, fillote, or even a parrain or marraine? Tind'eirb is the place to be. With over 10,000 engineers graduated since 1920, ENSEIRB-MATMECA is a great place to find your next fillot, fillote, or parrain/marraine. Whether you're from R&I, Computer Science, Electronics, Matmeca, Telecom, or SEE, you're sure to find what you're looking for.",
       "2": "Tind'eirb is a matchmaking app for future engineers at ENSEIRB-MATMECA. It connects them with their future fillots or mentors based on their interests, passions, projects, desires, and more.",
-      "copyleft": "2024 Pôle Web BDE. No rights reserved."
+      "copyleft": "2025 Pôle Web BDE. No rights reserved."
     }
   },
   "parrain": {
@@ -31,7 +31,7 @@
       "removeFavorite": "Remove from favorites",
       "adopted": {
         "none": "You have adopted this fillot.e",
-        "M": "You have adopted this fillot", 
+        "M": "You have adopted this fillot",
         "F": "You have adopted this fillote"
       },
       "orphan": "is looking for a parrain or marraine",
@@ -44,23 +44,23 @@
     "notifications": {
       "favoriteAdded": "Added to favorites",
       "favoriteRemoved": "Removed from favorites"
-    }, 
+    },
     "discussion": {
       "noInfos": "No informations available...",
       "tooOld": "You can't adopt fillot.e.s because you're too old...",
       "alreadyYour": {
-        "none": "is already your fillot.e", 
-        "F": "is already your fillote", 
+        "none": "is already your fillot.e",
+        "F": "is already your fillote",
         "M": "is already your fillot"
-      }, 
-      "adoptedByColleague": "has already been adopted by someone else", 
+      },
+      "adoptedByColleague": "has already been adopted by someone else",
       "adoptIn": {
-        "0": "You can adopt", 
+        "0": "You can adopt",
         "1": " in "
-      }, 
-      "adopt": "Adopt", 
+      },
+      "adopt": "Adopt",
       "tooMuch": {
-        "0": "You can't adopt", 
+        "0": "You can't adopt",
         "1": " because you have already adopted "
       }
     }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { User } from '../types'; 
+import { User } from '../types';
 import Avatar from '../components/Avatar';
 import LeftBubble from '../components/LeftBubble';
 import RightBubble from '../components/RightBubble';
@@ -10,8 +10,8 @@ import formAlt from '../data/formAlt.json';
 const TINDEIRB_ID = 'tindeirb';
 
 // Define the type corresponding to the structure of your questions
-type FormQuestion = 
-  | { type: 'text'; question: string | string[] } 
+type FormQuestion =
+  | { type: 'text'; question: string | string[] }
   | { type: 'qcm'; question: string; option: string[] };
 
 // Explicitly type the JSON files
@@ -27,9 +27,9 @@ interface FillotViewProps {
 }
 
 const FillotView: React.FC<FillotViewProps> = ({ user, logout, pb, setUser }) => {
-  const [message, setMessage] = useState(''); 
+  const [message, setMessage] = useState('');
   const [form, setForm] = useState<FormQuestion[]>(formInitTyped.length > formAltTyped.length ? formInitTyped : formAltTyped);
-  const [inputError, setInputError] = useState(false); // Ajout d'un état pour gérer les erreurs de saisie
+  const [inputError, setInputError] = useState(false);
   const conversationRef = useRef<HTMLDivElement>(null);
 
   /*
@@ -66,6 +66,34 @@ const FillotView: React.FC<FillotViewProps> = ({ user, logout, pb, setUser }) =>
   };
 
   /*
+    Handle editing a message at a specific index.
+  */
+  const handleEditMessage = (index: number, newMessage: string) => {
+    const responses = user.infos?.res || [];
+
+    // Fonction pour scinder les mots de plus de 35 caractères
+    const splitLongWords = (str: string) => {
+      return str.split(' ').map(word =>
+        word.length > 25 ? word.match(/.{1,25}/g)?.join(' ') : word
+      ).join(' ');
+    };
+
+    const processedMessage = splitLongWords(newMessage);
+
+    // Modify Messages
+    const updatedRes = [...responses];
+    updatedRes[index] = processedMessage;
+
+    const updatedInfos = { ...user.infos, res: updatedRes };
+
+    pb.collection("users").update(user.id, { infos: updatedInfos })
+      .then(() => {
+        setUser({ ...user, infos: updatedInfos });
+      })
+      .catch((error: any) => console.error("Error updating message:", error));
+  };
+
+  /*
     Handle sending a message in the conversation.
     - If a specific text is provided, use it; otherwise, use the current message state.
     - Validate that the message is not empty before sending.
@@ -75,7 +103,7 @@ const FillotView: React.FC<FillotViewProps> = ({ user, logout, pb, setUser }) =>
   const handleSendMessage = (text?: string) => {
     const msg = text || message.trim();
     if (msg === '') {
-      setInputError(true); // Affiche une erreur si le message est vide
+      setInputError(true);
       return;
     }
 
@@ -84,7 +112,7 @@ const FillotView: React.FC<FillotViewProps> = ({ user, logout, pb, setUser }) =>
 
     // Fonction pour scinder les mots de plus de 35 caractères
     const splitLongWords = (str: string) => {
-      return str.split(' ').map(word => 
+      return str.split(' ').map(word =>
         word.length > 25 ? word.match(/.{1,25}/g)?.join(' ') : word
       ).join(' ');
     };
@@ -118,7 +146,7 @@ const FillotView: React.FC<FillotViewProps> = ({ user, logout, pb, setUser }) =>
   */
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMessage(e.target.value);
-    setInputError(false); // Réinitialiser l'erreur si l'utilisateur commence à taper
+    setInputError(false);
   };
 
   /*
@@ -170,12 +198,12 @@ const FillotView: React.FC<FillotViewProps> = ({ user, logout, pb, setUser }) =>
                           maxWidth: '80vw',
                           wordWrap: 'break-word',
                           whiteSpace: 'normal',
-                          minHeight: '40px',  
-                          height: 'auto',     
-                          lineHeight: '1.5',  
+                          minHeight: '40px',
+                          height: 'auto',
+                          lineHeight: '1.5',
                         }}
                         onClick={() => handleSendMessage(opt)}
-                        disabled={responses[index] !== undefined} 
+                        disabled={responses[index] !== undefined}
                       >
                         {opt}
                       </button>
@@ -183,7 +211,13 @@ const FillotView: React.FC<FillotViewProps> = ({ user, logout, pb, setUser }) =>
                   </div>
                 </>
               )}
-              <RightBubble sender={user.firstName} message={response} senderId={user.id} />
+              <RightBubble
+                sender={user.firstName}
+                message={response}
+                senderId={user.id}
+                onEdit={(newMessage) => handleEditMessage(index, newMessage)}
+                canEdit={true}
+              />
             </React.Fragment>
           );
         })}
@@ -207,12 +241,12 @@ const FillotView: React.FC<FillotViewProps> = ({ user, logout, pb, setUser }) =>
                         maxWidth: '80vw',
                         wordWrap: 'break-word',
                         whiteSpace: 'normal',
-                        minHeight: '40px',  
-                        height: 'auto',     
-                        lineHeight: '1.5',  
+                        minHeight: '40px',
+                        height: 'auto',
+                        lineHeight: '1.5',
                       }}
                       onClick={() => handleSendMessage(opt)}
-                      disabled={responses[currentQuestionIndex] !== undefined} 
+                      disabled={responses[currentQuestionIndex] !== undefined}
                     >
                       {opt}
                     </button>
@@ -221,7 +255,7 @@ const FillotView: React.FC<FillotViewProps> = ({ user, logout, pb, setUser }) =>
               </>
             )}
           </>
-        )}        
+        )}
       </>
     );
   };
@@ -300,15 +334,15 @@ const FillotView: React.FC<FillotViewProps> = ({ user, logout, pb, setUser }) =>
                 type="text"
                 className={`flex-1 p-2 rounded-md dark:bg-gray-900 dark:text-white ${inputError ? 'border-2 border-red-500' : ''}`}
                 value={message}
-                onChange={handleInputChange} 
+                onChange={handleInputChange}
                 placeholder="Tapez votre réponse..."
-                onKeyDown={handleKeyDown} 
-                disabled={form[responses.length]?.type === 'qcm'} 
+                onKeyDown={handleKeyDown}
+                disabled={form[responses.length]?.type === 'qcm'}
               />
               <button
                 className="btn bg-rose-500 text-white rounded-full px-4 py-2"
                 onClick={() => handleSendMessage()}
-                disabled={form[responses.length]?.type === 'qcm'} 
+                disabled={form[responses.length]?.type === 'qcm'}
               >
                 Envoyer
               </button>

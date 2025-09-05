@@ -132,52 +132,63 @@
         "id": "tom2"
     },
     {
-        "name": "Paul", 
-        "age": 21, 
+        "name": "Paul",
+        "age": 21,
         "photo": "./img/members/paul.jpg",
         "id": "paul"
     },
     {
-        "name": "Simon", 
-        "age": 20, 
+        "name": "Simon",
+        "age": 20,
         "photo": "./img/members/simon.jpg",
         "id": "simon"
     },
     {
-        "name": "Florent", 
-        "age": 21, 
+        "name": "Florent",
+        "age": 21,
         "photo": "./img/members/florent.jpg",
         "id": "florent"
     },
     {
-        "name": "Antoine", 
-        "age": 21, 
+        "name": "Antoine",
+        "age": 21,
         "photo": "./img/members/antoine.jpg",
         "id": "antoine"
     },
     {
-        "name": "Ben", 
-        "age": 21, 
+        "name": "Ben",
+        "age": 21,
         "photo": "./img/members/ben.jpg",
         "id": "ben"
     },
     {
-        "name": "Fatih", 
-        "age": 21, 
+        "name": "Fatih",
+        "age": 21,
         "photo": "./img/members/fatih.jpg",
         "id": "fatih"
     },
     {
-        "name": "Ganou", 
-        "age": 21, 
+        "name": "Ganou",
+        "age": 21,
         "photo": "./img/members/ganou.jpg",
         "id": "ganou"
     },
     {
-        "name": "Aymeric", 
-        "age": 21, 
+        "name": "Aymeric",
+        "age": 21,
         "photo": "./img/members/aymeric.jpg",
         "id": "aymeric"
+    },
+    {
+        "name": "Anna",
+        "age": 21,
+        "photo": "./img/members/anna.jpg",
+        "id": "anna"
+    },
+    {
+        "name": "João",
+        "age": 22,
+        "photo": "./img/members/joao.jpg",
+        "id": "joao"
     }
 ]
-

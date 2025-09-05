@@ -22,7 +22,7 @@ const LoginView: React.FC<LoginViewProps> = ({ loading, loginWithCas }) => {
   };
 
   function handlescroll() {
-     setScroll((window.scrollY / window.innerHeight) * 3);
+    setScroll((window.scrollY / window.innerHeight) * 3);
   }
 
   useEffect(() => {
@@ -41,19 +41,19 @@ const LoginView: React.FC<LoginViewProps> = ({ loading, loginWithCas }) => {
             <img
               src='./img/logo.png'
               alt='Logo'
-              className='h-7 md:h-8 w-auto' 
+              className='h-7 md:h-8 w-auto'
             />
             <img
               src='./img/logo_text.png'
               alt='Logo text'
-              className='h-7 md:h-8 w-auto' 
+              className='h-7 md:h-8 w-auto'
             />
           </div>
           <div className="flex items-center">
             <button
               className='login-btn'
               onClick={loginWithCas}
-              disabled={loading}  
+              disabled={loading}
             >
               {loading ? t('login.logginIn') : t('login.create')}
             </button>
@@ -65,7 +65,7 @@ const LoginView: React.FC<LoginViewProps> = ({ loading, loginWithCas }) => {
             />
           </div>
         </header>
-        <div className='login-container' style={{opacity: 1 - scroll}}>
+        <div className='login-container' style={{ opacity: 1 - scroll }}>
           <h1 className='text-5xl md:text-[110px]'>
             {t('login.title.1')}<br />{t('login.title.2')}
             <sup className='text-3xl md:text-[34px]'>TM</sup>
@@ -91,14 +91,14 @@ const LoginView: React.FC<LoginViewProps> = ({ loading, loginWithCas }) => {
         {t('login.mention.1')}<br /><br />
         {t('login.mention.2')}
         <hr />
-        <div 
-          style={{display: "flex", justifyContent: "space-between", flexWrap: "wrap"}}
+        <div
+          style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap" }}
         >
           <span>
-            Pôle Web &gt; Pôle Com &gt;&gt;&gt; UNV &gt; WST &gt; JUP &gt;&gt;&gt;&gt;&gt; MSQ &gt; JK &gt; NK &gt; BAR &gt; Pôle event &gt; CRB &gt; MFB &gt; &gt; DNS
+            Pôle Web &gt; Pôle Log &gt;&gt;&gt; MNT &gt; MFB &gt; HLD &gt;&gt;&gt;&gt;&gt; DNS &gt; TMT &gt; BAR &gt; Pôle event
           </span>
           <span>
-          <span className="copyleft">&copy;</span> {t('login.mention.copyleft')}</span>
+            <span className="copyleft">&copy;</span> {t('login.mention.copyleft')}</span>
         </div>
       </div>
     </div>

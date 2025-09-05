@@ -15,7 +15,7 @@
     "mention": {
       "1": "Hé, t’es célibat'eirb ? Tu cherches un fillot, une fillote, ou même un parrain ou une marraine ? C’est sur Tind'eirb que ça se passe. Avec déjà plus de 10 000 ingénieurs diplômés depuis 1920, l'ENSEIRB-MATMECA est un très bon plan pour trouver ton ou ta prochaine fillot.e ou parrain/marraine. Que tu sois de R&I, d'Informatique, d'Électronique, de Matméca, de Télécom ou encore de SEE, tu trouveras forcément ton bonheur.",
       "2": "Tind'eirb est une application de rencontre pour les futurs ingénieurs de l'ENSEIRB-MATMECA. Elle permet de les mettre en relation avec leurs futurs fillot.e.s ou parrains/marraines en fonction de leurs centres d'intérêt, leurs passions, leurs projets, leurs envies, etc.",
-      "copyleft": "2024 Pôle Web BDE. Aucun droit réservé."
+      "copyleft": "2025 Pôle Web BDE. Aucun droit réservé."
     }
   },
   "parrain": {
@@ -44,23 +44,23 @@
     "notifications": {
       "favoriteAdded": "Ajouté aux favoris",
       "favoriteRemoved": "Retiré des favoris"
-    }, 
+    },
     "discussion": {
       "noInfos": "Aucunes informations disponibles ...",
       "tooOld": "Tu ne peux pas adopter de fillot.e.s car tu es trop vieux ...",
       "alreadyYour": {
-        "none": "est déjà ton/ta fillot.e", 
-        "F": "est déjà ta fillote", 
+        "none": "est déjà ton/ta fillot.e",
+        "F": "est déjà ta fillote",
         "M": "est déjà ton fillot"
-      }, 
+      },
       "adoptedByColleague": "a déjà été adopté par quelqu'un d'autre !",
-      "adoptIn": { 
+      "adoptIn": {
         "0": "Tu pourras adopter",
         "1": " dans "
-      }, 
-      "adopt": "Adopter", 
+      },
+      "adopt": "Adopter",
       "tooMuch": {
-        "0": "Tu ne peux pas adopter", 
+        "0": "Tu ne peux pas adopter",
         "1": " car tu as déjà adopté "
       }
     }
