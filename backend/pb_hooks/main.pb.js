@@ -2,7 +2,7 @@ routerAdd("GET", "/api/auth/cas", (c) => {
   let ticket = c.queryParam("ticket");
   let redirectUrl = c.queryParam("redirectUrl");
 
-  const TINDEIRB_OPEN = new Date("2025-09-04T19:00:00");
+  const TINDEIRB_OPEN = new Date("2025-09-06T19:00:00");
 
   function getTimeRemaining(targetDate) {
     const now = new Date();
@@ -22,7 +22,7 @@ routerAdd("GET", "/api/auth/cas", (c) => {
   if(getTimeRemaining(TINDEIRB_OPEN)){
     return c.json(403, {
     status: "error",
-    message: `L'application ouvrira le Jeudi 5 Septembre à 19h00 !`
+    message: `L'application ouvrira le Vendredi 6 Septembre à 19h00 !`
   });
   }
 
