@@ -2,7 +2,7 @@ routerAdd("GET", "/api/auth/cas", (c) => {
   let ticket = c.queryParam("ticket");
   let redirectUrl = c.queryParam("redirectUrl");
 
-  const TINDEIRB_OPEN = new Date("2025-09-03T19:00:00");
+  const TINDEIRB_OPEN = new Date("2025-09-06T19:00:00");
 
   function getTimeRemaining(targetDate) {
     const now = new Date();
@@ -22,7 +22,7 @@ routerAdd("GET", "/api/auth/cas", (c) => {
   if(getTimeRemaining(TINDEIRB_OPEN)){
     return c.json(403, {
     status: "error",
-    message: `L'application ouvrira le Vendredi 6 Septembre à 19h00 !`
+    message: `Tind'eirb ouvrira le Vendredi 6 Septembre à 19h00 !`
   });
   }
 
@@ -227,6 +227,14 @@ routerAdd("GET", "/api/fillots", (c) => {
   }
 
   const parrain = $app.dao().findRecordById("users", idParrain);
+  
+   if (!parrain) {
+    return c.json(404, {
+      status: "error",
+      message: "Parrain introuvable"
+    });
+  }
+
   const parrainDiploma = parrain.get("diploma");
   
   const fillots = arrayOf(new Record());
