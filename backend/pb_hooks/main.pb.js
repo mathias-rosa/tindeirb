@@ -87,7 +87,7 @@ routerAdd("GET", "/api/auth/cas", (c) => {
     atunney: "IIEIN4", 
     warzeqi002: "IIEIN4", 
     strailine: "IIEIN4",
-    // thomrenard: "IAERI3"
+    thomrenard: "IAERI3"
 
     // bgrolleau001: "IAERS3",
     // bgrolleau001: "IIEIN4"

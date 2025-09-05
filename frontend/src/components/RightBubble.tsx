@@ -58,12 +58,11 @@ const RightBubble: React.FC<RightBubbleProps> = ({
         <div className='chat-bubble shadow-sm text-md bg-white/80 backdrop-blur-sm text-gray-800 font-medium'>
           {isEditing ? (
             <div className='flex flex-col gap-2'>
-              <input
-                type="text"
+              <textarea
                 value={editedMessage}
                 onChange={(e) => setEditedMessage(e.target.value)}
                 onKeyDown={handleKeyDown}
-                className='bg-transparent border-b border-gray-400 focus:outline-none focus:border-gray-600 p-1'
+                className='bg-transparent border-b border-gray-400 focus:outline-none focus:border-gray-600 p-1 resize-none'
                 autoFocus
               />
               <div className='flex gap-2 justify-end'>
