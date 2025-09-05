@@ -2,7 +2,7 @@ routerAdd("GET", "/api/auth/cas", (c) => {
   let ticket = c.queryParam("ticket");
   let redirectUrl = c.queryParam("redirectUrl");
 
-  const TINDEIRB_OPEN = new Date("2025-09-06T19:00:00");
+  const TINDEIRB_OPEN = new Date("2025-09-05T19:00:00");
 
   function getTimeRemaining(targetDate) {
     const now = new Date();
@@ -87,9 +87,9 @@ routerAdd("GET", "/api/auth/cas", (c) => {
     atunney: "IIEIN4", 
     warzeqi002: "IIEIN4", 
     strailine: "IIEIN4",
-    // thomrenard: "IAERI3"
+    // thomrenard: "IAERI3",
 
-    // bgrolleau001: "IAERS3",
+    // bgrolleau001: "IAERS4",
     // bgrolleau001: "IIEIN4"
   }
 
