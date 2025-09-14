@@ -146,11 +146,10 @@ routerAdd("GET", "/api/auth/cas", (c) => {
   ]
 
   const BDS = [
-    // "gancey", "lobertet", "thbesson", "vcamon", "mcheron001", "ccossec", 
-    // "pdelesquend", "cdubeuf001", "cdugitgros", "negloff", "amfoucher", 
-    // "ifrancois001", "pjgauthey003", "alacaud", "llunet001", "tmartin016", 
-    // "tmenier", "lmezailles", "polli", "vpanou003", "mapelletier", "mrhazza001", 
-    // "julienrichard2", "oslangloi001", "atrandafire", "rzoudji", 
+"jreolon", "mbadra001", "indiaye003", "acroisant", "nguiot", "lcarbonne001",
+"tabeille001", "achanekive", "lquetin", "lsprocq", "rfuatoga", "ugauthier",
+"rdominguesn", "aaboufadel", "bjeanson", "lgricourt", "isamih", "hsuissedesa",
+"opignolet", "ecostasimhov", "prodriguezr"
   ]
 
   // WARNING: Les heures sont au format UTC donc heure reel = heure + 2
