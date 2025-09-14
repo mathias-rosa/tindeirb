@@ -150,7 +150,7 @@ function App() {
       "IIETE5",
       "IIEMM5",
       "IIEEL5",
-      "IAERI4",
+      "IAERI5",
       "IAESE5"
     ];
     return parrains.includes(diplome || '');

@@ -2,7 +2,7 @@ routerAdd("GET", "/api/auth/cas", (c) => {
   let ticket = c.queryParam("ticket");
   let redirectUrl = c.queryParam("redirectUrl");
 
-  const TINDEIRB_OPEN = new Date("2025-09-05T19:00:00");
+  const TINDEIRB_OPEN = new Date("2025-09-06T10:00:00");
 
   function getTimeRemaining(targetDate) {
     const now = new Date();
@@ -22,7 +22,7 @@ routerAdd("GET", "/api/auth/cas", (c) => {
   if(getTimeRemaining(TINDEIRB_OPEN)){
     return c.json(403, {
     status: "error",
-    message: `Tind'eirb ouvrira le Vendredi 6 Septembre à 19h00 !`
+    message: `Tind'eirb ouvrira le Samedi 6 Septembre à 10h00 !`
   });
   }
 
@@ -71,22 +71,24 @@ routerAdd("GET", "/api/auth/cas", (c) => {
   data.attributes.diplome = [ group + yearNumber ];
 
   const DEROGATIONS = {
-    pvautrindip: "IIEMM4",
-    gbemenebata: "IIEMM4", 
-    mcathelin001: "IIEMM4",
-    polli: "IIEMM4",
-    mbouchez001: "IIEMM4",
-    lflament001: "IIEMM4",
-    ifrancois001: "IIEEL4", 
-    jvoisin004: "IIEEL4", 
-    meiraudo: "IIEEL4", 
-    narebiere: "IIEEL4", 
-    osajid: "IIEEL4",
-    thbesson: "IIEEL4", 
-    jxu002: "IIEIN4", 
-    atunney: "IIEIN4", 
-    warzeqi002: "IIEIN4", 
-    strailine: "IIEIN4",
+    cboule001: "IIEIN4",
+    kpinaultbig: "IIEMM4",
+    mdelous: "IIEIN4",
+    lsimon011: "IIEEL4",
+    aartaud001: "IIEMM4",
+    ecastro: "IIEMM4",
+    acochon: "IIEIN4",
+    ugauthier: "IIEMM4",
+    cmar: "IIEMM4",
+    ybouhoreira: "IIEMM4",
+    trazafindra: "IIEEL4",
+    caleflohic: "IAERI4",   //Ré-inscription en cours
+    tmazzolin001: "IAERI4", //Ré-inscription en cours
+    ldesvigne: "IAESE4", //idem
+    tmaupetit: "IAESE4", //idem
+    dylgimenez: "IAESE4", //idem
+    sallain: "IAESE4", //idem
+
     // thomrenard: "IAERI3",
 
     // bgrolleau001: "IAERS4",
@@ -114,36 +116,33 @@ routerAdd("GET", "/api/auth/cas", (c) => {
   }
 
   const BUREAU_BDE = [
-    // "ameunier010", "jmaulard", "jrami001", "kvaude", 
-    // "lpoitau", "osajid", "smachat"    
+    "agouedard", "hberthod", "rgueninchau", "sarodriguez", "vbaron003", "lsimon011"
   ]
 
   const BUREAU_BAE = [
-    // "feck", "bgrolleau001", "mpetitdemang", 
-    // "rcastellobra", "anevelesbats", "ndubuisson"
+    "tmazzolin001", "eslandry",
+    "txu004", "ldesvigne"
   ]
 
   const BDE = [
-    // "acarle001", "agoncalvesp", "anevelesbats", "abaillif", "alelong003", 
-    // "felmeady", "fmonange", "gbemenebata", "jvernet", "mfrancois008", 
-    // "mlapalu", "prajot", "strailine", "tschnetz", "warzeqi002", 
-    // "waarab", "Lbenzino", "pmocquery"
+    "ahoupeaux", "abaud001", "anevelesbats", "cmarechaud", "etraversino",
+    "ecastro", "jnetodeabre", "jvoisin004", "lbernard014", "mhugel", "mdelous",
+    "mquiquempoi", "mjacquin003", "platuferran", "rdagostino", "taubijoux", "tferjou",
+    "thorny", "vlaude003", "ymoresco", "ybouhoreira"
   ]
 
   const BAR = [
-    // "lkelekemalh", "rkuhn", "mpereiraped", "mrhazza001", "ndelaere", "atunney", 
-    // "mcathelin001 ", "meiraudo", "mbouchez001", "thbesson", "mgenetet",
-    // "pvautrindip", "xpommies", "vmenaut", "cpalluat", "mgretener", "negloff", 
-    // "rdauny", "llunet001", "alacaud", "rferrat"
+    "rbely", "mvaudois", "malandre", "nrigal002", "mpoupin001", "usancho",
+    "pdouguet", "sbohersanche", "clamblot", "vblais", "adechivre", "lgauvain",
+    "kpinaultbig", "lpendanx", "rbouvier001", "caleflohic", "cboule001", "wrobquin",
+    "jibelloca", "epicarel", "mballeste004", "sguilpain", "lsoufflet", "mghezal001"
   ]
 
   const BDA = [
-    // "narebiere", "tmonseran", "groger001", "lcouteret", "gconte008", 
-    // "echampagne", "lderamat", "tmenier", "gmaraninchi", "flacroix002", 
-    // "mdudot001", "craynaud009", "avendrely", "znurkhanova", "dyan", 
-    // "ddelpy", "thorrut", "alevalade", "mpetitdemang", "jvoisin004", 
-    // "fbabin001", "wye001", "psboucher001", "lescot001", "ndacremont", 
-    // "movaere"  
+    "pbosseboeuf", "mmayot001", "mcharbaji", "tlacault", "acochon",
+    "ldaragnes", "jdumarchat", "btranruesch", "ardonias", "abarthere",
+    "piboudy", "rbourgouin", "mmilleret", "lvarnier001", "eturchet", "cgand",
+    "tyvinec", "mkollen002", "mlopez022", "clepoudere", "hbruzat"
   ]
 
   const BDS = [
@@ -156,7 +155,7 @@ routerAdd("GET", "/api/auth/cas", (c) => {
 
   // WARNING: Les heures sont au format UTC donc heure reel = heure + 2
   const SHOTGUN_WAVES = {
-    "2025-09-05 09:00:00": ["nforest001", "thomrenard"], 
+    "2025-09-06 09:00:00": ["nforest001", "thomrenard"], 
     "2025-09-15 14:50:00": BUREAU_BDE, 
     "2025-09-15 15:00:00": BDE, 
     "2025-09-15 15:30:00": BAR, 

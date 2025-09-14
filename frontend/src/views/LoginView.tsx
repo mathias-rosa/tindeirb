@@ -95,7 +95,7 @@ const LoginView: React.FC<LoginViewProps> = ({ loading, loginWithCas }) => {
           style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap" }}
         >
           <span>
-            Pôle Web &gt; Pôle Log &gt;&gt; Pôle Com &gt; MNT &gt; MFB &gt; HLD &gt; WST &gt; DNS &gt;&gt;&gt;&gt; CRB &gt; UNV &gt; TMT &gt; MSQ &gt; JK &gt; NK &gt; BAR &gt; Pôle event
+            Pôle Web &gt; Pôle Log &gt;&gt; Pôle Com &gt; MNT &gt; MFB &gt; WST &gt; DNS &gt;&gt;&gt;&gt; CRB &gt; UNV &gt; MSQ &gt; JK &gt; NK &gt; BAR &gt; Pôle event
           </span>
           <span>
             <span className="copyleft">&copy;</span> {t('login.mention.copyleft')}</span>
