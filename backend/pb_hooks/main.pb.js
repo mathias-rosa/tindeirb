@@ -69,7 +69,7 @@ routerAdd("GET", "/api/auth/cas", (c) => {
   const yearNumber = yearDiff + parseInt(level);
 
   data.attributes.diplome = [ group + yearNumber ];
-
+  /*
   const DEROGATIONS = {
     cboule001: "IIEIN4",
     kpinaultbig: "IIEMM4",
@@ -98,6 +98,28 @@ routerAdd("GET", "/api/auth/cas", (c) => {
   if (username in DEROGATIONS) {
     data.attributes.diplome = [DEROGATIONS[username]];
   }
+  */
+
+  const extractCsvToJSON = (filePath) => {
+    const fs = require('fs');
+    var Document = fs.readFileSync(filePath).toString().split('\r\n');
+    var Titles = Document[0].split(',');
+    var Json = [];
+    for (var i = 0; i < Document.length; i++) {
+      var Data = {};
+      var Element = Document[i].split(',');
+      for (var j = 0; j < Element.length; j++) 
+        Data[Titles[j]] = Element[j];
+      Json.push(Data);
+    }
+    return Json;
+  }
+
+  const derogations = extractCsvToJSON("derogations.csv");
+  const derogationFound = derogations.find((a) => a.CAS === username);
+  if (derogationFound) {
+    data.attributes.diplome = [derogations[derogationFound].Diplome];
+  }
 
   const AUTHORIZED_DIPLOMAS = [
     "IIEIN3", "IIEIN4", "IIEIN5",  // Infos 
@@ -115,6 +137,7 @@ routerAdd("GET", "/api/auth/cas", (c) => {
     })
   }
 
+  /*
   const BUREAU_BDE = [
     "agouedard", "hberthod", "rgueninchau", "sarodriguez", "vbaron003", "lsimon011"
   ]
@@ -146,20 +169,43 @@ routerAdd("GET", "/api/auth/cas", (c) => {
   ]
 
   const BDS = [
-"jreolon", "mbadra001", "indiaye003", "acroisant", "nguiot", "lcarbonne001",
-"tabeille001", "achanekive", "lquetin", "lsprocq", "rfuatoga", "ugauthier",
-"rdominguesn", "aaboufadel", "bjeanson", "lgricourt", "isamih", "hsuissedesa",
-"opignolet", "ecostasimhov", "prodriguezr"
+    "jreolon", "mbadra001", "indiaye003", "acroisant", "nguiot", "lcarbonne001",
+    "tabeille001", "achanekive", "lquetin", "lsprocq", "rfuatoga", "ugauthier",
+    "rdominguesn", "aaboufadel", "bjeanson", "lgricourt", "isamih", "hsuissedesa",
+    "opignolet", "ecostasimhov", "prodriguezr"
   ]
+  */
+
+  const extractCsvToArray = (filePath) => {
+    const fs = require('fs');
+    var Document = fs.readFileSync(filePath).toString().split('\r\n');
+    var Titles = Document[0].split(',');
+    Document.shift();
+    var Dict = {};
+    for (var i = 0; i < Document.length; i++) {
+      var Element = Document[i].split(',');
+      for (var j = 0; j < Element.length; j++) {
+        if (Titles[j] in Dict) 
+          Dict[Titles[j]].push(Element[j]);
+        else 
+          Dict[Titles[j]] = [Element[j]];
+    }
+    return Dict;
+    }
+  }
+  const groupes = extractCsvToArray("shotgun_groups.csv");
 
   // WARNING: Les heures sont au format UTC donc heure reel = heure + 2
   const SHOTGUN_WAVES = {
+    /*
     "2025-09-06 09:00:00": ["nforest001", "thomrenard"], 
-    "2025-09-15 14:50:00": BUREAU_BDE, 
-    "2025-09-15 15:00:00": BDE, 
-    "2025-09-15 15:30:00": BAR, 
-    "2025-09-15 15:45:00": BUREAU_BAE, 
-    "2025-09-15 16:00:00": [...BDA, ...BDS],
+    */
+    "2025-09-06 09:00:00": groupes.WEB,
+    "2025-09-15 14:50:00": groupes.BUREAU_BDE, 
+    "2025-09-15 15:00:00": groupes.BDE, 
+    "2025-09-15 15:30:00": groupes.BAR, 
+    "2025-09-15 15:45:00": groupes.BUREAU_BAE, 
+    "2025-09-15 16:00:00": [...groupes.BDA, ...groupes.BDS],
   }  
 
   const SHOTGUNW_DATE_FOR_OTHERS = "2025-09-15 17:00:00";
